@@ -35,6 +35,9 @@ public class Server {
 		Logger.log("Server", Constants.NAME+" launched in " + ((double) (STime.getCurrent() - currentTime) / 1000)+ " seconds.");
 	}
 
+	/**
+	 * Shuts down the server channel and cores manager.
+	 */
 	public static void shutdown() {
 		try {
 			ServerChannel.shutdown();
