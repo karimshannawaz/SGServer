@@ -39,6 +39,7 @@ public class Server {
 		try {
 			ServerChannel.shutdown();
 			CoresManager.shutdown();
+			// Server stuff
 		} finally {
 			System.exit(0);
 		}
