@@ -8,6 +8,9 @@ import server.utils.Logger;
 import server.utils.STime;
 
 public class Server {
+	
+	// This represents the main server user interface
+	// used for the managers.
 
 	public static MainUI ui;
 
