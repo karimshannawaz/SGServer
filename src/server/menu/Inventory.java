@@ -13,7 +13,7 @@ public class Inventory {
 	// If the inventory is being randomized, then the numbers
 	// will be randomly chosen for each inventory item
 	// depending on the inventory item's type (entree, topping, side, condiment, dessert, drink)
-	private static boolean randomize = true;
+	private static boolean randomize = false;
 	
 	// Represents the instance of the inventory for any particular day
 	public static Map<String, Integer> instance = new HashMap<String, Integer>();
