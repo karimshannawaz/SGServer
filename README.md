@@ -1,0 +1,2 @@
+# SGServer
+Seven Guys Server
