@@ -19,9 +19,9 @@ public class LoginEncoder extends Encoder {
 		stream.endPacketVarShort();
 		session.write(stream);
 	}
-
+	
 	public void sendMenu() {
-		OutputStream stream = new OutputStream(24000);
+		OutputStream stream = new OutputStream();
 		stream.writePacketVarShort(3);
 		/////////
 		int size = Menu.instance.size();

@@ -53,7 +53,6 @@ public class LoginDecoder extends Decoder {
 				break;
 			
 			case 5:
-				System.out.println("Table requested menu. Sending back..");
 				((LoginEncoder) session.getEncoder()).sendMenu();
 				break;
 		}
