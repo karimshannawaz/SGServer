@@ -6,8 +6,6 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import server.utils.Constants;
-
 public class Menu {
 
 	// Represents the list of menu items for our restaurant.
@@ -33,8 +31,9 @@ public class Menu {
 				int calories = Integer.parseInt(tokens[3]);
 				String allergens = tokens[4];
 				int type = Integer.parseInt(tokens[5]);
-				String ingredients = tokens[6];
-				MItem item = new MItem(name, price, desc, calories, allergens, type, ingredients);
+				String menuType = tokens[6];
+				String ingredients = tokens[7];
+				MItem item = new MItem(name, price, desc, calories, allergens, type, menuType, ingredients);
 				item.setIndex(index);
 				instance.put(index, item);
 				System.out.println(index+" --> "+item.toString());

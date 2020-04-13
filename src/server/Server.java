@@ -10,16 +10,7 @@ import server.utils.STime;
 public class Server {
 	
 	// This represents the main server user interface
-	// used for the managers.
-	
-	// This is a test comment by asha
-	
-	// test commit dillon
-	
-	// test commit lola
-	
-	// test commit desere
-
+	// used by  the managers.
 	public static MainUI ui;
 
 	public static void main(String[] args) {
