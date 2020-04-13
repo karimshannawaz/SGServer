@@ -107,6 +107,7 @@ public class MainUI extends JFrame {
 		Employees_btn.setBounds(0, 636, 232, 74);
 		UtilityPanel.add(Employees_btn);
 		
+		/*
 		ClockInOut_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (ClockInOut_btn.isSelected())
@@ -315,6 +316,7 @@ public class MainUI extends JFrame {
 				}
 			}
 		});
+		*/
 		
 	}
 
