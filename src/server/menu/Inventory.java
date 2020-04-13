@@ -18,8 +18,6 @@ public class Inventory {
 	// Represents the instance of the inventory for any particular day
 	public static Map<String, Integer> instance = new HashMap<String, Integer>();
 	
-	
-	
 	/**
 	 * This is done whenever the program first loads to avoid
 	 * constantly loading and reading from the file.
@@ -34,22 +32,18 @@ public class Inventory {
 					continue;
 				String[] tokens = line.split(" - ");
 				String name = tokens[0];
-				String type = tokens[1];
-				int quantity = Integer.parseInt(tokens[2]);
+				int quantity = Integer.parseInt(tokens[1]);
+				// Randomizes the quantity of the ingredient if randomize is true.
+				// This will be enabled in the final version of the system.
 				if(randomize) {	
-					/**
-					 * by shano 
-					 * 
-					 */
 					
-					
-					if(name.contains("ketchup"))
-					quantity = Constants.generateNumber(200, 400);
+					if(name.contains("ketchup")) {
+						quantity = Constants.generateNumber(200, 400);
+					}
 				}
 				else {
 					instance.put(name, quantity);
 				}
-				System.out.println("Item: "+name+" quantity: "+quantity);
 			}
 			r.close();
 		} catch(Exception e) {
