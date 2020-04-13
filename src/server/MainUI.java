@@ -55,6 +55,8 @@ public class MainUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 1172, 761);
+		
+		//Create Frame to hold Manager Tasks
 		UtilityPanel = new JPanel();
 		UtilityPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(UtilityPanel);
