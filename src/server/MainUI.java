@@ -326,6 +326,7 @@ public class MainUI extends JFrame {
 		item.calories = Constants.generateNumber(500, 4000);
 		item.allergens = "wheat, gluten, eggs, everything";
 		item.type = 0;
+		item.menuType = "entree";
 		item.ingredients = "fries:1";
 		Menu.add(item);
 	}
