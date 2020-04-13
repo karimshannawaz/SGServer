@@ -1,12 +1,12 @@
-package server;
+package server.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
 import server.core.CoresManager;
@@ -14,20 +14,6 @@ import server.menu.MItem;
 import server.menu.Menu;
 import server.utils.Constants;
 import server.utils.STime;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JToggleButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
-import java.awt.Rectangle;
-import javax.swing.JLayeredPane;
-import javax.swing.JTable;
 
 public class MainUI extends JFrame {
 
