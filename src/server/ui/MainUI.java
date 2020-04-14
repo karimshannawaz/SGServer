@@ -1,5 +1,6 @@
 package server.ui;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
@@ -75,7 +76,7 @@ public class MainUI extends JFrame {
 		for(int index = 0; index < panelBtns.length; index++) {
 			panelBtns[index] = new JToggleButton(panelNames[index]);
 			panelBtns[index].setBounds(0, (71 * index) - 3, 232, 74);
-			System.out.println("Index: "+((71 * index) - 3 + 74));
+			panelBtns[index].setFont(new Font("Tahoma", Font.PLAIN, 30));
 			utilityPanel.add(panelBtns[index]);
 		}
 		
