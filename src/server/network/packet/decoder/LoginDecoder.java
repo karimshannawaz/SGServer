@@ -72,7 +72,7 @@ public class LoginDecoder extends Decoder {
 				// Lets them know that their request was successful and that
 				// the new account was created.
 				System.out.println("Customer rewards email created successfully "+email+" with birthdate "+birthdate);
-				((LoginEncoder) session.getEncoder()).sendClientPacket("email_created");
+				((LoginEncoder) session.getEncoder()).sendClientPacket("email_created", email, birthdate);
 				break;
 		}
 	}
