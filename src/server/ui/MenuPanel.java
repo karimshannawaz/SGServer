@@ -16,6 +16,14 @@ import server.menu.MItem;
 import server.menu.Menu;
 import server.utils.JFrameUtils;
 
+/**
+ * Represents the menu panel which lets managers see the current menu, edit, add or remove
+ * menu items and update it in real time for the customer kiosks.
+ * SERVER SIDED
+ * 
+ * @author Karimshan
+ *
+ */
 public class MenuPanel extends JPanel {
 
 	private static final long serialVersionUID = -7728688801223513408L;
@@ -214,6 +222,12 @@ public class MenuPanel extends JPanel {
 			JFrameUtils.showMessage("Menu Editor", "Invalid name or ingredients entered, please try again.");
 			return;
 		}
+		
+		if(!(name.getText().equalsIgnoreCase(Menu.instance.get(index).name))) {
+			JFrameUtils.showMessage("Menu Editor", "This item does not exist in the menu. Please re-enter the name.");
+			return;
+		}
+		
 		if(price.getText().equals(""))
 			price.setText("4.99");
 		if(desc.getText().equals(""))
