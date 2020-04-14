@@ -1,8 +1,8 @@
 package server.menu;
 
 /**
- * Represents a single item on the menu with its respective attributes.
- * SERVER SIDED
+ * Represents a single item on the menu with its respective attributes. SERVER
+ * SIDED
  * 
  * @author Karimshan Nawaz
  *
@@ -19,8 +19,8 @@ public class MItem {
 	public String menuType; // indicates if the item is an entree, drink, dessert or side.
 	public String ingredients;
 
-	public MItem(String name, double price, String description, int calories, String allergens,
-			int type, String menuType, String ingredients) {
+	public MItem(String name, double price, String description, int calories, String allergens, int type,
+			String menuType, String ingredients) {
 		this.name = name;
 		this.price = price;
 		this.description = description;
@@ -41,7 +41,7 @@ public class MItem {
 		this.menuType = null;
 		this.ingredients = null;
 	}
-	
+
 	public int getIndex() {
 		return index;
 	}
@@ -52,8 +52,8 @@ public class MItem {
 
 	@Override
 	public String toString() {
-		return index+"~"+name+"~"+price+"~"+description+"~"+calories+"~"+allergens+"~"+type+"~"+menuType+"~"+ingredients;
+		return index + "~" + name + "~" + price + "~" + description + "~" + calories + "~" + allergens + "~" + type
+				+ "~" + menuType + "~" + ingredients;
 	}
-
 
 }

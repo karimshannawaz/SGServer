@@ -9,7 +9,7 @@ public class ClientLaunchEncoder extends Encoder {
 		super(session);
 		sendAck();
 	}
-	
+
 	private void sendAck() {
 		OutputStream stream = new OutputStream();
 		stream.writePacketVarShort(1);

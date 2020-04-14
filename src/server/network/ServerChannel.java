@@ -32,23 +32,21 @@ public final class ServerChannel extends SimpleChannelHandler {
 	public static int getConnectedChannelsSize() {
 		return channels == null ? 0 : channels.size();
 	}
-	
+
 	private static Channel channel;
-	
+
 	public static Channel getChannel() {
 		return channel;
 	}
-	
+
 	public static void setChannel(Channel c) {
 		channel = c;
 	}
 
 	private ServerChannel() {
 		channels = new DefaultChannelGroup();
-		bootstrap = new ServerBootstrap(new NioServerSocketChannelFactory(
-				CoresManager.serverBossChannelExecutor,
-				CoresManager.serverWorkerChannelExecutor,
-				CoresManager.serverWorkersCount));
+		bootstrap = new ServerBootstrap(new NioServerSocketChannelFactory(CoresManager.serverBossChannelExecutor,
+				CoresManager.serverWorkerChannelExecutor, CoresManager.serverWorkersCount));
 		bootstrap.getPipeline().addLast("handler", this);
 		bootstrap.setOption("reuseAddress", true);
 		bootstrap.setOption("child.tcpNoDelay", true);
@@ -74,18 +72,17 @@ public final class ServerChannel extends SimpleChannelHandler {
 	}
 
 	@Override
-	public void channelDisconnected(ChannelHandlerContext ctx,
-			ChannelStateEvent e) {
+	public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) {
 		Object sessionObject = ctx.getAttachment();
 		if (sessionObject != null && sessionObject instanceof Session) {
 			Session session = (Session) sessionObject;
 			if (session.getDecoder() == null)
 				return;
-			if(session.isCustomer()) {
+			if (session.isCustomer()) {
 				Global.tableIds[session.getTableID()] = 0;
 			}
 			if (session.getDecoder() instanceof PacketDecoder) {
-			//	session.getWorldPackets().getPlayer().finish();
+				// session.getWorldPackets().getPlayer().finish();
 			}
 		}
 		System.out.println("Closed channel - CHANNEL DISCONNECTED");
@@ -116,9 +113,8 @@ public final class ServerChannel extends SimpleChannelHandler {
 	}
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent ee)
-			throws Exception {
-		
+	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent ee) throws Exception {
+
 	}
 
 	public static final void shutdown() {

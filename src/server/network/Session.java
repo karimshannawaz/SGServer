@@ -25,14 +25,13 @@ public class Session {
 	private boolean isCustomer;
 
 	public Session(Channel channel) {
-		this.channel = channel;	
+		this.channel = channel;
 		setDecoder(0);
 	}
 
 	public final ChannelFuture write(OutputStream outStream) {
 		if (channel.isConnected()) {
-			ChannelBuffer buffer = ChannelBuffers.copiedBuffer(
-					outStream.getBuffer(), 0, outStream.getOffset());
+			ChannelBuffer buffer = ChannelBuffers.copiedBuffer(outStream.getBuffer(), 0, outStream.getOffset());
 			synchronized (channel) {
 				return channel.write(buffer);
 			}
@@ -69,19 +68,19 @@ public class Session {
 
 	public final void setDecoder(int stage, Object attachment) {
 		switch (stage) {
-			case 0:
-				decoder = new ClientLaunchDecoder(this);
-				break;
-			case 1:
-				decoder = new LoginDecoder(this);
-				break;
-			case 2:
-				decoder = new PacketDecoder(this, (User) attachment);
-				break;
-			case -1:
-			default:
-				decoder = null;
-				break;
+		case 0:
+			decoder = new ClientLaunchDecoder(this);
+			break;
+		case 1:
+			decoder = new LoginDecoder(this);
+			break;
+		case 2:
+			decoder = new PacketDecoder(this, (User) attachment);
+			break;
+		case -1:
+		default:
+			decoder = null;
+			break;
 		}
 	}
 
@@ -91,19 +90,19 @@ public class Session {
 
 	public final void setEncoder(int stage, Object attachement) {
 		switch (stage) {
-			case 0:
-				encoder = new ClientLaunchEncoder(this);
-				break;
-			case 1:
-				encoder = new LoginEncoder(this);
-				break;
-			case 2:
-				encoder = new PacketEncoder(this, (User) attachement);
-				break;
-			case -1:
-			default:
-				encoder = null;
-				break;
+		case 0:
+			encoder = new ClientLaunchEncoder(this);
+			break;
+		case 1:
+			encoder = new LoginEncoder(this);
+			break;
+		case 2:
+			encoder = new PacketEncoder(this, (User) attachement);
+			break;
+		case -1:
+		default:
+			encoder = null;
+			break;
 		}
 	}
 
@@ -115,7 +114,7 @@ public class Session {
 	public String getLocalAddress() {
 		return channel.getLocalAddress().toString();
 	}
-	
+
 	public int getTableID() {
 		return tableID;
 	}

@@ -1,15 +1,14 @@
 package server.network.packet;
+
 public final class InputStream extends Stream {
 
 	public void initBitAccess() {
 		bitPosition = getOffset() * 8;
 	}
 
-	private static final int[] BIT_MASK = new int[] { 0, 1, 3, 7, 15, 31, 63,
-			127, 255, 511, 1023, 2047, 4095, 8191, 16383, 32767, 65535, 131071,
-			262143, 524287, 1048575, 2097151, 4194303, 8388607, 16777215,
-			33554431, 67108863, 134217727, 268435455, 536870911, 1073741823,
-			2147483647, -1 };
+	private static final int[] BIT_MASK = new int[] { 0, 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191,
+			16383, 32767, 65535, 131071, 262143, 524287, 1048575, 2097151, 4194303, 8388607, 16777215, 33554431,
+			67108863, 134217727, 268435455, 536870911, 1073741823, 2147483647, -1 };
 
 	public void finishBitAccess() {
 		setOffset((7 + bitPosition) / 8);
@@ -50,8 +49,7 @@ public final class InputStream extends Stream {
 	}
 
 	public int read24BitInt() {
-		return (readUnsignedByte() << 16) + (readUnsignedByte() << 8)
-				+ (readUnsignedByte());
+		return (readUnsignedByte() << 16) + (readUnsignedByte() << 8) + (readUnsignedByte());
 	}
 
 	public void skip(int length) {
@@ -63,8 +61,8 @@ public final class InputStream extends Stream {
 	}
 
 //	public void setOffset(int offset) {
-	//	this.offset = offset;
-	//}
+	// this.offset = offset;
+	// }
 
 	public int getRemaining() {
 		return getOffset() < length ? length - getOffset() : 0;
@@ -183,7 +181,7 @@ public final class InputStream extends Stream {
 
 	public int readBigSmart() {
 		// if(CacheConstants.CLIENT_BUILD < 670)
-		//	 return readUnsignedShort();
+		// return readUnsignedShort();
 		if ((buffer[getOffset()] ^ 0xffffffff) <= -1) {
 			int value = readUnsignedShort();
 			if (value == 32767) {
@@ -203,23 +201,19 @@ public final class InputStream extends Stream {
 	}
 
 	public int readInt() {
-		return (readUnsignedByte() << 24) + (readUnsignedByte() << 16)
-				+ (readUnsignedByte() << 8) + readUnsignedByte();
+		return (readUnsignedByte() << 24) + (readUnsignedByte() << 16) + (readUnsignedByte() << 8) + readUnsignedByte();
 	}
 
 	public int readIntV1() {
-		return (readUnsignedByte() << 8) + readUnsignedByte()
-				+ (readUnsignedByte() << 24) + (readUnsignedByte() << 16);
+		return (readUnsignedByte() << 8) + readUnsignedByte() + (readUnsignedByte() << 24) + (readUnsignedByte() << 16);
 	}
 
 	public int readIntV2() {
-		return (readUnsignedByte() << 16) + (readUnsignedByte() << 24)
-				+ readUnsignedByte() + (readUnsignedByte() << 8);
+		return (readUnsignedByte() << 16) + (readUnsignedByte() << 24) + readUnsignedByte() + (readUnsignedByte() << 8);
 	}
 
 	public int readIntLE() {
-		return readUnsignedByte() + (readUnsignedByte() << 8)
-				+ (readUnsignedByte() << 16) + (readUnsignedByte() << 24);
+		return readUnsignedByte() + (readUnsignedByte() << 8) + (readUnsignedByte() << 16) + (readUnsignedByte() << 24);
 	}
 
 	public long readLong() {
@@ -229,8 +223,8 @@ public final class InputStream extends Stream {
 	}
 
 	/*
-	 * public String readString() { String s = ""; int b; while ((b =
-	 * readByte()) != 0) { s += (char) b; } return s; }
+	 * public String readString() { String s = ""; int b; while ((b = readByte()) !=
+	 * 0) { s += (char) b; } return s; }
 	 */
 
 	public String readString() {
@@ -240,7 +234,7 @@ public final class InputStream extends Stream {
 			s.append((char) b);
 		return s.toString();
 	}
-	
+
 	public String readStringV2() {
 		String s = "";
 		int b;

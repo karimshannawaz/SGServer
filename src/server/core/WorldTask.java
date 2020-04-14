@@ -1,6 +1,5 @@
 package server.core;
 
-
 public abstract class WorldTask implements Runnable {
 
 	protected boolean needRemove;

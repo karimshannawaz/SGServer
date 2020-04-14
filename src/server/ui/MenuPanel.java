@@ -22,7 +22,7 @@ public class MenuPanel extends JPanel {
 	public JTextArea currMenu;
 	public StringBuilder menuAsTxt;
 	private JTextField textField;
-	
+
 	public JToggleButton[] mItemBtns;
 
 	/**
@@ -40,23 +40,22 @@ public class MenuPanel extends JPanel {
 
 		refreshMenuItemButtons();
 
-		for(int index = 0; index < mItemBtns.length; index++) {
+		for (int index = 0; index < mItemBtns.length; index++) {
 			JToggleButton btn = mItemBtns[index];
 			final int tempIndex = index;
 			btn.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(btn.isSelected()) {
-						for(int i = 0; i < mItemBtns.length; i++) {
-							if(btn.getText().equals(mItemBtns[i].getText())) {
+					if (btn.isSelected()) {
+						for (int i = 0; i < mItemBtns.length; i++) {
+							if (btn.getText().equals(mItemBtns[i].getText())) {
 								continue;
 							}
 							mItemBtns[i].setSelected(false);
 						}
 						refreshMenuText(tempIndex);
-					}
-					else {
+					} else {
 						btn.setSelected(false);
 						currMenu.setText("");
 					}
@@ -65,7 +64,6 @@ public class MenuPanel extends JPanel {
 			});
 		}
 
-		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(215, 58, 735, 314);
 		add(scrollPane);
@@ -74,7 +72,6 @@ public class MenuPanel extends JPanel {
 		currMenu.setEditable(false);
 		scrollPane.setViewportView(currMenu);
 		currMenu.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		
 
 		JButton btnNewButton = new JButton("Remove Item");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 19));
@@ -105,7 +102,7 @@ public class MenuPanel extends JPanel {
 	private void refreshMenuItemButtons() {
 		mItemBtns = new JToggleButton[Menu.instance.size()];
 
-		for(int index = 0; index < mItemBtns.length; index++) {
+		for (int index = 0; index < mItemBtns.length; index++) {
 			mItemBtns[index] = new JToggleButton(Menu.instance.get(index).name);
 			mItemBtns[index].setBounds(0, (35 * index) + 58, 208, 32);
 			mItemBtns[index].setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -116,16 +113,17 @@ public class MenuPanel extends JPanel {
 	private void refreshMenuText(int index) {
 		menuAsTxt = new StringBuilder();
 		MItem item = Menu.instance.get(index);
-		
-		menuAsTxt.append("Name: "+item.name+"\n");
-		menuAsTxt.append("Price: $"+item.price+"\n");
-		menuAsTxt.append("Description: "+item.description+"\n");
-		menuAsTxt.append("Calories: "+item.calories+"\n");
-		menuAsTxt.append("Allergens: "+item.allergens+"\n");
-		menuAsTxt.append("Type: "+item.type+" ("+(item.type == 2 ? "Vegan" : item.type == 1 ? "Vegetarian" : "Default")+")\n");
-		menuAsTxt.append("Menu Type: "+item.menuType+"\n");
-		menuAsTxt.append("Ingredients (name:qty): "+item.ingredients+"\n");
-		
+
+		menuAsTxt.append("Name: " + item.name + "\n");
+		menuAsTxt.append("Price: $" + item.price + "\n");
+		menuAsTxt.append("Description: " + item.description + "\n");
+		menuAsTxt.append("Calories: " + item.calories + "\n");
+		menuAsTxt.append("Allergens: " + item.allergens + "\n");
+		menuAsTxt.append("Type: " + item.type + " ("
+				+ (item.type == 2 ? "Vegan" : item.type == 1 ? "Vegetarian" : "Default") + ")\n");
+		menuAsTxt.append("Menu Type: " + item.menuType + "\n");
+		menuAsTxt.append("Ingredients (name:qty): " + item.ingredients + "\n");
+
 		menuAsTxt.append("\n");
 
 		currMenu.setText(menuAsTxt.toString());

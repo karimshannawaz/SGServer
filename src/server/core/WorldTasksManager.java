@@ -1,6 +1,5 @@
 package server.core;
 
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,8 +10,7 @@ public class WorldTasksManager {
 			.synchronizedList(new LinkedList<WorldTaskInformation>());
 
 	public static void processTasks() {
-		for (WorldTaskInformation taskInformation : tasks
-				.toArray(new WorldTaskInformation[tasks.size()])) {
+		for (WorldTaskInformation taskInformation : tasks.toArray(new WorldTaskInformation[tasks.size()])) {
 			if (taskInformation.continueCount > 0) {
 				taskInformation.continueCount--;
 				continue;
@@ -57,8 +55,7 @@ public class WorldTasksManager {
 		private int continueMaxCount;
 		private int continueCount;
 
-		public WorldTaskInformation(WorldTask task, int continueCount,
-				int continueMaxCount) {
+		public WorldTaskInformation(WorldTask task, int continueCount, int continueMaxCount) {
 			this.task = task;
 			this.continueCount = continueCount;
 			this.continueMaxCount = continueMaxCount;

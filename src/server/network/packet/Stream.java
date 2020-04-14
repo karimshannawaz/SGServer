@@ -1,13 +1,12 @@
 package server.network.packet;
 
-
 public abstract class Stream {
 
 	protected int offset;
 	protected int length;
 	protected byte[] buffer;
 	protected int bitPosition;
-	
+
 	public int getLength() {
 		return length;
 	}
@@ -30,8 +29,7 @@ public abstract class Stream {
 			int sum = 0xc6ef3720;
 			int delta = 0x9e3779b9;
 			for (int k2 = 32; k2-- > 0;) {
-				l1 -= keys[(sum & 0x1c84) >>> 11] + sum ^ (k1 >>> 5 ^ k1 << 4)
-						+ k1;
+				l1 -= keys[(sum & 0x1c84) >>> 11] + sum ^ (k1 >>> 5 ^ k1 << 4) + k1;
 				sum -= delta;
 				k1 -= (l1 >>> 5 ^ l1 << 4) + l1 ^ keys[sum & 3] + sum;
 			}
@@ -46,12 +44,14 @@ public abstract class Stream {
 	private final int readInt() {
 		setOffset(getOffset() + 4);
 		return ((0xff & buffer[-3 + getOffset()]) << 16)
-				+ ((((0xff & buffer[-4 + getOffset()]) << 24) + ((buffer[-2 + getOffset()] & 0xff) << 8)) + (buffer[-1
-						+ getOffset()] & 0xff));
+				+ ((((0xff & buffer[-4 + getOffset()]) << 24) + ((buffer[-2 + getOffset()] & 0xff) << 8))
+						+ (buffer[-1 + getOffset()] & 0xff));
 	}
+
 	public short readShortl() {
 		return (short) ((short) ((buffer[offset++] & 0xff) << 8) | (short) (buffer[offset++] & 0xff));
 	}
+
 	private final void writeInt(int value) {
 		buffer[offset++] = (byte) (value >> 24);
 		buffer[offset++] = (byte) (value >> 16);
@@ -73,6 +73,5 @@ public abstract class Stream {
 	public void setOffset(int offset) {
 		this.offset = offset;
 	}
-
 
 }

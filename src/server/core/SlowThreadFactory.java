@@ -1,6 +1,5 @@
 package server.core;
 
-
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -13,15 +12,13 @@ public class SlowThreadFactory implements ThreadFactory {
 
 	public SlowThreadFactory() {
 		SecurityManager s = System.getSecurityManager();
-		group = (s != null) ? s.getThreadGroup() : Thread.currentThread()
-				.getThreadGroup();
+		group = (s != null) ? s.getThreadGroup() : Thread.currentThread().getThreadGroup();
 		namePrefix = "Slow Pool-" + poolNumber.getAndIncrement() + "-thread-";
 	}
 
 	@Override
 	public Thread newThread(Runnable r) {
-		Thread t = new Thread(group, r, namePrefix
-				+ threadNumber.getAndIncrement(), 0);
+		Thread t = new Thread(group, r, namePrefix + threadNumber.getAndIncrement(), 0);
 		if (t.isDaemon())
 			t.setDaemon(false);
 		if (t.getPriority() != Thread.MIN_PRIORITY)

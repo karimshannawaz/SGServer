@@ -1,6 +1,5 @@
 package server.core;
 
-
 import java.util.Timer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,14 +19,14 @@ public final class CoresManager {
 		serverThread = new ServerThread();
 		int availableProcessors = Runtime.getRuntime().availableProcessors();
 		serverWorkersCount = availableProcessors >= 6 ? availableProcessors - (availableProcessors >= 12 ? 6 : 4) : 2;
-		serverWorkerChannelExecutor = serverWorkersCount > 1 ? 
-				Executors.newFixedThreadPool(serverWorkersCount, new DecoderThreadFactory()) : 
-					Executors.newSingleThreadExecutor(new DecoderThreadFactory());
+		serverWorkerChannelExecutor = serverWorkersCount > 1
+				? Executors.newFixedThreadPool(serverWorkersCount, new DecoderThreadFactory())
+				: Executors.newSingleThreadExecutor(new DecoderThreadFactory());
 		serverBossChannelExecutor = Executors.newSingleThreadExecutor(new DecoderThreadFactory());
 		fastExecutor = new Timer("Fast Executor");
-		slowExecutor = availableProcessors >= 6 ? 
-				Executors.newScheduledThreadPool(availableProcessors >= 12 ? 4 : 2, new SlowThreadFactory()) : 
-					Executors.newSingleThreadScheduledExecutor(new SlowThreadFactory());
+		slowExecutor = availableProcessors >= 6
+				? Executors.newScheduledThreadPool(availableProcessors >= 12 ? 4 : 2, new SlowThreadFactory())
+				: Executors.newSingleThreadScheduledExecutor(new SlowThreadFactory());
 		serverThread.start();
 	}
 

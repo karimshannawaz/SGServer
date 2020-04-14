@@ -1,14 +1,15 @@
 package server.network.packet.decoder;
+
 import server.network.Session;
 import server.network.packet.InputStream;
 import server.user.User;
 
 public final class PacketDecoder extends Decoder {
-	
+
 	private User user;
 
 	private static final byte[] SIZES = new byte[256];
-	
+
 	static {
 		loadSizes();
 	}
@@ -27,11 +28,10 @@ public final class PacketDecoder extends Decoder {
 	@Override
 	public void decode(InputStream stream) {
 		while (stream.getRemaining() > 0 && session.getChannel().isConnected()) {
-			//&& !player.hasFinished()) {
+			// && !player.hasFinished()) {
 			int packetId = stream.readUnsignedByte();
 			if (packetId >= SIZES.length) {
-				System.out.println("PacketId " + packetId
-						+ " has fake packet id.");
+				System.out.println("PacketId " + packetId + " has fake packet id.");
 				break;
 			}
 
@@ -44,33 +44,30 @@ public final class PacketDecoder extends Decoder {
 				length = stream.readInt();
 			else if (length == -4) {
 				length = stream.getRemaining();
-				if(packetId != 255)
-					System.out.println("Invalid size for PacketId " + packetId
-							+ ". Size guessed to be " + length);
+				if (packetId != 255)
+					System.out.println("Invalid size for PacketId " + packetId + ". Size guessed to be " + length);
 			}
 			if (length > stream.getRemaining()) {
 				length = stream.getRemaining();
-				if(packetId != 0)
-					System.out.println("PacketId " + packetId
-							+ " has fake size. - expected size " + length);
+				if (packetId != 0)
+					System.out.println("PacketId " + packetId + " has fake size. - expected size " + length);
 				break;
 
 			}
-			
+
 			int startOffset = stream.getOffset();
-			
-			switch(packetId) {
-					
-				case 2:
-					break;
-					
-				default:
-					break;
-			}	
-			
+
+			switch (packetId) {
+
+			case 2:
+				break;
+
+			default:
+				break;
+			}
+
 			stream.setOffset(startOffset + length);
 		}
 	}
-
 
 }

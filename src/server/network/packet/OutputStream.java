@@ -1,8 +1,6 @@
 package server.network.packet;
 
-
 import java.math.BigInteger;
-
 
 public final class OutputStream extends Stream {
 
@@ -12,7 +10,7 @@ public final class OutputStream extends Stream {
 	static {
 		for (int i = 0; i < 32; i++)
 			BIT_MASK[i] = (1 << i) - 1;
-		
+
 	}
 
 	public OutputStream(int capacity) {
@@ -22,7 +20,7 @@ public final class OutputStream extends Stream {
 	public OutputStream() {
 		setBuffer(new byte[16]);
 	}
-	
+
 	public OutputStream(byte[] buffer) {
 		this.setBuffer(buffer);
 		this.setOffset(buffer.length);
@@ -34,11 +32,11 @@ public final class OutputStream extends Stream {
 		for (int value : buffer)
 			writeByte(value);
 	}
-	
 
-	public int getId(){
+	public int getId() {
 		return this.opcodeStart;
 	}
+
 	public void checkCapacityPosition(int position) {
 		if (position >= getBuffer().length) {
 			byte[] newBuffer = new byte[position + 16];
@@ -120,7 +118,7 @@ public final class OutputStream extends Stream {
 		writeByte(i + 128);
 		writeByte(i >> 8);
 	}
-	
+
 	public OutputStream addLEShortA(int i) {
 		writeByte(i + 128);
 		writeByte(i >> 8);
@@ -152,7 +150,7 @@ public final class OutputStream extends Stream {
 		writeByte(i >> 8);
 		writeByte(i);
 	}
-	
+
 	public OutputStream addShort(int i) {
 		writeByte(i >> 8);
 		writeByte(i);
@@ -163,7 +161,7 @@ public final class OutputStream extends Stream {
 		writeByte(i);
 		writeByte(i >> 8);
 	}
-	
+
 	public OutputStream addLEShort(int i) {
 		writeByte(i);
 		writeByte(i >> 8);
@@ -182,7 +180,7 @@ public final class OutputStream extends Stream {
 		writeByte(i >> 8);
 		writeByte(i);
 	}
-	
+
 	public OutputStream addInt(int i) {
 		writeByte(i >> 24);
 		writeByte(i >> 16);
@@ -211,7 +209,7 @@ public final class OutputStream extends Stream {
 		writeByte(i >> 16);
 		writeByte(i >> 24);
 	}
-	
+
 	public OutputStream addLEInt(int i) {
 		writeByte(i);
 		writeByte(i >> 8);
@@ -252,7 +250,6 @@ public final class OutputStream extends Stream {
 		writeByte(0);
 	}
 
-
 	public void writeGJString(String s) {
 		writeByte(0);
 		writeString(s);
@@ -272,27 +269,26 @@ public final class OutputStream extends Stream {
 		writeSmart(id);
 		return this;
 	}
-	
+
 	public void writePacketVarByte(int id) {
 		writePacket(id);
 		writeByte(0);
 		opcodeStart = getOffset() - 1;
 	}
-	
+
 	public void writePacketVarShort(int id) {
 		writePacket(id);
 		writeShort(0);
 		opcodeStart = getOffset() - 2;
 	}
-	
-	
+
 	public OutputStream setIdVarByte(int id) {
 		writePacket(id);
 		writeByte(0);
 		opcodeStart = getOffset() - 1;
 		return this;
 	}
-	
+
 	public OutputStream setIdVarShort(int id) {
 		writePacket(id);
 		writeShort(0);
@@ -334,8 +330,7 @@ public final class OutputStream extends Stream {
 		for (; numBits > bitOffset; bitOffset = 8) {
 			checkCapacityPosition(bytePos);
 			getBuffer()[bytePos] &= ~BIT_MASK[bitOffset];
-			getBuffer()[bytePos++] |= value >> numBits - bitOffset
-					& BIT_MASK[bitOffset];
+			getBuffer()[bytePos++] |= value >> numBits - bitOffset & BIT_MASK[bitOffset];
 			numBits -= bitOffset;
 		}
 		checkCapacityPosition(bytePos);
@@ -344,8 +339,7 @@ public final class OutputStream extends Stream {
 			getBuffer()[bytePos] |= value & BIT_MASK[bitOffset];
 		} else {
 			getBuffer()[bytePos] &= ~(BIT_MASK[numBits] << bitOffset - numBits);
-			getBuffer()[bytePos] |= (value & BIT_MASK[numBits]) << bitOffset
-					- numBits;
+			getBuffer()[bytePos] |= (value & BIT_MASK[numBits]) << bitOffset - numBits;
 		}
 	}
 
@@ -364,6 +358,5 @@ public final class OutputStream extends Stream {
 		setOffset(0);
 		writeBytes(out, 0, out.length);
 	}
-
 
 }

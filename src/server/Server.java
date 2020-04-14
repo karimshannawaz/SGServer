@@ -1,4 +1,5 @@
 package server;
+
 import server.core.CoresManager;
 import server.menu.Inventory;
 import server.menu.Menu;
@@ -9,20 +10,20 @@ import server.utils.Logger;
 import server.utils.STime;
 
 public class Server {
-	
+
 	// This represents the main server user interface
-	// used by  the managers.
+	// used by the managers.
 	public static MainUI ui;
 
 	public static void main(String[] args) {
 		long currentTime = STime.getCurrent();
-		Logger.log("Server", "Starting up "+Constants.NAME+"...");
+		Logger.log("Server", "Starting up " + Constants.NAME + "...");
 		try {
 			CoresManager.init();
 			ServerChannel.openChannel();
 			// Loads the inventory for this day
 			Inventory.loadInventory();
-			Logger.log("Server", "Loaded the inventory ("+Inventory.instance.size()+" different items)");
+			Logger.log("Server", "Loaded the inventory (" + Inventory.instance.size() + " different items)");
 			// Loads the menu
 			Menu.loadMenu();
 			Logger.log("Server", "Loaded the menu.");
@@ -35,7 +36,8 @@ public class Server {
 			System.exit(1);
 			return;
 		}
-		Logger.log("Server", Constants.NAME+" launched in " + ((double) (STime.getCurrent() - currentTime) / 1000)+ " seconds.");
+		Logger.log("Server",
+				Constants.NAME + " launched in " + ((double) (STime.getCurrent() - currentTime) / 1000) + " seconds.");
 	}
 
 	/**
