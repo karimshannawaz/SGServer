@@ -22,12 +22,9 @@ public class MenuPanel extends JPanel {
 
 	public JTextArea currMenu;
 	public StringBuilder menuAsTxt;
-<<<<<<< HEAD
+
 	private JTextField textField;
 
-=======
-	
->>>>>>> branch 'master' of https://github.com/karimshannawaz/SGServer.git
 	public JToggleButton[] mItemBtns;
 	
 	private JTextField name;
@@ -246,20 +243,17 @@ public class MenuPanel extends JPanel {
 	private void refreshMenuText(int index) {
 		menuAsTxt = new StringBuilder();
 		MItem item = Menu.instance.get(index);
-<<<<<<< HEAD
 
 		menuAsTxt.append("Name: " + item.name + "\n");
 		menuAsTxt.append("Price: $" + item.price + "\n");
 		menuAsTxt.append("Description: " + item.description + "\n");
 		menuAsTxt.append("Calories: " + item.calories + "\n");
 		menuAsTxt.append("Allergens: " + item.allergens + "\n");
-		menuAsTxt.append("Type: " + item.type + " ("
-				+ (item.type == 2 ? "Vegan" : item.type == 1 ? "Vegetarian" : "Default") + ")\n");
+		menuAsTxt.append("Type: " + item.type + " (" + (item.type == 2 ? "Vegan" : item.type == 1 ? "Vegetarian" : "Default") + ")\n");
 		menuAsTxt.append("Menu Type: " + item.menuType + "\n");
 		menuAsTxt.append("Ingredients (name:qty): " + item.ingredients + "\n");
 
 		menuAsTxt.append("\n");
-=======
 		
 		menuAsTxt.append("Name: "+item.name+"\n");
 		menuAsTxt.append("Price: $"+item.price+"\n");
@@ -269,7 +263,6 @@ public class MenuPanel extends JPanel {
 		menuAsTxt.append("Type: "+item.type+"\n");
 		menuAsTxt.append("Menu Type: "+item.menuType+"\n");
 		menuAsTxt.append("Ingredients (name:qty): "+item.ingredients+"\n");
->>>>>>> branch 'master' of https://github.com/karimshannawaz/SGServer.git
 
 		currMenu.setText(menuAsTxt.toString());
 		mItemBtns[index].setSelected(true);
