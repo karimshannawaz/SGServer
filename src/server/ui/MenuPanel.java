@@ -73,9 +73,9 @@ public class MenuPanel extends JPanel {
 		deleteBtn.setBounds(655, 7, 295, 44);
 		add(deleteBtn);
 
-		JLabel lblNewLabel_2 = new JLabel("Add Menu Item:");
+		JLabel lblNewLabel_2 = new JLabel("Add/Update Menu Item:");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_2.setBounds(491, 380, 137, 32);
+		lblNewLabel_2.setBounds(453, 380, 218, 32);
 		add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Name:");
@@ -84,7 +84,6 @@ public class MenuPanel extends JPanel {
 		add(lblNewLabel_3);
 		
 		name = new JTextField();
-		name.setText("");
 		name.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		name.setBounds(386, 425, 201, 31);
 		add(name);
@@ -96,14 +95,12 @@ public class MenuPanel extends JPanel {
 		add(lblNewLabel_3_1);
 		
 		price = new JTextField();
-		price.setText("4.99");
 		price.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		price.setColumns(10);
 		price.setBounds(669, 425, 137, 31);
 		add(price);
 		
 		desc = new JTextField();
-		desc.setText("Try our newest creation today and let us know what you think!");
 		desc.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		desc.setColumns(10);
 		desc.setBounds(422, 468, 506, 31);
@@ -120,14 +117,12 @@ public class MenuPanel extends JPanel {
 		add(calLbl);
 		
 		calories = new JTextField();
-		calories.setText("500");
 		calories.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		calories.setColumns(10);
 		calories.setBounds(403, 507, 114, 31);
 		add(calories);
 		
 		allergens = new JTextField();
-		allergens.setText("none");
 		allergens.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		allergens.setColumns(10);
 		allergens.setBounds(609, 507, 270, 31);
@@ -144,7 +139,7 @@ public class MenuPanel extends JPanel {
 		add(typeLbl);
 		
 		type = new JTextField();
-		type.setText("default");
+		
 		type.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		type.setColumns(10);
 		type.setBounds(386, 545, 118, 31);
@@ -156,7 +151,6 @@ public class MenuPanel extends JPanel {
 		add(menuTypeLbl);
 		
 		menuType = new JTextField();
-		menuType.setText("entree");
 		menuType.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		menuType.setColumns(10);
 		menuType.setBounds(619, 545, 143, 31);
@@ -168,7 +162,6 @@ public class MenuPanel extends JPanel {
 		add(ingLbl);
 		
 		ingredients = new JTextField();
-		ingredients.setText("beef_patty:1,lettuce:3,tomato:1");
 		ingredients.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		ingredients.setColumns(10);
 		ingredients.setBounds(422, 584, 506, 31);
@@ -181,14 +174,78 @@ public class MenuPanel extends JPanel {
 			}
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		btnNewButton_1.setBounds(480, 640, 180, 44);
+		btnNewButton_1.setBounds(637, 640, 180, 44);
 		add(btnNewButton_1);
 
 		currIndex = 0;
 		deleteBtn.setVisible(true);
 		deleteBtn.setText("Delete "+mItemBtns[0].getText());
+		
+		JButton updateItemBtn = new JButton("Update Item");
+		updateItemBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateItem(currIndex);
+			}
+		});
+		updateItemBtn.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		updateItemBtn.setBounds(347, 640, 180, 44);
+		add(updateItemBtn);
+		
 		refreshMenuText(0);
 		mItemBtns[0].setSelected(true);
+		refreshDefaultFields(true);
+	}
+
+	private void refreshDefaultFields(boolean currInd) {
+		MItem item = Menu.instance.get(currIndex);
+		name.setText(currInd ? item.name : "");
+		price.setText(currInd ? ""+item.price : "4.99");
+		desc.setText(currInd ? item.description : "Try our newest creation today and let us know what you think!");
+		calories.setText(currInd ? ""+item.calories : "500");
+		allergens.setText(currInd ? item.allergens : "none");
+		type.setText(currInd ? item.type : "default");
+		menuType.setText(currInd ? item.menuType : "entree");
+		ingredients.setText(currInd ? item.ingredients : "beef_patty:1,lettuce:3,tomato:1");
+	}
+
+	protected void updateItem(int index) {
+		if(name.getText().equals("") || name.getText().equals(null) || 
+				ingredients.getText().equals("") || ingredients.getText().equals(null)) {
+			JFrameUtils.showMessage("Menu Editor", "Invalid name or ingredients entered, please try again.");
+			return;
+		}
+		if(price.getText().equals(""))
+			price.setText("4.99");
+		if(desc.getText().equals(""))
+			desc.setText("Try our newest creation today and let us know what you think!");
+		if(type.getText().equals(""))
+			type.setText("default");
+		if(menuType.getText().equals(""))
+			menuType.setText("entree");
+		if(allergens.getText().equals(""))
+			allergens.setText("none");
+		if(calories.getText().equals(""))
+			calories.setText("500");
+		
+		
+		Menu.instance.get(index).name = name.getText();
+		Menu.instance.get(index).price = Double.parseDouble(price.getText());
+		Menu.instance.get(index).description = desc.getText();
+		Menu.instance.get(index).type = type.getText();
+		Menu.instance.get(index).menuType = menuType.getText();
+		Menu.instance.get(index).allergens = allergens.getText();
+		Menu.instance.get(index).calories = Integer.parseInt(calories.getText());
+		Menu.instance.get(index).ingredients = ingredients.getText();
+		
+		refreshMenuItemButtons();
+		mItemBtns[index].setSelected(true);
+		
+		refreshMenuText(index);
+		currIndex = index;
+		deleteBtn.setVisible(true);
+		deleteBtn.setText("Delete "+mItemBtns[index].getText());
+		
+		JFrameUtils.showMessage("Menu Editor", "Successfully UPDATED item: "+name.getText()+" at index: "+index);
 	}
 
 	protected void addToMenu() {
@@ -282,7 +339,9 @@ public class MenuPanel extends JPanel {
 							}
 							mItemBtns[i].setSelected(false);
 						}
+						refreshDefaultFields(true);
 					} else {
+						refreshDefaultFields(false);
 						currIndex = -1;
 						deleteBtn.setVisible(false);
 						btn.setSelected(false);
