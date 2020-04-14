@@ -3,13 +3,13 @@ package server.menu;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Menu {
 
 	// Represents the list of menu items for our restaurant.
-	public static Map<Integer, MItem> instance = new HashMap<Integer, MItem>();
+	public static List<MItem> instance = new ArrayList<MItem>();
 
 	/**
 	 * This is done whenever the program first loads to avoid constantly loading and
@@ -34,8 +34,7 @@ public class Menu {
 				String menuType = tokens[6];
 				String ingredients = tokens[7];
 				MItem item = new MItem(name, price, desc, calories, allergens, type, menuType, ingredients);
-				item.setIndex(index);
-				instance.put(index, item);
+				instance.add(item);
 				System.out.println(index + " --> " + item.toString());
 				index++;
 			}
@@ -62,14 +61,13 @@ public class Menu {
 		item.type = type;
 		item.ingredients = ingredients;
 		int newIndex = instance.size();
-		for (MItem currentItem : instance.values()) {
+		for (MItem currentItem : instance) {
 			if (currentItem.name.equals(name)) {
 				System.out.println(name + " already exists on the menu.");
 				return;
 			}
 		}
-		item.setIndex(newIndex);
-		instance.put(newIndex, item);
+		instance.add(item);
 		System.out.println("Added new menu item: " + name + " at index: " + newIndex);
 	}
 
@@ -80,14 +78,13 @@ public class Menu {
 	 */
 	public static void add(MItem item) {
 		int newIndex = instance.size();
-		for (MItem currentItem : instance.values()) {
+		for (MItem currentItem : instance) {
 			if (currentItem.name.equals(item.name)) {
 				System.out.println(item.name + " already exists on the menu.");
 				return;
 			}
 		}
-		item.setIndex(newIndex);
-		instance.put(newIndex, item);
+		instance.add(newIndex, item);
 		System.out.println("Added new menu item: " + item.name + " at index: " + newIndex + " --> "
 				+ Menu.instance.get(newIndex).toString());
 	}
@@ -111,6 +108,22 @@ public class Menu {
 		} else {
 			instance.remove(index);
 			System.out.println("Removed menu item: " + name + " at index: " + index);
+		}
+	}
+	
+	/**
+	 * This is where the manager can remove an item from the menu. It will update at
+	 * the end of the day to the file, but throughout the remainder of the program's
+	 * runtime, the changes will be visible in the menu.
+	 */
+	public static void remove(int index) {
+		if (index == -1) {
+			//System.out.println("Error: could not remove " + index + " from the menu because it does not exist.");
+			return;
+		} else {
+			String oldName = instance.get(index).name;
+			instance.remove(index);
+			System.out.println("Removed menu item: " + oldName + " at index: " + index);
 		}
 	}
 
