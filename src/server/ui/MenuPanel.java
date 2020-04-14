@@ -36,7 +36,7 @@ public class MenuPanel extends JPanel {
 	private JTextField menuType;
 	private JTextField ingredients;
 	
-	int currentSelectedIndex = 0;
+	int currIndex = 0;
 
 	/**
 	 * Create the panel.
@@ -66,7 +66,7 @@ public class MenuPanel extends JPanel {
 		deleteBtn.setSelected(false);
 		deleteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				deleteMenuItem(currentSelectedIndex);
+				deleteMenuItem(currIndex);
 			}
 		});
 		deleteBtn.setFont(new Font("Tahoma", Font.PLAIN, 19));
@@ -184,7 +184,7 @@ public class MenuPanel extends JPanel {
 		btnNewButton_1.setBounds(480, 640, 180, 44);
 		add(btnNewButton_1);
 
-		currentSelectedIndex = 0;
+		currIndex = 0;
 		deleteBtn.setVisible(true);
 		deleteBtn.setText("Delete "+mItemBtns[0].getText());
 		refreshMenuText(0);
@@ -197,7 +197,7 @@ public class MenuPanel extends JPanel {
 			JFrameUtils.showMessage("Menu Editor", "Invalid name or ingredients entered, please try again.");
 			return;
 		}
-		for(MItem item : Menu.instance.values()) {
+		for(MItem item : Menu.instance) {
 			if(item.name.equalsIgnoreCase(name.getText())) {
 				JFrameUtils.showMessage("Menu Editor", "This item already exists in the menu.");
 				return;
@@ -236,26 +236,27 @@ public class MenuPanel extends JPanel {
 		name.setText("");
 		int index = Menu.instance.size() - 1;
 		refreshMenuItemButtons();
+		mItemBtns[currIndex + 1].setSelected(false);
 		mItemBtns[index].setSelected(true);
 		
 		refreshMenuText(index);
-		currentSelectedIndex = index;
+		currIndex = index;
 		deleteBtn.setVisible(true);
 		deleteBtn.setText("Delete "+mItemBtns[index].getText());
-		
-		for (int i = 0; i < mItemBtns.length; i++) {
-			if (mItemBtns[index].getText().equalsIgnoreCase(mItemBtns[i].getText())) {
-				continue;
-			}
-			mItemBtns[i].setSelected(false);
-		}
 		
 		JFrameUtils.showMessage("Menu Editor", "Successfully added item: "+newMI.name+" at index: "+index);
 	}
 
 	private void refreshMenuItemButtons() {
+		if(mItemBtns != null) {
+			for(int i = mItemBtns.length - 1; i >= 0; i--) {
+				this.remove(mItemBtns[i]);
+				this.repaint();
+			}
+		}
 		mItemBtns = new JToggleButton[Menu.instance.size()];
 
+		System.out.println("Index is: "+mItemBtns.length);
 		for (int index = 0; index < mItemBtns.length; index++) {
 			mItemBtns[index] = new JToggleButton(Menu.instance.get(index).name);
 			mItemBtns[index].setBounds(0, (35 * index) + 58, 208, 32);
@@ -272,7 +273,7 @@ public class MenuPanel extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					if (btn.isSelected()) {
 						refreshMenuText(tempIndex);
-						currentSelectedIndex = tempIndex;
+						currIndex = tempIndex;
 						deleteBtn.setVisible(true);
 						deleteBtn.setText("Delete "+btn.getText());
 						for (int i = 0; i < mItemBtns.length; i++) {
@@ -282,7 +283,7 @@ public class MenuPanel extends JPanel {
 							mItemBtns[i].setSelected(false);
 						}
 					} else {
-						currentSelectedIndex = -1;
+						currIndex = -1;
 						deleteBtn.setVisible(false);
 						btn.setSelected(false);
 						currMenu.setText("");
@@ -311,6 +312,22 @@ public class MenuPanel extends JPanel {
 	}
 	
 	private void deleteMenuItem(int index) {
-		
+		boolean option = JFrameUtils.confirmDialog("Menu Editor", "Do you really want to delete \""+
+			mItemBtns[index].getText()+"\" from the menu?");
+		String oldItem = mItemBtns[index].getText();
+		if(option) {
+			Menu.remove(index);
+			
+			name.setText("");
+			refreshMenuItemButtons();
+			mItemBtns[0].setSelected(true);
+			
+			refreshMenuText(0);
+			currIndex = 0;
+			deleteBtn.setVisible(true);
+			deleteBtn.setText("Delete "+mItemBtns[0].getText());
+			
+			JFrameUtils.showMessage("Menu Editor", "Successfully deleted item: "+oldItem+" at index: "+index);
+		}
 	}
 }

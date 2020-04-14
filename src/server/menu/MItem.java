@@ -9,7 +9,6 @@ package server.menu;
  */
 public class MItem {
 
-	private int index;
 	public String name;
 	public double price;
 	public String description;
@@ -42,17 +41,9 @@ public class MItem {
 		this.ingredients = null;
 	}
 
-	public int getIndex() {
-		return index;
-	}
-
-	public void setIndex(int index) {
-		this.index = index;
-	}
-
 	@Override
 	public String toString() {
-		return index + "~" + name + "~" + price + "~" + description + "~" + calories + "~" + allergens + "~" + type
+		return name + "~" + price + "~" + description + "~" + calories + "~" + allergens + "~" + type
 				+ "~" + menuType + "~" + ingredients;
 	}
 
