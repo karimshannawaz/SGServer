@@ -29,7 +29,7 @@ public class MenuPanel extends JPanel {
 		setBounds(233, 0, 962, 710);
 		setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Current Menu:");
+		JLabel lblNewLabel = new JLabel("Current Menu:s");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		lblNewLabel.setBounds(388, 13, 192, 32);
 		add(lblNewLabel);
