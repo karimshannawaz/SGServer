@@ -19,13 +19,8 @@ public class MItem {
 	public String menuType; // indicates if the item is an entree, drink, dessert or side.
 	public String ingredients;
 
-<<<<<<< HEAD
-	public MItem(String name, double price, String description, int calories, String allergens, int type,
-			String menuType, String ingredients) {
-=======
 	public MItem(String name, double price, String description, int calories, String allergens,
 			String type, String menuType, String ingredients) {
->>>>>>> branch 'master' of https://github.com/karimshannawaz/SGServer.git
 		this.name = name;
 		this.price = price;
 		this.description = description;

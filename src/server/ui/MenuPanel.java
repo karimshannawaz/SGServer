@@ -124,7 +124,7 @@ public class MenuPanel extends JPanel {
 		add(price);
 		
 		desc = new JTextField();
-		desc.setText("Default burger description!");
+		desc.setText("Try our newest creation today and let us know what you think!");
 		desc.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		desc.setColumns(10);
 		desc.setBounds(422, 468, 506, 31);
@@ -148,7 +148,7 @@ public class MenuPanel extends JPanel {
 		add(calories);
 		
 		allergens = new JTextField();
-		allergens.setText("wheat (empty for none, or type none)");
+		allergens.setText("none");
 		allergens.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		allergens.setColumns(10);
 		allergens.setBounds(609, 507, 270, 31);
@@ -210,8 +210,9 @@ public class MenuPanel extends JPanel {
 	}
 
 	protected void addToMenu() {
-		if(name.getText().equals("") || name.getText().equals(null)) {
-			JFrameUtils.showMessage("Menu Editor", "Invalid name entered, please try again.");
+		if(name.getText().equals("") || name.getText().equals(null) || 
+				ingredients.getText().equals("") || ingredients.getText().equals(null)) {
+			JFrameUtils.showMessage("Menu Editor", "Invalid name or ingredients entered, please try again.");
 			return;
 		}
 		for(MItem item : Menu.instance.values()) {
@@ -220,13 +221,37 @@ public class MenuPanel extends JPanel {
 				return;
 			}
 		}
-		Object[] validTypes = { 0, 1, 2, "vegan", "vegetarian", "default", "normal" };
+		/*
+		Object[] validTypes = { "vegan", "vegetarian", "default" };
 		String[] validMenuTypes = { "entree", "dessert", "drink", "side" };
-		String[] validAllergens = { "", "none", "milk", "eggs", "fish", 
+		String[] validAllergens = { "none", "milk", "eggs", "fish", 
 			"crustacean shellfish", "tree nuts", "peanuts", "wheat", "soybean" };
+		*/
 		if(price.getText().equals(""))
-			price.setText("5.00");
+			price.setText("4.99");
+		if(desc.getText().equals(""))
+			desc.setText("Try our newest creation today and let us know what you think!");
+		if(type.getText().equals(""))
+			type.setText("default");
+		if(menuType.getText().equals(""))
+			menuType.setText("entree");
+		if(allergens.getText().equals(""))
+			allergens.setText("none");
+		if(calories.getText().equals(""))
+			calories.setText("500");
 		
+		MItem newMI = new MItem();
+		newMI.name = name.getText();
+		newMI.price = Double.parseDouble(price.getText());
+		newMI.description = desc.getText();
+		newMI.type = type.getText();
+		newMI.menuType = menuType.getText();
+		newMI.allergens = allergens.getText();
+		newMI.calories = Integer.parseInt(calories.getText());
+		newMI.ingredients = ingredients.getText();
+		Menu.add(newMI);
+		name.setText("");
+		refreshMenuText(Menu.instance.size() - 1);
 	}
 
 	private void refreshMenuItemButtons() {
@@ -244,6 +269,7 @@ public class MenuPanel extends JPanel {
 		menuAsTxt = new StringBuilder();
 		MItem item = Menu.instance.get(index);
 
+<<<<<<< HEAD
 		menuAsTxt.append("Name: " + item.name + "\n");
 		menuAsTxt.append("Price: $" + item.price + "\n");
 		menuAsTxt.append("Description: " + item.description + "\n");
@@ -255,6 +281,8 @@ public class MenuPanel extends JPanel {
 
 		menuAsTxt.append("\n");
 		
+=======
+>>>>>>> branch 'master' of https://github.com/karimshannawaz/SGServer.git
 		menuAsTxt.append("Name: "+item.name+"\n");
 		menuAsTxt.append("Price: $"+item.price+"\n");
 		menuAsTxt.append("Description: "+item.description+"\n");
