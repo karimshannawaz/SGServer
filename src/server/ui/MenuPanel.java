@@ -125,7 +125,7 @@ public class MenuPanel extends JPanel {
 		add(price);
 		
 		desc = new JTextField();
-		desc.setText("Default burger");
+		desc.setText("Default burger description!");
 		desc.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		desc.setColumns(10);
 		desc.setBounds(422, 468, 506, 31);
@@ -223,7 +223,11 @@ public class MenuPanel extends JPanel {
 		}
 		Object[] validTypes = { 0, 1, 2, "vegan", "vegetarian", "default", "normal" };
 		String[] validMenuTypes = { "entree", "dessert", "drink", "side" };
-		Object[] validAllergens = { "" };
+		String[] validAllergens = { "", "none", "milk", "eggs", "fish", 
+			"crustacean shellfish", "tree nuts", "peanuts", "wheat", "soybean" };
+		if(price.getText().equals(""))
+			price.setText("5.00");
+		
 	}
 
 	private void refreshMenuItemButtons() {
@@ -246,7 +250,7 @@ public class MenuPanel extends JPanel {
 		menuAsTxt.append("Description: "+item.description+"\n");
 		menuAsTxt.append("Calories: "+item.calories+"\n");
 		menuAsTxt.append("Allergens: "+item.allergens+"\n");
-		menuAsTxt.append("Type: "+item.type+" ("+(item.type == 2 ? "Vegan" : item.type == 1 ? "Vegetarian" : "Default")+")\n");
+		menuAsTxt.append("Type: "+item.type+"\n");
 		menuAsTxt.append("Menu Type: "+item.menuType+"\n");
 		menuAsTxt.append("Ingredients (name:qty): "+item.ingredients+"\n");
 

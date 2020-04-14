@@ -30,7 +30,7 @@ public class Menu {
 				String desc = tokens[2];
 				int calories = Integer.parseInt(tokens[3]);
 				String allergens = tokens[4];
-				int type = Integer.parseInt(tokens[5]);
+				String type = tokens[5];
 				String menuType = tokens[6];
 				String ingredients = tokens[7];
 				MItem item = new MItem(name, price, desc, calories, allergens, type, menuType, ingredients);
@@ -51,7 +51,7 @@ public class Menu {
 	 * of the program's runtime, the changes will be visible in the menu.
 	 */
 	public static void add(String name, double price, String description, int calories, String allergens,
-			int type, String ingredients) {
+			String type, String ingredients) {
 		MItem item = new MItem();
 		item.name = name;
 		item.price = price;
