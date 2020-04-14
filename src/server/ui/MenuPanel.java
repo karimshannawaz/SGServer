@@ -14,6 +14,7 @@ import javax.swing.JToggleButton;
 
 import server.menu.MItem;
 import server.menu.Menu;
+import server.utils.JFrameUtils;
 
 public class MenuPanel extends JPanel {
 
@@ -21,9 +22,22 @@ public class MenuPanel extends JPanel {
 
 	public JTextArea currMenu;
 	public StringBuilder menuAsTxt;
+<<<<<<< HEAD
 	private JTextField textField;
 
+=======
+	
+>>>>>>> branch 'master' of https://github.com/karimshannawaz/SGServer.git
 	public JToggleButton[] mItemBtns;
+	
+	private JTextField name;
+	private JTextField price;
+	private JTextField desc;
+	private JTextField calories;
+	private JTextField allergens;
+	private JTextField type;
+	private JTextField menuType;
+	private JTextField ingredients;
 
 	/**
 	 * Create the panel.
@@ -73,30 +87,149 @@ public class MenuPanel extends JPanel {
 		scrollPane.setViewportView(currMenu);
 		currMenu.setFont(new Font("Tahoma", Font.PLAIN, 19));
 
-		JButton btnNewButton = new JButton("Remove Item");
+		JButton btnNewButton = new JButton("Delete <dynamic>");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deleteMenuItem();
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		btnNewButton.setBounds(682, 609, 154, 58);
+		btnNewButton.setBounds(655, 7, 295, 44);
 		add(btnNewButton);
 
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		textField.setBounds(689, 544, 137, 52);
-		add(textField);
-		textField.setColumns(10);
-
-		JLabel lblNewLabel_1 = new JLabel("Remove an Item from the Menu:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		lblNewLabel_1.setBounds(626, 492, 293, 58);
-		add(lblNewLabel_1);
-
 		JLabel lblNewLabel_2 = new JLabel("Add Menu Item:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2.setBounds(689, 452, 137, 32);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_2.setBounds(491, 380, 137, 32);
 		add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Name:");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_3.setBounds(325, 424, 62, 32);
+		add(lblNewLabel_3);
+		
+		name = new JTextField();
+		name.setText("");
+		name.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		name.setBounds(386, 425, 201, 31);
+		add(name);
+		name.setColumns(10);
+		
+		JLabel lblNewLabel_3_1 = new JLabel("Price:");
+		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_3_1.setBounds(609, 424, 62, 32);
+		add(lblNewLabel_3_1);
+		
+		price = new JTextField();
+		price.setText("4.99");
+		price.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		price.setColumns(10);
+		price.setBounds(669, 425, 137, 31);
+		add(price);
+		
+		desc = new JTextField();
+		desc.setText("Default burger description!");
+		desc.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		desc.setColumns(10);
+		desc.setBounds(422, 468, 506, 31);
+		add(desc);
+		
+		JLabel descLbl = new JLabel("Description:");
+		descLbl.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		descLbl.setBounds(325, 465, 129, 32);
+		add(descLbl);
+		
+		JLabel calLbl = new JLabel("Calories:");
+		calLbl.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		calLbl.setBounds(325, 507, 129, 32);
+		add(calLbl);
+		
+		calories = new JTextField();
+		calories.setText("500");
+		calories.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		calories.setColumns(10);
+		calories.setBounds(403, 507, 114, 31);
+		add(calories);
+		
+		allergens = new JTextField();
+		allergens.setText("wheat (empty for none, or type none)");
+		allergens.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		allergens.setColumns(10);
+		allergens.setBounds(609, 507, 270, 31);
+		add(allergens);
+		
+		JLabel allergenLbl = new JLabel("Allergens:");
+		allergenLbl.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		allergenLbl.setBounds(529, 507, 88, 32);
+		add(allergenLbl);
+		
+		JLabel typeLbl = new JLabel("Type:");
+		typeLbl.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		typeLbl.setBounds(325, 545, 62, 32);
+		add(typeLbl);
+		
+		type = new JTextField();
+		type.setText("default");
+		type.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		type.setColumns(10);
+		type.setBounds(386, 545, 118, 31);
+		add(type);
+		
+		JLabel menuTypeLbl = new JLabel("Menu Type:");
+		menuTypeLbl.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		menuTypeLbl.setBounds(516, 545, 101, 32);
+		add(menuTypeLbl);
+		
+		menuType = new JTextField();
+		menuType.setText("entree");
+		menuType.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		menuType.setColumns(10);
+		menuType.setBounds(619, 545, 143, 31);
+		add(menuType);
+		
+		JLabel ingLbl = new JLabel("Ingredients:");
+		ingLbl.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		ingLbl.setBounds(325, 584, 101, 32);
+		add(ingLbl);
+		
+		ingredients = new JTextField();
+		ingredients.setText("beef_patty:1,lettuce:3,tomato:1");
+		ingredients.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		ingredients.setColumns(10);
+		ingredients.setBounds(422, 584, 506, 31);
+		add(ingredients);
+		
+		JButton btnNewButton_1 = new JButton("Add to Menu");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addToMenu();
+			}
+		});
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnNewButton_1.setBounds(480, 640, 180, 44);
+		add(btnNewButton_1);
 
 		refreshMenuText(0);
-		mItemBtns[0].setSelected(true);
+		
+	}
 
+	protected void addToMenu() {
+		if(name.getText().equals("") || name.getText().equals(null)) {
+			JFrameUtils.showMessage("Menu Editor", "Invalid name entered, please try again.");
+			return;
+		}
+		for(MItem item : Menu.instance.values()) {
+			if(item.name.equalsIgnoreCase(name.getText())) {
+				JFrameUtils.showMessage("Menu Editor", "This item already exists in the menu.");
+				return;
+			}
+		}
+		Object[] validTypes = { 0, 1, 2, "vegan", "vegetarian", "default", "normal" };
+		String[] validMenuTypes = { "entree", "dessert", "drink", "side" };
+		String[] validAllergens = { "", "none", "milk", "eggs", "fish", 
+			"crustacean shellfish", "tree nuts", "peanuts", "wheat", "soybean" };
+		if(price.getText().equals(""))
+			price.setText("5.00");
+		
 	}
 
 	private void refreshMenuItemButtons() {
@@ -113,6 +246,7 @@ public class MenuPanel extends JPanel {
 	private void refreshMenuText(int index) {
 		menuAsTxt = new StringBuilder();
 		MItem item = Menu.instance.get(index);
+<<<<<<< HEAD
 
 		menuAsTxt.append("Name: " + item.name + "\n");
 		menuAsTxt.append("Price: $" + item.price + "\n");
@@ -125,7 +259,23 @@ public class MenuPanel extends JPanel {
 		menuAsTxt.append("Ingredients (name:qty): " + item.ingredients + "\n");
 
 		menuAsTxt.append("\n");
+=======
+		
+		menuAsTxt.append("Name: "+item.name+"\n");
+		menuAsTxt.append("Price: $"+item.price+"\n");
+		menuAsTxt.append("Description: "+item.description+"\n");
+		menuAsTxt.append("Calories: "+item.calories+"\n");
+		menuAsTxt.append("Allergens: "+item.allergens+"\n");
+		menuAsTxt.append("Type: "+item.type+"\n");
+		menuAsTxt.append("Menu Type: "+item.menuType+"\n");
+		menuAsTxt.append("Ingredients (name:qty): "+item.ingredients+"\n");
+>>>>>>> branch 'master' of https://github.com/karimshannawaz/SGServer.git
 
 		currMenu.setText(menuAsTxt.toString());
+		mItemBtns[index].setSelected(true);
+	}
+	
+	private void deleteMenuItem() {
+		
 	}
 }
