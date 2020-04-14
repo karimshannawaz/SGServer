@@ -21,6 +21,8 @@ public class MainUI extends JFrame {
 	
 	private JPanel utilityPanel;
 	
+	public MenuPanel menuPanel;
+	
 	public static long onlineTime;
 
 	/**
@@ -42,13 +44,18 @@ public class MainUI extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setBounds(100, 100, 1172, 761);
+		setBounds(100, 100, 1215, 761);
 		
-		//Create Frame to hold Manager Tasks
+		// Create Frame to hold Manager Tasks
 		utilityPanel = new JPanel();
 		utilityPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(utilityPanel);
 		utilityPanel.setLayout(null);
+		
+		// Menu Panel
+		this.menuPanel = new MenuPanel();
+		menuPanel.setVisible(false);
+		add(menuPanel);
 		
 		String[] panelNames = { 
 			"Clock In/Out",
@@ -68,6 +75,7 @@ public class MainUI extends JFrame {
 		for(int index = 0; index < panelBtns.length; index++) {
 			panelBtns[index] = new JToggleButton(panelNames[index]);
 			panelBtns[index].setBounds(0, (71 * index) - 3, 232, 74);
+			System.out.println("Index: "+((71 * index) - 3 + 74));
 			utilityPanel.add(panelBtns[index]);
 		}
 		
@@ -84,8 +92,33 @@ public class MainUI extends JFrame {
 							}
 							panelBtns[i].setSelected(false);
 						}
+						menuPanel.setVisible(false);
+						switch(btn.getText()) {
+							case "Clock In/Out":
+								break;
+							case "Order":
+								break;
+							case "Pay":
+								break;
+							case "Compensate":
+								break;
+							case "Tables":
+								break;
+							case "Inventory":
+								break;
+							case "Menu":
+								menuPanel.setVisible(true);
+								break;
+							case "Time Log":
+								break;
+							case "Discounts":
+								break;
+							case "Employees":
+								break;
+						}
 					}
 					else {
+						menuPanel.setVisible(false);
 						btn.setSelected(false);
 					}
 				}
