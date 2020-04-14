@@ -31,8 +31,6 @@ public class InventoryPanel extends JPanel {
 	private JTable table;
 	private DefaultTableModel model;
 
-	private int currIndex = 0;
-
 
 	/**
 	 * Create the panel.
@@ -95,7 +93,6 @@ public class InventoryPanel extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				System.out.println("Current index is: "+table.getSelectedRow());
-				currIndex = table.getSelectedRow();
 				ing.setText(""+model.getValueAt(table.getSelectedRow(), 0));
 				qty.setText(""+model.getValueAt(table.getSelectedRow(), 1));
 			}
@@ -182,12 +179,47 @@ public class InventoryPanel extends JPanel {
 		// and populates ingredient and quantity.
 		ing.setText(""+model.getValueAt(table.getRowCount() - 1, 0));
 		qty.setText(""+model.getValueAt(table.getRowCount() - 1, 1));
+		JFrameUtils.showMessage("Inventory Editor", "Successfully added ingredient "+ing.getText()+" with qty: "+qtyAsInt);
 	}
 
 
 	protected void updateInventory() {
-		// TODO Auto-generated method stub
-
+		if(ing.getText().equals("") || ing.getText().equals(null) || ing.getText().contains(" ")) {
+			JFrameUtils.showMessage("Inventory Editor", "Error: Invalid ingredient entered. Please try again.");
+			return;
+		}
+		if(!Inventory.instance.containsKey(ing.getText())) {
+			JFrameUtils.showMessage("Inventory Editor", "Error: This ingredient does not exist in the table.");
+			return;
+		}
+		int qtyAsInt;
+		try {
+			qtyAsInt = Integer.parseInt(qty.getText());
+		} catch(NumberFormatException e) {
+			JFrameUtils.showMessage("Inventory Editor", "Error: Invalid quantity entered. Please try again.");
+			return;
+		}
+		if(qty.getText().equals("") || qty.getText().equals(null) || qty.getText().contains(" ")
+				|| qtyAsInt < 0 || qtyAsInt > 5000000) {
+			JFrameUtils.showMessage("Inventory Editor", "Error: Invalid quantity entered. Please try again.");
+			return;
+		}
+		
+		int index = 0;
+		for(String name : Inventory.instance.keySet()) {
+			if(name.equalsIgnoreCase(ing.getText()))
+				break;
+			index++;
+		}
+		
+		// Changes the quantity in the table
+		model.setValueAt(qtyAsInt, index, 1);
+		Inventory.instance.put(ing.getText(), qtyAsInt);
+		// Sets current selected index to newest one
+		// and populates ingredient and quantity.
+		ing.setText(""+Inventory.instance.keySet().toArray()[index]);
+		qty.setText(""+Inventory.instance.values().toArray()[index]);
+		JFrameUtils.showMessage("Inventory Editor", "Successfully UPDATED ingredient "+ing.getText()+" with qty: "+qtyAsInt);
 	}
 
 
