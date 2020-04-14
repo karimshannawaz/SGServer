@@ -34,4 +34,19 @@ public class LoginEncoder extends Encoder {
 		session.write(stream);
 	}
 
+	/**
+	 * Sends the specified client packet to the client
+	 * to indicate successful/unsucessful login attempts
+	 * @param string
+	 */
+	public void sendClientPacket(String code) {
+		OutputStream stream = new OutputStream();
+		stream.writePacketVarShort(4);
+		/////////
+		stream.writeString(code);
+		////////
+		stream.endPacketVarShort();
+		session.write(stream);
+	}
+
 }

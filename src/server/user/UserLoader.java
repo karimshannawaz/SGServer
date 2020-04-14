@@ -25,8 +25,8 @@ public class UserLoader {
 	private static final String PATH = "data/users/current/";
 	private static final String BACKUP_PATH = "data/users/backups/";
 
-	public synchronized static final boolean containsPlayer(String username) {
-		return new File(PATH + username + ".sgr").exists();
+	public synchronized static final boolean containsUser(String id) {
+		return new File(PATH + id + ".sgr").exists();
 	}
 
 	public synchronized static final File getPlayer(String username) {

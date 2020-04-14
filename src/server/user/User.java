@@ -11,6 +11,13 @@ public class User implements Serializable {
 	// For customers (Birthday: MM/DD/YYYY)
 	private String email;
 	private String birthday;
+	private int visits;
+	
+	// Indicates if the customer has a free birthday entree or not.
+	private boolean birthdayEntree;
+	
+	// Free appetizer/side when the customer signs up for rewards.
+	private boolean freeSide;
 	
 	// For employees only
 	private String id;
@@ -77,6 +84,30 @@ public class User implements Serializable {
 
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
+	}
+
+	public int getVisits() {
+		return visits;
+	}
+
+	public void setVisits(int visits) {
+		this.visits = visits;
+	}
+
+	public boolean hasBirthdayEntree() {
+		return birthdayEntree;
+	}
+
+	public void setBirthdayEntree(boolean birthdayEntree) {
+		this.birthdayEntree = birthdayEntree;
+	}
+
+	public boolean hasFreeSide() {
+		return freeSide;
+	}
+
+	public void setFreeSide(boolean freeSide) {
+		this.freeSide = freeSide;
 	}
 
 }
