@@ -15,16 +15,23 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.Highlighter;
 
 import server.menu.Inventory;
+import server.utils.JFrameUtils;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 //Asha
 
 public class InventoryPanel extends JPanel {
 
 	private static final long serialVersionUID = -7728688801223513408L;
-	
-	private JTextField textField;
-	private JTextField textField_1;
+
+	private JTextField ing;
+	private JTextField qty;
 	private JTable table;
+	private DefaultTableModel model;
+
+	private int currIndex = 0;
 
 
 	/**
@@ -34,12 +41,12 @@ public class InventoryPanel extends JPanel {
 		super();
 		setBounds(233, 0, 962, 710);
 		setLayout(null);
-		
-		
+
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 24, 494, 659);
 		add(scrollPane);
-		
+
 		//create table
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
@@ -47,82 +54,141 @@ public class InventoryPanel extends JPanel {
 				"Ingredient", "Quantity"
 			}, 0
 		));
-		
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		
+
+		model = (DefaultTableModel) table.getModel();
+
 		// add inventory list to rows
 		for (Map.Entry<?,?> entry : Inventory.instance.entrySet()) {
-	        model.addRow(new Object[] { entry.getKey(), entry.getValue() });
-	    }
-		
+			model.addRow(new Object[] { entry.getKey(), entry.getValue() });
+		}
+
 		// Sets the table header and row font, as well as adjusts the row height.
 		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 20));
 		table.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		table.setRowHeight(30);
-		
-		
+
+
 		scrollPane.setViewportView(table);
-		
+
 		table.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				
+
 			}
 
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				
+
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				System.out.println("Current index is: "+table.getSelectedRow());
+				currIndex = table.getSelectedRow();
+				ing.setText(""+model.getValueAt(table.getSelectedRow(), 0));
+				qty.setText(""+model.getValueAt(table.getSelectedRow(), 1));
 			}
 
-			
+
 		});
-		
+
 		JLabel lblNewLabel = new JLabel("Ingredient:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setBounds(535, 215, 76, 30);
+		lblNewLabel.setBounds(535, 215, 79, 30);
 		add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Quantity:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1.setBounds(535, 256, 70, 30);
 		add(lblNewLabel_1);
-		
+
 		JButton updateItemBtn = new JButton("Update Inventory");
+		updateItemBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				updateInventory();
+			}
+		});
 		updateItemBtn.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		updateItemBtn.setBounds(535, 334, 200, 44);
 		add(updateItemBtn);
-		
+
 		JButton btnNewButton_1 = new JButton("Add Ingredient");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addIngredient();
+			}
+		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnNewButton_1.setBounds(745, 334, 189, 44);
 		add(btnNewButton_1);
-		
-		textField = new JTextField();
-		textField.setBounds(631, 219, 262, 27);
-		add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(631, 260, 262, 27);
-		add(textField_1);
 
-		
+		ing = new JTextField();
+		ing.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		ing.setBounds(631, 219, 262, 27);
+		add(ing);
+		ing.setColumns(10);
+
+		qty = new JTextField();
+		qty.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		qty.setColumns(10);
+		qty.setBounds(631, 260, 262, 27);
+		add(qty);
+
+		// Sets current selected index to 0
+		// and populates ingredient and quantity.
+		table.setRowSelectionInterval(0, 0);
+		ing.setText(""+model.getValueAt(0, 0));
+		qty.setText(""+model.getValueAt(0, 1));
 	}
+
+
+	protected void addIngredient() {
+		if(ing.getText().equals("") || ing.getText().equals(null) || ing.getText().contains(" ")) {
+			JFrameUtils.showMessage("Inventory Editor", "Error: Invalid ingredient entered. Please try again.");
+			return;
+		}
+		if(Inventory.instance.containsKey(ing.getText())) {
+			JFrameUtils.showMessage("Inventory Editor", "Error: This ingredient already exists.");
+			return;
+		}
+		int qtyAsInt;
+		try {
+			qtyAsInt = Integer.parseInt(qty.getText());
+		} catch(NumberFormatException e) {
+			JFrameUtils.showMessage("Inventory Editor", "Error: Invalid quantity entered. Please try again.");
+			return;
+		}
+		if(qty.getText().equals("") || qty.getText().equals(null) || qty.getText().contains(" ")
+				|| qtyAsInt < 0 || qtyAsInt > 5000000) {
+			JFrameUtils.showMessage("Inventory Editor", "Error: Invalid quantity entered. Please try again.");
+			return;
+		}
+		
+		Inventory.instance.put(ing.getText(), qtyAsInt);
+		// adds new ingredient to list.
+		model.addRow(new Object[] { ing.getText(), qtyAsInt });
+		// Sets current selected index to newest one
+		// and populates ingredient and quantity.
+		ing.setText(""+model.getValueAt(table.getRowCount() - 1, 0));
+		qty.setText(""+model.getValueAt(table.getRowCount() - 1, 1));
+	}
+
+
+	protected void updateInventory() {
+		// TODO Auto-generated method stub
+
+	}
+
+
 }
