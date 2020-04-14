@@ -1,12 +1,12 @@
-package server;
+package server.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
 import server.core.CoresManager;
@@ -14,26 +14,14 @@ import server.menu.MItem;
 import server.menu.Menu;
 import server.utils.Constants;
 import server.utils.STime;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JToggleButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
-import java.awt.Rectangle;
-import javax.swing.JLayeredPane;
-import javax.swing.JTable;
 
 public class MainUI extends JFrame {
 
 	private static final long serialVersionUID = 4680811856634328038L;
 	
 	private JPanel utilityPanel;
+	
+	public MenuPanel menuPanel;
 	
 	public static long onlineTime;
 
@@ -56,13 +44,18 @@ public class MainUI extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setBounds(100, 100, 1172, 761);
+		setBounds(100, 100, 1215, 761);
 		
-		//Create Frame to hold Manager Tasks
+		// Create Frame to hold Manager Tasks
 		utilityPanel = new JPanel();
 		utilityPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(utilityPanel);
 		utilityPanel.setLayout(null);
+		
+		// Menu Panel
+		this.menuPanel = new MenuPanel();
+		menuPanel.setVisible(false);
+		add(menuPanel);
 		
 		String[] panelNames = { 
 			"Clock In/Out",
@@ -82,6 +75,7 @@ public class MainUI extends JFrame {
 		for(int index = 0; index < panelBtns.length; index++) {
 			panelBtns[index] = new JToggleButton(panelNames[index]);
 			panelBtns[index].setBounds(0, (71 * index) - 3, 232, 74);
+			System.out.println("Index: "+((71 * index) - 3 + 74));
 			utilityPanel.add(panelBtns[index]);
 		}
 		
@@ -98,8 +92,33 @@ public class MainUI extends JFrame {
 							}
 							panelBtns[i].setSelected(false);
 						}
+						menuPanel.setVisible(false);
+						switch(btn.getText()) {
+							case "Clock In/Out":
+								break;
+							case "Order":
+								break;
+							case "Pay":
+								break;
+							case "Compensate":
+								break;
+							case "Tables":
+								break;
+							case "Inventory":
+								break;
+							case "Menu":
+								menuPanel.setVisible(true);
+								break;
+							case "Time Log":
+								break;
+							case "Discounts":
+								break;
+							case "Employees":
+								break;
+						}
 					}
 					else {
+						menuPanel.setVisible(false);
 						btn.setSelected(false);
 					}
 				}
