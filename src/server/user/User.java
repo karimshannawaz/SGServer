@@ -8,35 +8,31 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = -2479666052959496651L;
 	
+	// For customers (Birthday: MM/DD/YYYY)
 	private String email;
+	private String birthday;
+	
+	// For employees only
+	private String id;
 	private String password;
 	
-	private int type;
+	private String type;
+	
+	// Session is transient because it changes every
+	// time that the person logs in/out
 	private transient Session session;
 
-	public User(int type, Session session) {
+	public User(String type, Session session) {
 		this.setType(type);
 		this.setSession(session);
 	}
 
-	public int getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
-	}
-
-	public boolean isManager() {
-		return type == 0;
-	}
-
-	public boolean isKitchen() {
-		return type == 1;
-	}
-
-	public boolean isWaiter() {
-		return type == 2;
 	}
 
 	public boolean isCustomer() {
@@ -65,6 +61,22 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
 
 }

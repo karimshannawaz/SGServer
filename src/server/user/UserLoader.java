@@ -22,8 +22,8 @@ import server.utils.Logger;
  */
 public class UserLoader {
 
-	private static final String PATH = "data/rewards/users/";
-	private static final String BACKUP_PATH = "data/rewards/backups/";
+	private static final String PATH = "data/users/current/";
+	private static final String BACKUP_PATH = "data/users/backups/";
 
 	public synchronized static final boolean containsPlayer(String username) {
 		return new File(PATH + username + ".sgr").exists();
