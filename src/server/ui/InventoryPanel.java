@@ -25,14 +25,14 @@ import java.awt.event.ActionEvent;
 public class InventoryPanel extends JPanel {
 
 	private static final long serialVersionUID = -7728688801223513408L;
-<<<<<<< HEAD
+
 	private JTextField ItextField;
 	private JTextField QtextField;
-=======
+
 
 	private JTextField ing;
 	private JTextField qty;
->>>>>>> branch 'master' of https://github.com/karimshannawaz/SGServer.git
+
 	private JTable table;
 	private DefaultTableModel model;
 
@@ -124,7 +124,7 @@ public class InventoryPanel extends JPanel {
 		updateItemBtn.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		updateItemBtn.setBounds(535, 334, 200, 44);
 		add(updateItemBtn);
-<<<<<<< HEAD
+
 		
 		Object[] row = new Object[2];
 		JButton addBtn = new JButton("Add Ingredient");
@@ -141,7 +141,7 @@ public class InventoryPanel extends JPanel {
 		QtextField.setColumns(10);
 		QtextField.setBounds(631, 260, 262, 27);
 		add(QtextField);
-=======
+
 
 		JButton btnNewButton_1 = new JButton("Add Ingredient");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -152,12 +152,7 @@ public class InventoryPanel extends JPanel {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnNewButton_1.setBounds(745, 334, 189, 44);
 		add(btnNewButton_1);
->>>>>>> branch 'master' of https://github.com/karimshannawaz/SGServer.git
 
-<<<<<<< HEAD
-		
-		
-=======
 		ing = new JTextField();
 		ing.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		ing.setBounds(631, 219, 262, 27);
@@ -175,7 +170,7 @@ public class InventoryPanel extends JPanel {
 		table.setRowSelectionInterval(0, 0);
 		ing.setText(""+model.getValueAt(0, 0));
 		qty.setText(""+model.getValueAt(0, 1));
->>>>>>> branch 'master' of https://github.com/karimshannawaz/SGServer.git
+
 	}
 
 
