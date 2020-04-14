@@ -8,6 +8,11 @@ import java.util.Map;
 
 import server.utils.Constants;
 
+/**
+ * 
+ * @author Karimshan
+ *
+ */
 public class Inventory {
 
 	// If the inventory is being randomized, then the numbers
