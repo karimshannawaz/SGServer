@@ -25,8 +25,8 @@ import javax.swing.table.DefaultTableModel;
 public class InventoryPanel extends JPanel {
 
 	private static final long serialVersionUID = -7728688801223513408L;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField ItextField;
+	private JTextField QtextField;
 	private JTable table;
 
 
@@ -75,21 +75,23 @@ public class InventoryPanel extends JPanel {
 		updateItemBtn.setBounds(535, 334, 200, 44);
 		add(updateItemBtn);
 		
-		JButton btnNewButton_1 = new JButton("Add Ingredient");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		btnNewButton_1.setBounds(745, 334, 189, 44);
-		add(btnNewButton_1);
+		Object[] row = new Object[2];
+		JButton addBtn = new JButton("Add Ingredient");
+		addBtn.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		addBtn.setBounds(745, 334, 189, 44);
+		add(addBtn);
 		
-		textField = new JTextField();
-		textField.setBounds(631, 219, 262, 27);
-		add(textField);
-		textField.setColumns(10);
+		ItextField = new JTextField();
+		ItextField.setBounds(631, 219, 262, 27);
+		add(ItextField);
+		ItextField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(631, 260, 262, 27);
-		add(textField_1);
+		QtextField = new JTextField();
+		QtextField.setColumns(10);
+		QtextField.setBounds(631, 260, 262, 27);
+		add(QtextField);
 
+		
 		
 	}
 }
