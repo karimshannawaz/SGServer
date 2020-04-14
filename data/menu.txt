@@ -6,6 +6,6 @@ Cheeseburger ~ 6.75 ~ Try our classic cheeseburger with a warm bun and melted am
 Kid's Burger ~ 3.99 ~ Smaller portion of our specialty in-house seven wonders burger! ~ 300 ~ wheat, gluten ~ 0 ~ entree ~ beef_patty:1,burger_buns:1,cheese:1,onion:3
 Tossed Salad ~ 6.50 ~ Vegan, allergen and vegetarian friendly option with ranch dressing ~ 350 ~ null ~ 2 ~ side ~  lettuce:5,tomatoes:5,ranch:1,cucumber:5
 French Fries ~ 3.99 ~ Classic french fries (salted served with ketchup). ~ 500 ~ null ~ 0 ~ side ~ fries:1
-Classic Fried Wings ~ 8.99 ~ Try with choice of buffalo, bbq or chipotle sauce! ~ 1000 ~ null ~ 0 ~ side ~  wings:10
+Classic Fried Wings ~ 8.99 ~ Try with choice of buffalo, bbq or chipotle sauce! ~ 1000 ~ null ~ 0 ~ side ~ wings:10
 Blended Milkshake ~ 4.99 ~ Our creamy milkshake will have you coming back for more! Try with your choice of chocolate, vanilla or strawberry ~ 480 ~ milk, eggs ~ 1 ~ dessert ~ shake:1
 Coke ~ 3.50 ~ The classic drink that America loves ~ 300 ~ null ~ 0 ~ drink ~ drink_coke:1

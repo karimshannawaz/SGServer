@@ -1,20 +1,19 @@
 package server.ui;
 
-import javax.swing.JPanel;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 
 import server.menu.MItem;
 import server.menu.Menu;
-import server.utils.Constants;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 
 public class MenuPanel extends JPanel {
 
@@ -43,6 +42,7 @@ public class MenuPanel extends JPanel {
 
 		for(int index = 0; index < mItemBtns.length; index++) {
 			JToggleButton btn = mItemBtns[index];
+			final int tempIndex = index;
 			btn.addActionListener(new ActionListener() {
 
 				@Override
@@ -54,31 +54,27 @@ public class MenuPanel extends JPanel {
 							}
 							mItemBtns[i].setSelected(false);
 						}
+						refreshMenuText(tempIndex);
 					}
 					else {
 						btn.setSelected(false);
+						currMenu.setText("");
 					}
 				}
 
 			});
 		}
 
-		/*
+		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 100, 962, 280);
+		scrollPane.setBounds(215, 58, 735, 314);
 		add(scrollPane);
 
 		currMenu = new JTextArea();
 		currMenu.setEditable(false);
 		scrollPane.setViewportView(currMenu);
 		currMenu.setFont(new Font("Tahoma", Font.PLAIN, 19));
-
-		JLabel lblSyntaxIndexName = new JLabel("Syntax: Index, Name, Price, Description, "
-				+ "Calories, Allergens, Type, Menu Type, Ingredients");
-		lblSyntaxIndexName.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		lblSyntaxIndexName.setBounds(79, 45, 857, 32);
-		add(lblSyntaxIndexName);
-		 */
+		
 
 		JButton btnNewButton = new JButton("Remove Item");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 19));
@@ -101,7 +97,8 @@ public class MenuPanel extends JPanel {
 		lblNewLabel_2.setBounds(689, 452, 137, 32);
 		add(lblNewLabel_2);
 
-		//refreshMenuText();
+		refreshMenuText(0);
+		mItemBtns[0].setSelected(true);
 
 	}
 
@@ -110,20 +107,27 @@ public class MenuPanel extends JPanel {
 
 		for(int index = 0; index < mItemBtns.length; index++) {
 			mItemBtns[index] = new JToggleButton(Menu.instance.get(index).name);
-			mItemBtns[index].setBounds(0, (32 * index) + 58, 166, 32);
-			mItemBtns[index].setFont(new Font("Tahoma", Font.PLAIN, 15));
+			mItemBtns[index].setBounds(0, (35 * index) + 58, 208, 32);
+			mItemBtns[index].setFont(new Font("Tahoma", Font.BOLD, 15));
 			add(mItemBtns[index]);
 		}
 	}
 
-	private void refreshMenuText() {
+	private void refreshMenuText(int index) {
 		menuAsTxt = new StringBuilder();
-		for(MItem item : Menu.instance.values()) {
-			String toShow = item.getIndex()+" - "+item.name+", $"+item.price+", "+
-					item.description+", "+item.calories+", "+item.allergens+", "+
-					item.type+", "+item.menuType+", "+item.ingredients;
-			menuAsTxt.append(toShow).append("\n");
-		}
+		MItem item = Menu.instance.get(index);
+		
+		menuAsTxt.append("Name: "+item.name+"\n");
+		menuAsTxt.append("Price: $"+item.price+"\n");
+		menuAsTxt.append("Description: "+item.description+"\n");
+		menuAsTxt.append("Calories: "+item.calories+"\n");
+		menuAsTxt.append("Allergens: "+item.allergens+"\n");
+		menuAsTxt.append("Type: "+item.type+" ("+(item.type == 2 ? "Vegan" : item.type == 1 ? "Vegetarian" : "Default")+")\n");
+		menuAsTxt.append("Menu Type: "+item.menuType+"\n");
+		menuAsTxt.append("Ingredients (name:qty): "+item.ingredients+"\n");
+		
+		menuAsTxt.append("\n");
+
 		currMenu.setText(menuAsTxt.toString());
 	}
 }
