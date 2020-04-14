@@ -23,7 +23,7 @@ public class MenuPanel extends JPanel {
 	public JTextArea currMenu;
 	public StringBuilder menuAsTxt;
 
-	private JTextField textField;
+	public JButton deleteBtn;
 
 	public JToggleButton[] mItemBtns;
 	
@@ -35,6 +35,8 @@ public class MenuPanel extends JPanel {
 	private JTextField type;
 	private JTextField menuType;
 	private JTextField ingredients;
+	
+	int currentSelectedIndex = 0;
 
 	/**
 	 * Create the panel.
@@ -51,30 +53,6 @@ public class MenuPanel extends JPanel {
 
 		refreshMenuItemButtons();
 
-		for (int index = 0; index < mItemBtns.length; index++) {
-			JToggleButton btn = mItemBtns[index];
-			final int tempIndex = index;
-			btn.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if (btn.isSelected()) {
-						for (int i = 0; i < mItemBtns.length; i++) {
-							if (btn.getText().equals(mItemBtns[i].getText())) {
-								continue;
-							}
-							mItemBtns[i].setSelected(false);
-						}
-						refreshMenuText(tempIndex);
-					} else {
-						btn.setSelected(false);
-						currMenu.setText("");
-					}
-				}
-
-			});
-		}
-
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(215, 58, 735, 314);
 		add(scrollPane);
@@ -84,15 +62,16 @@ public class MenuPanel extends JPanel {
 		scrollPane.setViewportView(currMenu);
 		currMenu.setFont(new Font("Tahoma", Font.PLAIN, 19));
 
-		JButton btnNewButton = new JButton("Delete <dynamic>");
-		btnNewButton.addActionListener(new ActionListener() {
+		deleteBtn = new JButton("Delete <dynamic>");
+		deleteBtn.setSelected(false);
+		deleteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				deleteMenuItem();
+				deleteMenuItem(currentSelectedIndex);
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		btnNewButton.setBounds(655, 7, 295, 44);
-		add(btnNewButton);
+		deleteBtn.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		deleteBtn.setBounds(655, 7, 295, 44);
+		add(deleteBtn);
 
 		JLabel lblNewLabel_2 = new JLabel("Add Menu Item:");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -205,8 +184,11 @@ public class MenuPanel extends JPanel {
 		btnNewButton_1.setBounds(480, 640, 180, 44);
 		add(btnNewButton_1);
 
+		currentSelectedIndex = 0;
+		deleteBtn.setVisible(true);
+		deleteBtn.setText("Delete "+mItemBtns[0].getText());
 		refreshMenuText(0);
-		
+		mItemBtns[0].setSelected(true);
 	}
 
 	protected void addToMenu() {
@@ -250,8 +232,25 @@ public class MenuPanel extends JPanel {
 		newMI.calories = Integer.parseInt(calories.getText());
 		newMI.ingredients = ingredients.getText();
 		Menu.add(newMI);
+		
 		name.setText("");
-		refreshMenuText(Menu.instance.size() - 1);
+		int index = Menu.instance.size() - 1;
+		refreshMenuItemButtons();
+		mItemBtns[index].setSelected(true);
+		
+		refreshMenuText(index);
+		currentSelectedIndex = index;
+		deleteBtn.setVisible(true);
+		deleteBtn.setText("Delete "+mItemBtns[index].getText());
+		
+		for (int i = 0; i < mItemBtns.length; i++) {
+			if (mItemBtns[index].getText().equalsIgnoreCase(mItemBtns[i].getText())) {
+				continue;
+			}
+			mItemBtns[i].setSelected(false);
+		}
+		
+		JFrameUtils.showMessage("Menu Editor", "Successfully added item: "+newMI.name+" at index: "+index);
 	}
 
 	private void refreshMenuItemButtons() {
@@ -262,6 +261,35 @@ public class MenuPanel extends JPanel {
 			mItemBtns[index].setBounds(0, (35 * index) + 58, 208, 32);
 			mItemBtns[index].setFont(new Font("Tahoma", Font.BOLD, 15));
 			add(mItemBtns[index]);
+		}
+		
+		for (int index = 0; index < mItemBtns.length; index++) {
+			JToggleButton btn = mItemBtns[index];
+			final int tempIndex = index;
+			btn.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (btn.isSelected()) {
+						refreshMenuText(tempIndex);
+						currentSelectedIndex = tempIndex;
+						deleteBtn.setVisible(true);
+						deleteBtn.setText("Delete "+btn.getText());
+						for (int i = 0; i < mItemBtns.length; i++) {
+							if (btn.getText().equals(mItemBtns[i].getText())) {
+								continue;
+							}
+							mItemBtns[i].setSelected(false);
+						}
+					} else {
+						currentSelectedIndex = -1;
+						deleteBtn.setVisible(false);
+						btn.setSelected(false);
+						currMenu.setText("");
+					}
+				}
+
+			});
 		}
 	}
 
@@ -289,10 +317,9 @@ public class MenuPanel extends JPanel {
 		menuAsTxt.append("Ingredients (name:qty): "+item.ingredients+"\n");
 
 		currMenu.setText(menuAsTxt.toString());
-		mItemBtns[index].setSelected(true);
 	}
 	
-	private void deleteMenuItem() {
+	private void deleteMenuItem(int index) {
 		
 	}
 }
