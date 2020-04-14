@@ -3,6 +3,7 @@ package server.ui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,6 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
+import server.menu.Inventory;
 import server.menu.MItem;
 import server.menu.Menu;
 import server.utils.JFrameUtils;
@@ -44,15 +46,16 @@ public class InventoryPanel extends JPanel {
 		//create table
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
-			//test data for table
-			new Object[][] {
-				{"buns", 500},
-				{"cheese", 250},
-			},
 			new String[] {
 				"Ingredients", "Quantity"
-			}
+			}, 0
 		));
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		
+		//add inventory list to rows
+		for (Map.Entry<?,?> entry : Inventory.instance.entrySet()) {
+	        model.addRow(new Object[] { entry.getKey(), entry.getValue() });
+	    }
 		scrollPane.setViewportView(table);
 		
 		
