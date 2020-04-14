@@ -50,13 +50,9 @@ public class Menu {
 	 * the end of the day to the file, but throughout the remainder of the program's
 	 * runtime, the changes will be visible in the menu.
 	 */
-<<<<<<< HEAD
-	public static void add(String name, double price, String description, int calories, String allergens, int type,
-			String ingredients) {
-=======
+
 	public static void add(String name, double price, String description, int calories, String allergens,
 			String type, String ingredients) {
->>>>>>> branch 'master' of https://github.com/karimshannawaz/SGServer.git
 		MItem item = new MItem();
 		item.name = name;
 		item.price = price;
