@@ -1,11 +1,18 @@
 package server.user;
 
+import java.io.Serializable;
+
 import server.network.Session;
 
-public class User {
+public class User implements Serializable {
 
+	private static final long serialVersionUID = -2479666052959496651L;
+	
+	private String email;
+	private String password;
+	
 	private int type;
-	private Session session;
+	private transient Session session;
 
 	public User(int type, Session session) {
 		this.setType(type);
@@ -42,6 +49,22 @@ public class User {
 
 	public void setSession(Session session) {
 		this.session = session;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
