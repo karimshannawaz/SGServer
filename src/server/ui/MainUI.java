@@ -127,17 +127,4 @@ public class MainUI extends JFrame {
 		}
 		
 	}
-
-	protected void addMenuItem() {
-		MItem item = new MItem();
-		item.name = "RandomItem"+(Constants.generateNumber(0, 10000000));
-		item.price = 4.20;
-		item.description = "This is a random description "+(Constants.generateNumber(0, 10000000));
-		item.calories = Constants.generateNumber(500, 4000);
-		item.allergens = "wheat, gluten, eggs, everything";
-		item.type = 0;
-		item.menuType = "entree";
-		item.ingredients = "fries:1";
-		Menu.add(item);
-	}
 }
