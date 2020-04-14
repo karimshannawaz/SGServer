@@ -274,7 +274,7 @@ public class MenuPanel extends JPanel {
 		menuAsTxt.append("Description: " + item.description + "\n");
 		menuAsTxt.append("Calories: " + item.calories + "\n");
 		menuAsTxt.append("Allergens: " + item.allergens + "\n");
-		menuAsTxt.append("Type: " + item.type + " (" + (new Integer(item.type) == 2 ? "Vegan" : new Integer(item.type) == 1 ? "Vegetarian" : "Default") + ")\n");
+		menuAsTxt.append("Type: " + item.type + " (" + (item.type == 2 ? "Vegan" : item.type == 1 ? "Vegetarian" : "Default") + ")\n");
 		menuAsTxt.append("Menu Type: " + item.menuType + "\n");
 		menuAsTxt.append("Ingredients (name:qty): " + item.ingredients + "\n");
 
