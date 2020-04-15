@@ -34,21 +34,31 @@ public class User implements Serializable {
 	// For employees only
 	private String id;
 	private String password;
-	
-	private String type;
+	private String role;
 	
 	// Session is transient because it changes every
 	// time that the person logs in/out
 	private transient Session session;
 
-	public User(String type, String email, String birthday, String name) {
-		this.setType(type);
+	public User(String role, String email, String birthday, String name) {
+		this.setRole(role);
 		this.setEmail(email);
 		this.setBirthday(birthday);
 		this.setName(name);
 		this.setVisits(0);
 		this.setFreeSide(true);
 		this.setFreeDessert(false);
+	}
+	
+	public User() {
+		
+	}
+	
+	public void createEmployee(String id, String name, String role, String password) {
+		this.setId(id);
+		this.setRole(role);
+		this.setName(name);
+		this.setPassword(password);
 	}
 	
 	public void initialize(Session s) {
@@ -60,12 +70,12 @@ public class User implements Serializable {
 		
 	}
 
-	public String getType() {
-		return type;
+	public String getRole() {
+		return role;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setRole(String type) {
+		this.role = type;
 	}
 
 	public boolean isCustomer() {

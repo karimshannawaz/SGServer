@@ -86,6 +86,20 @@ public class LoginDecoder extends Decoder {
 				System.out.println("Customer rewards email login: "+email);
 				session.loginToRewards(email);
 				break;
+			
+			// Requests employee login
+			case 8:
+				String id = stream.readString();
+				String password = stream.readString();
+
+				if(!UserLoader.containsUser(id, true)) {
+					session.getLoginPackets().sendClientPacket("employee_id_does_not_exist");
+					return;
+				}
+
+				System.out.println("Employee account logged in but has not clocked in yet: "+id+" with password: "+password);
+				session.employeeLogin(id, password);
+				break;
 		}
 	}
 
