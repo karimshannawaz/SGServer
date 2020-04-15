@@ -17,6 +17,10 @@ import javax.swing.JButton;
 
 public class EmployeePanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4184136749870861339L;
 	private JTable table;
 	private JTextField employeeName;
 	private JTextField employeeRole;
