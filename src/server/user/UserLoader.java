@@ -26,6 +26,7 @@ public class UserLoader {
 	private static final String BACKUP_PATH = "data/users/backups/";
 
 	public synchronized static final boolean containsUser(String id) {
+		System.out.println("Id is "+id);
 		return new File(PATH + id + ".sgr").exists();
 	}
 
@@ -78,7 +79,7 @@ public class UserLoader {
 		}
 	}
 
-	public synchronized static void savePlayer(User player, boolean offline) {
+	public synchronized static void saveUser(User player) {
 		try {
 			storeSerializableClass(player, new File(PATH + player.getEmail() + ".sgr"));
 		} catch (Exception e) {
