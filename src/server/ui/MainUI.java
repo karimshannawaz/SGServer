@@ -33,6 +33,7 @@ public class MainUI extends JFrame {
 	public MenuPanel menuPanel;
 	public InventoryPanel inventoryPanel;
 	public TimelogPanel timelogPanel;
+	public DiscountPanel discountPanel;
 	public EmployeePanel employeePanel;
 
 	public static long onlineTime;
@@ -72,12 +73,22 @@ public class MainUI extends JFrame {
 		timelogPanel.setVisible(false);
 		getContentPane().add(timelogPanel);
 		
-		// Timelog Panel
+		// Discount Panel
+		this.discountPanel = new DiscountPanel();
+		discountPanel.setVisible(false);
+		getContentPane().add(discountPanel);
+		
+		// Employee Panel
 		this.employeePanel = new EmployeePanel();
 		employeePanel.setVisible(false);
 		getContentPane().add(employeePanel);
 
+<<<<<<< Upstream, based on origin/master
 		String[] panelNames = { "Information", "Order", "Pay", "Compensate", "Tables", "Inventory", "Menu", "Time Log",
+=======
+		
+		String[] panelNames = { "Clock In/Out", "Order", "Pay", "Compensate", "Tables", "Inventory", "Menu", "Time Log",
+>>>>>>> fb6b6ca Added Discount Panel - Floreta
 				"Discounts", "Employees" };
 
 		JToggleButton[] panelBtns = new JToggleButton[panelNames.length];
@@ -110,6 +121,7 @@ public class MainUI extends JFrame {
 						menuPanel.setVisible(false);
 						inventoryPanel.setVisible(false);
 						timelogPanel.setVisible(false);
+						discountPanel.setVisible(false);
 						employeePanel.setVisible(false);
 						switch (btn.getText()) {
 						case "Information":
@@ -133,6 +145,7 @@ public class MainUI extends JFrame {
 							timelogPanel.setVisible(true);
 							break;
 						case "Discounts":
+							discountPanel.setVisible(true);
 							break;
 						case "Employees":
 							employeePanel.setVisible(true);
@@ -143,6 +156,7 @@ public class MainUI extends JFrame {
 						inventoryPanel.setVisible(false);
 						menuPanel.setVisible(false);
 						timelogPanel.setVisible(false);
+						discountPanel.setVisible(false);
 						employeePanel.setVisible(false);
 						btn.setSelected(false);
 					}
