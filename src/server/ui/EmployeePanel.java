@@ -20,11 +20,6 @@ import server.utils.JFrameUtils;
 import javax.swing.JComboBox;
 
 //Floreta Krasniqi
-/*
- * I need to add column names (employee name, role) to 
- * the table I've created, but Eclipse crashes every time
- * I try. Come back to this.
- */
 // and Karimshan
 public class EmployeePanel extends JPanel {
 
