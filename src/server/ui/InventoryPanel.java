@@ -18,8 +18,11 @@ import javax.swing.table.DefaultTableModel;
 import server.menu.Inventory;
 import server.utils.JFrameUtils;
 
-//Asha
-
+/**
+ * 
+ * @author Asha and Karimshan
+ *
+ */
 public class InventoryPanel extends JPanel {
 
 	private static final long serialVersionUID = -7728688801223513408L;
