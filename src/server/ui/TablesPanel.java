@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import server.Global;
 import server.Reports;
 import server.menu.Inventory;
 import server.network.Session;
@@ -61,15 +62,13 @@ public class TablesPanel extends JPanel {
 
 		model = (DefaultTableModel) table.getModel();
 
-		//for() {
-		//	model.addRow(new Object[] {  });
-		//}
-				// add inventory list to rows
-			//	for (Map.Entry<?,?> entry : Inventory.instance.entrySet()) {
-			//		model.addRow(new Object[] { entry.getKey(), entry.getValue() });
-			//	}
-
-				// Sets the table header and row font, as well as adjusts the row height.
+		//add tables that have customers
+	/*	for(int i : Global.tableIds) {
+			if(i != -1)
+				model.addRow(new Object[] { i });
+		}
+	*/
+		// Sets the table header and row font, as well as adjusts the row height.
 		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 30));
 		table.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		table.setRowHeight(30);
