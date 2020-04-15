@@ -34,7 +34,9 @@ public class EmployeePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public EmployeePanel() {
+		super();
 		setLayout(null);
+		setBounds(233, 0, 962, 710);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(27, 25, 534, 670);
