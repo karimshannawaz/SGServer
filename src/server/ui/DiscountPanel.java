@@ -16,6 +16,10 @@ public class DiscountPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public DiscountPanel() {
+		
+		super();
+		setBounds(233, 0, 962, 710);
+		
 		setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Day");
