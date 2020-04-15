@@ -5,9 +5,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -58,21 +55,11 @@ public class EmployeePanel extends JPanel {
 		employeeRole.setColumns(10);
 		
 		JButton AddEmplBtn = new JButton("Add Employee");
-		AddEmplBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//add employee
-			}
-		});
 		AddEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		AddEmplBtn.setBounds(297, 150, 111, 29);
 		add(AddEmplBtn);
 		
 		JButton RemoveEmplBtn = new JButton("Remove Employee");
-		RemoveEmplBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//remove employee
-			}
-		});
 		RemoveEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		RemoveEmplBtn.setBounds(403, 150, 130, 29);
 		add(RemoveEmplBtn);
