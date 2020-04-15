@@ -53,7 +53,10 @@ public class PacketEncoder extends Encoder {
 			stream.writeByte(user.hasFreeDessert() ? 1 : 0);
 		}
 		else { 
-			
+			stream.writeString(user.getId());
+			stream.writeString(user.getName());
+			stream.writeString(user.getRole());
+			stream.writeString(user.getPassword());
 		}
 		stream.endPacketVarShort();
 		session.write(stream);
