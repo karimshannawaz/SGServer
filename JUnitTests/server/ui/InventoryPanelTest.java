@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import server.menu.Inventory;
 
-import java.awt.Font;
-import java.awt.Font;
 class InventoryPanelTest {
 
 	@Test
