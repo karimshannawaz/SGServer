@@ -39,9 +39,10 @@ public class PacketEncoder extends Encoder {
 	 * Sends the client an updated version of the user's current
 	 * details loaded server sided.
 	 */
-	public void sendDetailsUpdate() {
+	public void sendDetailsUpdate(boolean employee) {
 		OutputStream stream = new OutputStream();
 		stream.writePacketVarShort(5);
+		stream.writeByte(employee ? 1 : 0);
 		stream.writeString(user.getEmail());
 		stream.writeString(user.getBirthday());
 		stream.writeString(user.getName());

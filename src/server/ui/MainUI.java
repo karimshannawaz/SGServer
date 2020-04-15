@@ -11,6 +11,9 @@ import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
 import server.core.CoresManager;
+import server.user.User;
+import server.user.UserLoader;
+import server.utils.Constants;
 import server.utils.STime;
 
 /**
@@ -37,6 +40,14 @@ public class MainUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MainUI() {
+		
+		for(int i = 0; i < 10; i++) {
+			User u = new User();
+			int rand = Constants.generateNumber(1000, 30279193);
+			u.createEmployee("rand"+rand+"", "Name "+rand, "waitstaff", "rand"+rand);
+			UserLoader.saveUser(u, true);
+		}
+		System.out.println("Created 10 random employees");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
