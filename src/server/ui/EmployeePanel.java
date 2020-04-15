@@ -5,6 +5,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -16,16 +19,12 @@ import javax.swing.JButton;
  */
 
 public class EmployeePanel extends JPanel {
-	
-<<<<<<< Upstream, based on origin/master
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4184136749870861339L;
-=======
-	private static final long serialVersionUID = -4184136749870861339L;
-	
->>>>>>> fb6b6ca Added Discount Panel - Floreta
+
 	private JTable table;
 	private JTextField employeeName;
 	private JTextField employeeRole;
@@ -65,10 +64,9 @@ public class EmployeePanel extends JPanel {
 		employeeRole.setColumns(10);
 		
 		JButton AddEmplBtn = new JButton("Add Employee");
-<<<<<<< Upstream, based on origin/master
-		AddEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+AddEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		AddEmplBtn.setBounds(297, 150, 111, 29);
-=======
+
 		AddEmplBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//add employee
@@ -76,14 +74,13 @@ public class EmployeePanel extends JPanel {
 		});
 		AddEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		AddEmplBtn.setBounds(620, 300, 142, 26);
->>>>>>> fb6b6ca Added Discount Panel - Floreta
 		add(AddEmplBtn);
 		
 		JButton RemoveEmplBtn = new JButton("Remove Employee");
-<<<<<<< Upstream, based on origin/master
+
 		RemoveEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		RemoveEmplBtn.setBounds(403, 150, 130, 29);
-=======
+
 		RemoveEmplBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//remove employee
@@ -91,7 +88,7 @@ public class EmployeePanel extends JPanel {
 		});
 		RemoveEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		RemoveEmplBtn.setBounds(761, 299, 154, 29);
->>>>>>> fb6b6ca Added Discount Panel - Floreta
+
 		add(RemoveEmplBtn);
 
 	}

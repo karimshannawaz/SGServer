@@ -83,12 +83,9 @@ public class MainUI extends JFrame {
 		employeePanel.setVisible(false);
 		getContentPane().add(employeePanel);
 
-<<<<<<< Upstream, based on origin/master
+
 		String[] panelNames = { "Information", "Order", "Pay", "Compensate", "Tables", "Inventory", "Menu", "Time Log",
-=======
-		
-		String[] panelNames = { "Clock In/Out", "Order", "Pay", "Compensate", "Tables", "Inventory", "Menu", "Time Log",
->>>>>>> fb6b6ca Added Discount Panel - Floreta
+
 				"Discounts", "Employees" };
 
 		JToggleButton[] panelBtns = new JToggleButton[panelNames.length];
