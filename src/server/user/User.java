@@ -3,6 +3,8 @@ package server.user;
 import java.io.Serializable;
 
 import server.network.Session;
+import server.network.packet.decoder.PacketDecoder;
+import server.network.packet.encoder.PacketEncoder;
 
 /**
  * 
@@ -12,6 +14,8 @@ import server.network.Session;
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -2479666052959496651L;
+	
+	private String name;
 	
 	// For customers (Birthday: MM/DD/YYYY)
 	private String email;
@@ -24,6 +28,9 @@ public class User implements Serializable {
 	// Free appetizer/side when the customer signs up for rewards.
 	private boolean freeSide;
 	
+	// Free lottery dessert
+	private boolean freeDessert;
+	
 	// For employees only
 	private String id;
 	private String password;
@@ -34,12 +41,14 @@ public class User implements Serializable {
 	// time that the person logs in/out
 	private transient Session session;
 
-	public User(String type, String email, String birthday) {
+	public User(String type, String email, String birthday, String name) {
 		this.setType(type);
 		this.setEmail(email);
 		this.setBirthday(birthday);
+		this.setName(name);
 		this.setVisits(0);
 		this.setFreeSide(true);
+		this.setFreeDessert(false);
 	}
 	
 	public void initialize(Session s) {
@@ -125,6 +134,30 @@ public class User implements Serializable {
 
 	public void setFreeSide(boolean freeSide) {
 		this.freeSide = freeSide;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public PacketDecoder getPacketDecoder() {
+		return (PacketDecoder) session.getDecoder();
+	}
+	
+	public PacketEncoder getPacketEncoder() {
+		return (PacketEncoder) session.getEncoder();
+	}
+
+	public boolean hasFreeDessert() {
+		return freeDessert;
+	}
+
+	public void setFreeDessert(boolean freeDessert) {
+		this.freeDessert = freeDessert;
 	}
 
 }

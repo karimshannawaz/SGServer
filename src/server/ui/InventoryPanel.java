@@ -1,6 +1,8 @@
 package server.ui;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Map;
@@ -12,24 +14,25 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.Highlighter;
 
 import server.menu.Inventory;
 import server.utils.JFrameUtils;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-//Asha
-
+/**
+ * 
+ * @author Asha and Karimshan
+ *
+ */
 public class InventoryPanel extends JPanel {
 
 	private static final long serialVersionUID = -7728688801223513408L;
 
 
 
+
 	private JTextField ItextField;
 	private JTextField QtextField;
+
 
 
 
@@ -131,6 +134,7 @@ public class InventoryPanel extends JPanel {
 
 
 
+
 		
 		Object[] row = new Object[2];
 		JButton addBtn = new JButton("Add Ingredient");
@@ -147,6 +151,7 @@ public class InventoryPanel extends JPanel {
 		QtextField.setColumns(10);
 		QtextField.setBounds(631, 260, 262, 27);
 		add(QtextField);
+
 
 
 
