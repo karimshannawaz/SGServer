@@ -12,7 +12,7 @@ class InventoryPanelTest {
 
 	@Test
 	void testAddIngredient() {
-		//fail("Not yet implemented"); 
+	
 		Inventory.instance.put("swiss",500);
 		assertTrue(Inventory.instance.containsKey("swiss"));
 		assertEquals(500, Inventory.instance.get("swiss"));
@@ -20,7 +20,7 @@ class InventoryPanelTest {
 
 	@Test
 	void testUpdateInventory() {
-		//fail("Not yet implemented"); 
+	
 		Integer name = Inventory.instance.get("cheese");
 		Inventory.instance.put("cheese", 10);
 		assertNotEquals(name, Inventory.instance.get("cheese"));
