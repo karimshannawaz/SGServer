@@ -12,8 +12,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import server.menu.Inventory;
 import server.user.User;
 import server.user.UserLoader;
+import server.utils.JFrameUtils;
+
+import javax.swing.JComboBox;
 
 //Floreta Krasniqi
 /*
@@ -27,12 +31,13 @@ public class EmployeePanel extends JPanel {
 	private static final long serialVersionUID = -4184136749870861339L;
 
 	private JTextField employeeName;
-	private JTextField employeeRole;
 
 	private JTable table;
 	private DefaultTableModel model;
 	private JTextField employeeID;
-	private JTextField textField;
+	private JTextField employeePass;
+	
+	private JComboBox roleComboBox;
 
 	//
 	/**
@@ -87,11 +92,6 @@ public class EmployeePanel extends JPanel {
 		employeeName.setBounds(631, 149, 262, 27);
 		add(employeeName);
 
-		employeeRole = new JTextField();
-		employeeRole.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		employeeRole.setBounds(631, 192, 262, 27);
-		add(employeeRole);
-
 		JButton AddEmplBtn = new JButton("Add Employee");
 		AddEmplBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -123,21 +123,54 @@ public class EmployeePanel extends JPanel {
 		employeeID.setBounds(631, 107, 262, 27);
 		add(employeeID);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField.setBounds(631, 243, 262, 27);
-		add(textField);
+		employeePass = new JTextField();
+		employeePass.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		employeePass.setBounds(631, 243, 262, 27);
+		add(employeePass);
 		
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblPassword.setBounds(535, 241, 82, 30);
 		add(lblPassword);
+		
+		roleComboBox = new JComboBox(new String[] 
+			{ "waitstaff", "kitchen", "manager" });
+		roleComboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		roleComboBox.setBounds(631, 195, 262, 30);
+		add(roleComboBox);
 
 	}
 
 	protected void addEmployee() {
-		// TODO Auto-generated method stub
+		String id = this.employeeID.getText();
+		String name = this.employeeName.getText();
+		String role = (String) this.roleComboBox.getSelectedItem();
+		String pwd = this.employeePass.getText();
+		if(id.equals("") || id.equals(null) || id.contains(" ")
+		|| name.equals("") || name.equals(null)
+		|| pwd.equals("") || pwd.equals(null) || pwd.contains(" ")) {
+			JFrameUtils.showMessage("Employee Editor", "Error: Invalid employee ID, Name or Password entered. Please try again.");
+			return;
+		}
+		if(UserLoader.containsUser(id, true)) {
+			JFrameUtils.showMessage("Employee Editor", "Error: This employee already exists.");
+			return;
+		}
 		
+		User employee = new User();
+		employee.createEmployee(id, name, role, pwd);
+		UserLoader.saveUser(employee, true);
+		
+		// Adds new employee to list.
+		model.addRow(new Object[] { employee.getId(), employee.getName(), 
+			employee.getRole(), employee.getPassword() });
+		
+		// Sets current selected index to newest one
+		// and populates ingredient and quantity.
+		employeeID.setText(""+model.getValueAt(table.getRowCount() - 1, 0));
+		employeeName.setText(""+model.getValueAt(table.getRowCount() - 1, 1));
+		employeePass.setText(""+model.getValueAt(table.getRowCount() - 1, 2));
+		JFrameUtils.showMessage("Employee Editor", "Successfully added employee: "+name+" with ID: "+id);
 	}
 
 	protected void removeEmployee() {
