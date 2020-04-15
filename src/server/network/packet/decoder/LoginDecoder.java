@@ -32,7 +32,7 @@ public class LoginDecoder extends Decoder {
 							Global.tableIds[i] = 1;
 							session.setTableID(i);
 							session.setCustomer(true);
-							((LoginEncoder) session.getEncoder()).assignKioskID(i);
+							session.getLoginPackets().assignKioskID(i);
 							break;
 						}
 					}
@@ -51,7 +51,7 @@ public class LoginDecoder extends Decoder {
 	
 			// Sends the menu back to the client.
 			case 5:
-				((LoginEncoder) session.getEncoder()).sendMenu();
+				session.getLoginPackets().sendMenu();
 				break;
 	
 			// Lets the customer know if they can create the specified email
@@ -63,14 +63,15 @@ public class LoginDecoder extends Decoder {
 				// and if it does, then they are notified that they won't be able to use it.
 				if(UserLoader.containsUser(email)) {
 					System.out.println("Email exists.");
-					((LoginEncoder) session.getEncoder()).sendClientPacket("email_exists");
+					session.getLoginPackets().sendClientPacket("email_exists");
 					return;
 				}
 				// User can make the email. This makes a new file for the user
 				// Lets them know that their request was successful and that
 				// the new account was created.
 				System.out.println("Customer rewards email created successfully "+email+" with birthdate "+birthdate);
-				((LoginEncoder) session.getEncoder()).sendClientPacket("email_created", email, birthdate);
+				session.getLoginPackets().sendClientPacket("email_created", email, birthdate);
+				
 				break;
 		}
 	}

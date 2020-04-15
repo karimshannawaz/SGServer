@@ -53,6 +53,10 @@ public class Session {
 	public final Channel getChannel() {
 		return channel;
 	}
+	
+	public LoginEncoder getLoginPackets() {
+		return (LoginEncoder) encoder;
+	}
 
 	public final Decoder getDecoder() {
 		return decoder;
