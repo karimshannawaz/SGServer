@@ -149,4 +149,14 @@ public class UserLoader {
 
 	}
 
+	public static boolean deleteUser(String id, boolean employee) {
+		if(!containsUser(id, employee)) {
+			return false;
+		}
+		if(new File((employee ? EMPLOYEES_PATH : PATH) + id + ".sgr").delete()) {
+			return true;
+		}
+		return false;
+	}
+
 }

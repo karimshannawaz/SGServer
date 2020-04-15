@@ -58,7 +58,7 @@ public class EmployeePanel extends JPanel {
 
 		model = (DefaultTableModel) table.getModel();
 
-		// add inventory list to rows
+		// add employee list to rows
 		for(User employee : UserLoader.getAllEmployees()) {
 			model.addRow(new Object[] { employee.getId(), employee.getName(), 
 				employee.getRole(), employee.getPassword() });
@@ -133,6 +133,9 @@ public class EmployeePanel extends JPanel {
 		roleComboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		roleComboBox.setBounds(631, 195, 262, 30);
 		add(roleComboBox);
+		
+		// Sets current selected index to 0
+		table.setRowSelectionInterval(0, 0);
 
 	}
 
@@ -169,7 +172,20 @@ public class EmployeePanel extends JPanel {
 	}
 
 	protected void removeEmployee() {
-		// TODO Auto-generated method stub
-		
+		int row = table.getSelectedRow();
+		String id = (String) this.model.getValueAt(table.getSelectedRow(), 0);
+		boolean delete = JFrameUtils.confirmDialog("Employee Editor", "Are you sure you would like to remove employee with ID: "+id+"?\n"
+				+ "WARNING: this action cannot be undone.");
+		if(delete) {
+			model.removeRow(row);
+			// Sets current selected index to 0
+			table.setRowSelectionInterval(0, 0);
+			if(!UserLoader.deleteUser(id, true)) {
+				JFrameUtils.showMessage("Employee Editor", "Unable to remove employee with ID "+id+". Please try again.");
+			}
+			else {
+				JFrameUtils.showMessage("Employee Editor", "Successfully deleted/remove employee with ID "+id+".\nIf they were logged in, they will now be logged out.");
+			}
+		}
 	}
 }
