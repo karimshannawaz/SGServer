@@ -59,7 +59,9 @@ public final class PacketDecoder extends Decoder {
 
 			switch (packetId) {
 
-			case 2:
+			// Sends the menu back to the client.
+			case 5:
+				user.getPacketEncoder().sendMenu();
 				break;
 
 			default:
