@@ -21,12 +21,9 @@ import server.user.UserLoader;
  * the table I've created, but Eclipse crashes every time
  * I try. Come back to this.
  */
-
+// and Karimshan
 public class EmployeePanel extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4184136749870861339L;
 
 	private JTextField employeeName;
@@ -34,6 +31,8 @@ public class EmployeePanel extends JPanel {
 
 	private JTable table;
 	private DefaultTableModel model;
+	private JTextField employeeID;
+	private JTextField textField;
 
 	//
 	/**
@@ -53,7 +52,7 @@ public class EmployeePanel extends JPanel {
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new String[] {
-				"ID", "Name", "Role"
+				"ID", "Name", "Role", "Password"
 			}, 0
 		));
 
@@ -61,7 +60,8 @@ public class EmployeePanel extends JPanel {
 
 		// add inventory list to rows
 		for(User employee : UserLoader.getAllEmployees()) {
-			model.addRow(new Object[] { employee.getId(), employee.getName(), employee.getRole() });
+			model.addRow(new Object[] { employee.getId(), employee.getName(), 
+				employee.getRole(), employee.getPassword() });
 		}
 
 		// Sets the table header and row font, as well as adjusts the row height.
@@ -72,53 +72,76 @@ public class EmployeePanel extends JPanel {
 
 		scrollPane.setViewportView(table);
 
-		JLabel nameLabel = new JLabel("Employee Name:");
-		nameLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-		nameLabel.setBounds(620, 222, 125, 26);
+		JLabel nameLabel = new JLabel("Name:");
+		nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		nameLabel.setBounds(535, 147, 121, 30);
 		add(nameLabel);
 
 		JLabel roleLabel = new JLabel("Role:");
-		roleLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-		roleLabel.setBounds(620, 265, 116, 16);
+		roleLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		roleLabel.setBounds(535, 190, 70, 30);
 		add(roleLabel);
 
 		employeeName = new JTextField();
-		employeeName.setBounds(746, 223, 169, 26);
+		employeeName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		employeeName.setBounds(631, 149, 262, 27);
 		add(employeeName);
-		employeeName.setColumns(10);
 
 		employeeRole = new JTextField();
-		employeeRole.setBounds(748, 261, 167, 26);
+		employeeRole.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		employeeRole.setBounds(631, 192, 262, 27);
 		add(employeeRole);
-		employeeRole.setColumns(10);
 
 		JButton AddEmplBtn = new JButton("Add Employee");
-		AddEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-		AddEmplBtn.setBounds(297, 150, 111, 29);
-
 		AddEmplBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//add employee
+				addEmployee();
 			}
 		});
-		AddEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-		AddEmplBtn.setBounds(620, 300, 142, 26);
+		AddEmplBtn.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		AddEmplBtn.setBounds(535, 334, 200, 44);
 		add(AddEmplBtn);
 
 		JButton RemoveEmplBtn = new JButton("Remove Employee");
-
-		RemoveEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-		RemoveEmplBtn.setBounds(403, 150, 130, 29);
-
 		RemoveEmplBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//remove employee
+				removeEmployee();
 			}
 		});
-		RemoveEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-		RemoveEmplBtn.setBounds(761, 299, 154, 29);
+		RemoveEmplBtn.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		RemoveEmplBtn.setBounds(745, 334, 189, 44);
 
 		add(RemoveEmplBtn);
+		
+		JLabel lblId = new JLabel("ID:");
+		lblId.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblId.setBounds(535, 106, 70, 30);
+		add(lblId);
+		
+		employeeID = new JTextField();
+		employeeID.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		employeeID.setBounds(631, 107, 262, 27);
+		add(employeeID);
+		
+		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		textField.setBounds(631, 243, 262, 27);
+		add(textField);
+		
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblPassword.setBounds(535, 241, 82, 30);
+		add(lblPassword);
 
+	}
+
+	protected void addEmployee() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void removeEmployee() {
+		// TODO Auto-generated method stub
+		
 	}
 }
