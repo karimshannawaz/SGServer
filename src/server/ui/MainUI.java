@@ -42,6 +42,7 @@ public class MainUI extends JFrame {
 	 */
 	public MainUI() {
 		
+		/*
 		for(int i = 0; i < 10; i++) {
 			User u = new User();
 			int rand = Constants.generateNumber(1000, 30279193);
@@ -49,6 +50,7 @@ public class MainUI extends JFrame {
 			UserLoader.saveUser(u, true);
 		}
 		System.out.println("Created 10 random employees");
+		*/
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
