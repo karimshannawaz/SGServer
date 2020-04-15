@@ -60,7 +60,7 @@ public class InventoryPanel extends JPanel {
 
 		model = (DefaultTableModel) table.getModel();
 
-		// add inventory list to row
+		// add inventory list to rows
 		for (Map.Entry<?,?> entry : Inventory.instance.entrySet()) {
 			model.addRow(new Object[] { entry.getKey(), entry.getValue() });
 		}
