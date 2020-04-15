@@ -27,15 +27,8 @@ public class InventoryPanel extends JPanel {
 
 	private static final long serialVersionUID = -7728688801223513408L;
 
-
-
-
 	private JTextField ItextField;
 	private JTextField QtextField;
-
-
-
-
 
 	private JTextField ing;
 	private JTextField qty;
