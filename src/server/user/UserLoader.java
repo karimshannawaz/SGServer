@@ -26,6 +26,7 @@ public class UserLoader {
 	private static final String BACKUP_PATH = "data/users/backups/";
 
 	public synchronized static final boolean containsUser(String id) {
+		System.out.println("Id is "+id);
 		return new File(PATH + id + ".sgr").exists();
 	}
 

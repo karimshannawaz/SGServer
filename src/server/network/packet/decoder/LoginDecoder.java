@@ -3,9 +3,7 @@ package server.network.packet.decoder;
 import server.Global;
 import server.network.Session;
 import server.network.packet.InputStream;
-import server.network.packet.encoder.ClientLaunchEncoder;
 import server.network.packet.encoder.LoginEncoder;
-import server.user.User;
 import server.user.UserLoader;
 
 public class LoginDecoder extends Decoder {
