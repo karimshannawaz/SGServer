@@ -58,20 +58,19 @@ public class LoginDecoder extends Decoder {
 			// rewards account or not.
 			case 6:
 				String email = stream.readString();
-				String birthdate = stream.readString();
+				String birthday = stream.readString();
 				// Checks to see if the email the customer is trying to use already exists
 				// and if it does, then they are notified that they won't be able to use it.
 				if(UserLoader.containsUser(email)) {
-					System.out.println("Email exists.");
 					session.getLoginPackets().sendClientPacket("email_exists");
 					return;
 				}
 				// User can make the email. This makes a new file for the user
 				// Lets them know that their request was successful and that
 				// the new account was created.
-				System.out.println("Customer rewards email created successfully "+email+" with birthdate "+birthdate);
-				session.getLoginPackets().sendClientPacket("email_created", email, birthdate);
-				
+				System.out.println("Customer rewards email created successfully "+email+" with birthday: "+birthday);
+				session.getLoginPackets().sendClientPacket("email_created", email, birthday);
+				session.loginToRewards(email, birthday);
 				break;
 		}
 	}

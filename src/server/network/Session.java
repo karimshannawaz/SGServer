@@ -15,6 +15,7 @@ import server.network.packet.encoder.Encoder;
 import server.network.packet.encoder.LoginEncoder;
 import server.network.packet.encoder.PacketEncoder;
 import server.user.User;
+import server.user.UserLoader;
 
 public class Session {
 
@@ -108,6 +109,29 @@ public class Session {
 			encoder = null;
 			break;
 		}
+	}
+	
+	public void loginToRewards(String email, String birthday) {
+		User user;
+		if (!UserLoader.containsUser(email)) {
+			user = new User("customer", email, birthday);
+		} else {
+			user = UserLoader.loadPlayer(email);
+			if (user == null) {
+				getLoginPackets().sendClientPacket("nulled_account");
+				return;
+			}
+			if (!UserLoader.createBackup(email)) {
+				getLoginPackets().sendClientPacket("nulled_account");
+				return;
+			}
+		}
+		
+		user.initialize(this);
+		setDecoder(2, user);
+		setEncoder(2, user);
+		
+		UserLoader.saveUser(user);
 	}
 
 	public String getIP() {

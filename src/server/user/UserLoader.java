@@ -79,7 +79,7 @@ public class UserLoader {
 		}
 	}
 
-	public synchronized static void savePlayer(User player, boolean offline) {
+	public synchronized static void saveUser(User player) {
 		try {
 			storeSerializableClass(player, new File(PATH + player.getEmail() + ".sgr"));
 		} catch (Exception e) {

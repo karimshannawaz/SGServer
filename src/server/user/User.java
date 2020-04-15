@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 import server.network.Session;
 
+/**
+ * 
+ * @author Karimshan
+ *
+ */
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -2479666052959496651L;
@@ -29,9 +34,21 @@ public class User implements Serializable {
 	// time that the person logs in/out
 	private transient Session session;
 
-	public User(String type, Session session) {
+	public User(String type, String email, String birthday) {
 		this.setType(type);
-		this.setSession(session);
+		this.setEmail(email);
+		this.setBirthday(birthday);
+		this.setVisits(0);
+		this.setFreeSide(true);
+	}
+	
+	public void initialize(Session s) {
+		this.setSession(s);
+		this.checkBirthday();
+	}
+
+	private void checkBirthday() {
+		
 	}
 
 	public String getType() {
