@@ -111,10 +111,14 @@ public class Session {
 		}
 	}
 	
-	public void loginToRewards(String email, String birthday) {
+	public void loginToRewards(String email) {
+		loginToRewards(email, null, null);
+	}
+	
+	public void loginToRewards(String email, String birthday, String name) {
 		User user;
 		if (!UserLoader.containsUser(email)) {
-			user = new User("customer", email, birthday);
+			user = new User("customer", email, birthday, name);
 		} else {
 			user = UserLoader.loadPlayer(email);
 			if (user == null) {
@@ -130,6 +134,8 @@ public class Session {
 		user.initialize(this);
 		setDecoder(2, user);
 		setEncoder(2, user);
+		
+		user.getPacketEncoder().sendDetailsUpdate();
 		
 		UserLoader.saveUser(user);
 	}
