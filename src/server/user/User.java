@@ -32,7 +32,7 @@ public class User implements Serializable {
 	private boolean freeDessert;
 	
 	// For employees only
-	private int id;
+	private String id;
 	private String password;
 	
 	private String type;
@@ -96,11 +96,11 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
