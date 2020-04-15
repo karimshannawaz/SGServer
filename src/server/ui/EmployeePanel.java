@@ -1,4 +1,4 @@
-package server.ui;
+package server.ui;//
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -30,6 +30,7 @@ public class EmployeePanel extends JPanel {
 	private JTextField employeeName;
 	private JTextField employeeRole;
 
+	//
 	/**
 	 * Create the panel.
 	 */
