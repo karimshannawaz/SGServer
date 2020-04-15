@@ -1,8 +1,5 @@
 package server;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Handles creating reports which include total revenue for that day, the most
  * popular menu item, hours worked by each employee, and total tips earned in
@@ -13,9 +10,19 @@ import java.util.Map;
  */
 public class Reports {
 
-	public static double totalTips = 0;
-	public static double totalRevenue = 0;
-	public static String mostPopularMenuItem = null;
-	public static Map<Integer, Integer> hoursWorked = new HashMap<Integer, Integer>();
+	public static double totalTips;
+	public static double totalRevenue;
+	
+	public static int newRewardMembers;
+	public static int employeesClockedIn;
+	public static int activeTables;
+	
+	public static String getMostPopularMenuItem() {
+		return "Nothing yet!";
+	}
+	
+	public static int getTotalHoursWorked() {
+		return 0;
+	}
 
 }
