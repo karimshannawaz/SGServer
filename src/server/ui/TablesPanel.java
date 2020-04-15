@@ -21,6 +21,9 @@ import javax.swing.table.DefaultTableModel;
 
 import server.Reports;
 import server.menu.Inventory;
+import server.network.Session;
+import server.user.User;
+import server.user.UserLoader;
 import server.utils.JFrameUtils;
 
 /**
@@ -58,6 +61,9 @@ public class TablesPanel extends JPanel {
 
 		model = (DefaultTableModel) table.getModel();
 
+		//for() {
+		//	model.addRow(new Object[] {  });
+		//}
 				// add inventory list to rows
 			//	for (Map.Entry<?,?> entry : Inventory.instance.entrySet()) {
 			//		model.addRow(new Object[] { entry.getKey(), entry.getValue() });
