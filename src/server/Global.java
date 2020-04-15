@@ -7,6 +7,8 @@ package server;
  *
  */
 public class Global {
+	
+	
 
 	// Holds the list of tables in the restaurant (kiosk ids corresponding
 	// to the array's index). Each time a customer connects, they are assigned
@@ -19,4 +21,6 @@ public class Global {
 			tableIds[i] = 0;
 		}
 	}
+	
+	
 }

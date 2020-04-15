@@ -120,7 +120,7 @@ public class Session {
 		if (!UserLoader.containsUser(email)) {
 			user = new User("customer", email, birthday, name);
 		} else {
-			user = UserLoader.loadPlayer(email);
+			user = UserLoader.loadUser(email);
 			if (user == null) {
 				getLoginPackets().sendClientPacket("nulled_account");
 				return;
@@ -135,9 +135,37 @@ public class Session {
 		setDecoder(2, user);
 		setEncoder(2, user);
 		
-		user.getPacketEncoder().sendDetailsUpdate();
+		user.getPacketEncoder().sendDetailsUpdate(false);
 		
 		UserLoader.saveUser(user);
+	}
+	
+	public void employeeLogin(String id, String password) {
+		User employee;
+		employee = UserLoader.loadUser(id, true);
+		
+		if (employee == null) {
+			getLoginPackets().sendClientPacket("nulled_account");
+			return;
+		}
+		
+		if (!UserLoader.createBackup(id, true)) {
+			getLoginPackets().sendClientPacket("nulled_account");
+			return;
+		}
+		
+		if(!password.equals(employee.getPassword())) {
+			getLoginPackets().sendClientPacket("incorrect_password");
+			return;
+		}
+		
+		employee.initialize(this);
+		setDecoder(2, employee);
+		setEncoder(2, employee);
+		
+		employee.getPacketEncoder().sendDetailsUpdate(true);
+		
+		UserLoader.saveUser(employee, true);
 	}
 
 	public String getIP() {

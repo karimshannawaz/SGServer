@@ -1,15 +1,19 @@
 package server.ui;//
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import server.user.User;
+import server.user.UserLoader;
 
 //Floreta Krasniqi
 /*
@@ -25,9 +29,11 @@ public class EmployeePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -4184136749870861339L;
 
-	private JTable table;
 	private JTextField employeeName;
 	private JTextField employeeRole;
+
+	private JTable table;
+	private DefaultTableModel model;
 
 	//
 	/**
@@ -37,36 +43,57 @@ public class EmployeePanel extends JPanel {
 		super();
 		setLayout(null);
 		setBounds(233, 0, 962, 710);
-		
+
+		// Create our scroll pane
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(27, 25, 534, 670);
+		scrollPane.setBounds(10, 24, 494, 659);
 		add(scrollPane);
-		
+
+		//create table
 		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new String[] {
+				"ID", "Name", "Role"
+			}, 0
+		));
+
+		model = (DefaultTableModel) table.getModel();
+
+		// add inventory list to rows
+		for(User employee : UserLoader.getAllEmployees()) {
+			model.addRow(new Object[] { employee.getId(), employee.getName(), employee.getRole() });
+		}
+
+		// Sets the table header and row font, as well as adjusts the row height.
+		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 20));
+		table.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		table.setRowHeight(30);
+
+
 		scrollPane.setViewportView(table);
-		
+
 		JLabel nameLabel = new JLabel("Employee Name:");
 		nameLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		nameLabel.setBounds(620, 222, 125, 26);
 		add(nameLabel);
-		
+
 		JLabel roleLabel = new JLabel("Role:");
 		roleLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		roleLabel.setBounds(620, 265, 116, 16);
 		add(roleLabel);
-		
+
 		employeeName = new JTextField();
 		employeeName.setBounds(746, 223, 169, 26);
 		add(employeeName);
 		employeeName.setColumns(10);
-		
+
 		employeeRole = new JTextField();
 		employeeRole.setBounds(748, 261, 167, 26);
 		add(employeeRole);
 		employeeRole.setColumns(10);
-		
+
 		JButton AddEmplBtn = new JButton("Add Employee");
-AddEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+		AddEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		AddEmplBtn.setBounds(297, 150, 111, 29);
 
 		AddEmplBtn.addActionListener(new ActionListener() {
@@ -77,7 +104,7 @@ AddEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		AddEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		AddEmplBtn.setBounds(620, 300, 142, 26);
 		add(AddEmplBtn);
-		
+
 		JButton RemoveEmplBtn = new JButton("Remove Employee");
 
 		RemoveEmplBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
