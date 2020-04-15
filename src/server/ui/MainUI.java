@@ -24,6 +24,7 @@ public class MainUI extends JFrame {
 
 	public MenuPanel menuPanel;
 	public InventoryPanel inventoryPanel;
+	public TimelogPanel timelogPanel;
 
 	public static long onlineTime;
 
@@ -64,6 +65,11 @@ public class MainUI extends JFrame {
 		this.inventoryPanel = new InventoryPanel();
 		inventoryPanel.setVisible(false);
 		add(inventoryPanel);
+		
+		// Timelog Panel
+		this.timelogPanel = new TimelogPanel();
+		timelogPanel.setVisible(false);
+		add(timelogPanel);
 
 		String[] panelNames = { "Clock In/Out", "Order", "Pay", "Compensate", "Tables", "Inventory", "Menu", "Time Log",
 				"Discounts", "Employees" };
@@ -92,6 +98,7 @@ public class MainUI extends JFrame {
 						}
 						menuPanel.setVisible(false);
 						inventoryPanel.setVisible(false);
+						timelogPanel.setVisible(false);
 						switch (btn.getText()) {
 						case "Clock In/Out":
 							break;
@@ -110,6 +117,7 @@ public class MainUI extends JFrame {
 							menuPanel.setVisible(true);
 							break;
 						case "Time Log":
+							timelogPanel.setVisible(true);
 							break;
 						case "Discounts":
 							break;
@@ -119,6 +127,7 @@ public class MainUI extends JFrame {
 					} else {
 						inventoryPanel.setVisible(false);
 						menuPanel.setVisible(false);
+						timelogPanel.setVisible(false);
 						btn.setSelected(false);
 					}
 				}
