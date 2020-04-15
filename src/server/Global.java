@@ -18,7 +18,7 @@ public class Global {
 	static {
 		tableIds = new byte[20];
 		for (int i = 0; i < tableIds.length; i++) {
-			tableIds[i] = 0;
+			tableIds[i] = -1;
 		}
 	}
 	
