@@ -27,15 +27,8 @@ public class InventoryPanel extends JPanel {
 
 	private static final long serialVersionUID = -7728688801223513408L;
 
-
-
-
 	private JTextField ItextField;
 	private JTextField QtextField;
-
-
-
-
 
 	private JTextField ing;
 	private JTextField qty;
@@ -52,7 +45,7 @@ public class InventoryPanel extends JPanel {
 		setBounds(233, 0, 962, 710);
 		setLayout(null);
 
-
+		// Create our scroll pane
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 24, 494, 659);
 		add(scrollPane);

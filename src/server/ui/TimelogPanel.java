@@ -19,7 +19,9 @@ public class TimelogPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public TimelogPanel() {
+		super();
 		setLayout(null);
+		setBounds(233, 0, 962, 710);
 		
 		JLabel lblNewLabel = new JLabel("Employee Name");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
