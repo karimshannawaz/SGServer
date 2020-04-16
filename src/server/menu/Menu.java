@@ -17,13 +17,40 @@ public class Menu {
 	 */
 	public static void loadMenu() {
 		instance.clear();
-		int index = 0;
 		try {
 			BufferedReader r = new BufferedReader(new FileReader(new File("./data/menu.txt")));
 			String line;
+			int index = 0;
+			List<String> attr = new ArrayList<String>();
 			while ((line = r.readLine()) != null) {
 				if (line.startsWith("//") || line.equals(""))
 					continue;
+				if(index == 8) {
+					String name = attr.get(0);
+					double price = Double.parseDouble(attr.get(1));
+					String desc = attr.get(2);
+					int calories = Integer.parseInt(attr.get(3));
+					String allergens = attr.get(4);
+					String type = attr.get(5);
+					String menuType = attr.get(6);
+					String ingredients = attr.get(7);
+					MItem item = new MItem(name, price, desc, calories, allergens, type, menuType);
+					String[] iTok = ingredients.split(",");
+					for(int i = 0; i < iTok.length; i++) {
+						System.out.println(iTok[i]);
+						String[] iTok2 = iTok[i].split(":");
+						String ingName = iTok2[0];
+						int qty = Integer.parseInt(iTok2[1]);
+						boolean editable = iTok2[2].equals("t");
+						String sub = iTok2[3];
+						item.addIng(ingName, qty, editable, sub);
+					}
+					instance.add(item);
+					index = 0;
+					attr.clear();
+				}
+				attr.add(line);
+				/*
 				String[] tokens = line.split(" ~ ");
 				String name = tokens[0];
 				double price = Double.parseDouble(tokens[1]);
@@ -33,9 +60,9 @@ public class Menu {
 				String type = tokens[5];
 				String menuType = tokens[6];
 				String ingredients = tokens[7];
-				MItem item = new MItem(name, price, desc, calories, allergens, type, menuType, ingredients);
 				instance.add(item);
 				System.out.println(index + " --> " + item.toString());
+				*/
 				index++;
 			}
 			r.close();
@@ -44,32 +71,6 @@ public class Menu {
 		}
 	}
 
-	/**
-	 * This is where the manager can add a new item to the menu It will update at
-	 * the end of the day to the file, but throughout the remainder of the program's
-	 * runtime, the changes will be visible in the menu.
-	 */
-
-	public static void add(String name, double price, String description, int calories, String allergens,
-			String type, String ingredients) {
-		MItem item = new MItem();
-		item.name = name;
-		item.price = price;
-		item.description = description;
-		item.calories = calories;
-		item.allergens = allergens;
-		item.type = type;
-		item.ingredients = ingredients;
-		int newIndex = instance.size();
-		for (MItem currentItem : instance) {
-			if (currentItem.name.equals(name)) {
-				System.out.println(name + " already exists on the menu.");
-				return;
-			}
-		}
-		instance.add(item);
-		System.out.println("Added new menu item: " + name + " at index: " + newIndex);
-	}
 
 	/**
 	 * This is where the manager can add a new item to the menu It will update at
@@ -86,7 +87,7 @@ public class Menu {
 		}
 		instance.add(newIndex, item);
 		System.out.println("Added new menu item: " + item.name + " at index: " + newIndex + " --> "
-				+ Menu.instance.get(newIndex).toString());
+			+ Menu.instance.get(newIndex).toString());
 	}
 
 	/**

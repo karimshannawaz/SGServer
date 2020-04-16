@@ -28,7 +28,7 @@ public class LoginDecoder extends Decoder {
 			case 3:
 				if (session.getEncoder() instanceof LoginEncoder) {
 					for (int i = 0; i < Global.tableIds.length; i++) {
-						if (Global.tableIds[i] == 0) {
+						if (Global.tableIds[i] == -1) {
 							Global.tableIds[i] = 1;
 							session.setTableID(i);
 							session.setCustomer(true);
