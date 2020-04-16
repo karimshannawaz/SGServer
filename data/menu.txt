@@ -35,7 +35,7 @@ Smaller portion of our specialty in-house seven wonders burger!
 wheat, gluten
 default
 entree
-beef_patty:1:t:vegan_patty,burger_buns:1:t:veggie_buns,cheese:1:t:vegan_cheese,onion:3:t:n
+beef_patty:1:t:vegan_patty,burger_buns:1:t:veggie_buns,cheese:1:t:vegan_cheese,onion:3:t:n,lettuce:1:t:tomato
 
 
 Tossed Salad
