@@ -17,6 +17,7 @@ import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 import server.Global;
 import server.core.CoresManager;
 import server.network.packet.InputStream;
+import server.network.packet.decoder.LoginDecoder;
 import server.network.packet.decoder.PacketDecoder;
 import server.utils.Constants;
 
@@ -82,10 +83,12 @@ public final class ServerChannel extends SimpleChannelHandler {
 				Global.tableIds[session.getTableID()] = 0;
 			}
 			if (session.getDecoder() instanceof PacketDecoder) {
-				// session.getWorldPackets().getPlayer().finish();
+				session.getGlobalPackets().getUser().close();
+			}
+			if(session.getDecoder() instanceof LoginDecoder) {
+				session.getLoginDecoder().getUser().close();
 			}
 		}
-		System.out.println("Closed channel - CHANNEL DISCONNECTED");
 	}
 
 	@Override

@@ -71,5 +71,9 @@ public final class PacketDecoder extends Decoder {
 			stream.setOffset(startOffset + length);
 		}
 	}
-
+	
+	public User getUser() {
+		return user;
+	}
+	
 }
