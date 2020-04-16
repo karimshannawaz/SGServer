@@ -55,7 +55,7 @@ Classic french fries (salted served with ketchup).
 none
 default
 side
-fries:1:f:n,ketchup:1:t:n
+fries:1:f:n,ketchup:1:t:ranch
 
 
 Classic Fried Wings
