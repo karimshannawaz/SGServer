@@ -1,6 +1,7 @@
 package server.network.packet.encoder;
 
 import server.menu.Menu;
+import server.menu.Order;
 import server.network.Session;
 import server.network.packet.OutputStream;
 import server.user.User;
@@ -57,6 +58,24 @@ public class PacketEncoder extends Encoder {
 			stream.writeString(user.getName());
 			stream.writeString(user.getRole());
 			stream.writeString(user.getPassword());
+		}
+		stream.endPacketVarShort();
+		session.write(stream);
+	}
+
+	/**
+	 * Sends customer order to any kitchen staff that's online.
+	 * @param tableID
+	 * @param order
+	 */
+	public void sendOrder(int tableID, Order order) {
+		OutputStream stream = new OutputStream();
+		stream.writePacketVarShort(6);
+		stream.writeByte(tableID);
+		stream.writeString(""+order.subtotal);
+		stream.writeByte(order.items.size());
+		for(int i = 0; i < order.items.size(); i++) {
+			stream.writeString(order.items.get(i).asOrder());
 		}
 		stream.endPacketVarShort();
 		session.write(stream);
