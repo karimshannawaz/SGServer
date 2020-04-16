@@ -27,9 +27,6 @@ public class InventoryPanel extends JPanel {
 
 	private static final long serialVersionUID = -7728688801223513408L;
 
-	private JTextField ItextField;
-	private JTextField QtextField;
-
 	private JTextField ing;
 	private JTextField qty;
 
@@ -61,7 +58,7 @@ public class InventoryPanel extends JPanel {
 		model = (DefaultTableModel) table.getModel();
 
 		// add inventory list to rowss
-		for (Map.Entry<?,?> entry : Inventory.instance.entrySet()) {
+		for (Map.Entry<String, Integer> entry : Inventory.instance.entrySet()) {
 			model.addRow(new Object[] { entry.getKey(), entry.getValue() });
 		}
 
@@ -98,8 +95,8 @@ public class InventoryPanel extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				System.out.println("Current index is: "+table.getSelectedRow());
-				ing.setText(""+model.getValueAt(table.getSelectedRow(), 0));
-				qty.setText(""+model.getValueAt(table.getSelectedRow(), 1));
+				ing.setText(""+((String) model.getValueAt(table.getSelectedRow(), 0)));
+				qty.setText(""+((Integer) model.getValueAt(table.getSelectedRow(), 1)));
 			}
 
 
@@ -130,18 +127,6 @@ public class InventoryPanel extends JPanel {
 		addBtn.setBounds(745, 334, 189, 44);
 		add(addBtn);
 		
-		ItextField = new JTextField();
-		ItextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		ItextField.setBounds(631, 219, 262, 27);
-		add(ItextField);
-		
-		QtextField = new JTextField();
-		QtextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		QtextField.setBounds(631, 260, 262, 27);
-		add(QtextField);
-
-
-
 
 		JButton btnNewButton_1 = new JButton("Add Ingredient");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -157,19 +142,17 @@ public class InventoryPanel extends JPanel {
 		ing.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		ing.setBounds(631, 219, 262, 27);
 		add(ing);
-		ing.setColumns(10);
-
+		
 		qty = new JTextField();
 		qty.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		qty.setColumns(10);
 		qty.setBounds(631, 260, 262, 27);
 		add(qty);
 
 		// Sets current selected index to 0
 		// and populates ingredient and quantity.
 		table.setRowSelectionInterval(0, 0);
-		ing.setText(""+model.getValueAt(0, 0));
-		qty.setText(""+model.getValueAt(0, 1));
+		ing.setText(""+((String) model.getValueAt(table.getSelectedRow(), 0)));
+		qty.setText(""+((Integer) model.getValueAt(table.getSelectedRow(), 1)));
 
 	}
 
