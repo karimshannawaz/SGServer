@@ -5,6 +5,7 @@ import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFuture;
 
+import server.Global;
 import server.network.packet.OutputStream;
 import server.network.packet.decoder.ClientLaunchDecoder;
 import server.network.packet.decoder.Decoder;
@@ -57,6 +58,14 @@ public class Session {
 	
 	public LoginEncoder getLoginPackets() {
 		return (LoginEncoder) encoder;
+	}
+	
+	public PacketDecoder getGlobalPackets() {
+		return (PacketDecoder) decoder;
+	}
+	
+	public LoginDecoder getLoginDecoder() {
+		return (LoginDecoder) decoder;
 	}
 
 	public final Decoder getDecoder() {
@@ -131,11 +140,30 @@ public class Session {
 			}
 		}
 		
+		for(User u : Global.getUsers()) {
+			if(u == null)
+				continue;
+			if(u.isCustomer() && u.getEmail().equals("table"+this.getTableID())) {
+				u.setName(user.getName());
+				u.setEmail(user.getEmail());
+				u.setBirthday(user.getBirthday());
+				u.setIndex(user.getIndex());
+				u.setFreeSide(user.hasFreeSide());
+				u.setFreeDessert(user.hasFreeDessert());
+				u.setBirthdayEntree(user.hasBirthdayEntree());
+				user = u;
+				break;
+			}
+		}
+		
 		user.initialize(this);
 		setDecoder(2, user);
 		setEncoder(2, user);
 		
 		user.getPacketEncoder().sendDetailsUpdate(false);
+		
+		Global.addUser(user);
+		System.out.println("Customer "+user.getName()+" logged in with rewards. Email: "+user.getEmail());
 		
 		UserLoader.saveUser(user);
 	}
@@ -164,6 +192,10 @@ public class Session {
 		setEncoder(2, employee);
 		
 		employee.getPacketEncoder().sendDetailsUpdate(true);
+		
+		Global.addUser(employee);
+		System.out.println("Employee account logged in but has not clocked in yet: "+
+			employee.getId()+" with password: "+employee.getPassword());
 		
 		UserLoader.saveUser(employee, true);
 	}

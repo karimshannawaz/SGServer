@@ -96,6 +96,7 @@ public class TablesPanel extends JPanel implements TableModelListener{
 			}
 		}
 		*/
+		
 		List<Object> refill = new ArrayList<Object>(20);
 		
 		table.getModel().addTableModelListener(new TableModelListener(){
