@@ -9,11 +9,15 @@ class InventoryTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		Inventory tester = new Inventory();
+		tester.loadInventory();
 	}
 
 	@Test
 	void testLoadInventory() {
-		fail("Not yet implemented"); // TODO
+		Inventory tester = new Inventory();
+		tester.loadInventory();
+		assertEquals(28,tester.instance.size());
 	}
 
 }
