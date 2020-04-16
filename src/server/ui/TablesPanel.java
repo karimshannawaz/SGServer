@@ -62,12 +62,20 @@ public class TablesPanel extends JPanel {
 
 		model = (DefaultTableModel) table.getModel();
 
-		//add tables that have customers
+		//add tables numbers
+		for(int i = 0; i < Global.tableIds.length; i++)
+		{
+			model.addRow(new Object [] {i, " ", " ", " "});
+		}
+		
+		//tables that have customers
+		/*
 		for(int i : Global.tableIds) {
 			if(i != -1)
-				model.addRow(new Object[] { i });
+				
 		}
-	
+		*/
+		
 		// Sets the table header and row font, as well as adjusts the row height.
 		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 30));
 		table.setFont(new Font("Tahoma", Font.PLAIN, 30));
