@@ -1,7 +1,7 @@
 package server.menu;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Holds information for what table currently has an order in
@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class OrderQueue {
 
-	public static Map<Integer, Order> orders = new HashMap<Integer, Order>();
+	public static List<Order> orders = new ArrayList<Order>();
 	
 	
 }
