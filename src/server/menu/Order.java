@@ -3,7 +3,9 @@ package server.menu;
 import java.util.ArrayList;
 import java.util.List;
 
+import server.Global;
 import server.network.packet.InputStream;
+import server.user.User;
 
 /**
  * Holds information for a customer's order.
@@ -13,6 +15,8 @@ import server.network.packet.InputStream;
  *
  */
 public class Order {
+	
+	private int tableID;
 	
 	public double subtotal;
 	
@@ -49,7 +53,24 @@ public class Order {
 			order.addItem(mItemName, price, qty, specReq, ing);
 		}
 		order.subtotal = subtotal;
-		OrderQueue.orders.put(tableID, order);
-		System.out.println("Took order from table: "+tableID+" with "+order.items.get(0).name);
+		order.setTableID(tableID);
+
+		OrderQueue.orders.add(order);
+		System.out.println("Took order from table: "+tableID+" with subtotal: "+subtotal+". Sending to kitchen staff...");
+		for(User u : Global.getUsers()) {
+			if(u != null) {
+				if(u.getRole().toLowerCase().contains("kitchen")) {
+					u.getPacketEncoder().sendOrder(tableID, order);
+				}
+			}
+		}
+	}
+
+	public int getTableID() {
+		return tableID;
+	}
+
+	public void setTableID(int tableID) {
+		this.tableID = tableID;
 	}
 }

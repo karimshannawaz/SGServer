@@ -6,6 +6,13 @@ import server.network.Session;
 import server.network.packet.InputStream;
 import server.user.User;
 
+/**
+ * Decodes packets received from the client.
+ * SERVER SIDED
+ * 
+ * @author Karimshan
+ *
+ */
 public final class PacketDecoder extends Decoder {
 
 	private User user;
@@ -58,6 +65,8 @@ public final class PacketDecoder extends Decoder {
 			}
 
 			int startOffset = stream.getOffset();
+			
+			stream.skip(2);
 
 			switch (packetId) {
 
