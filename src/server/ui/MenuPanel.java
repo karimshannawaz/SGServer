@@ -342,7 +342,6 @@ public class MenuPanel extends JPanel {
 		}
 		mItemBtns = new JToggleButton[Menu.instance.size()];
 
-		System.out.println("Index is: "+mItemBtns.length);
 		for (int index = 0; index < mItemBtns.length; index++) {
 			mItemBtns[index] = new JToggleButton(Menu.instance.get(index).name);
 			mItemBtns[index].setBounds(0, (35 * index) + 58, 208, 32);

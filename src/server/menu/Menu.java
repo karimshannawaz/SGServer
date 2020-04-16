@@ -37,7 +37,6 @@ public class Menu {
 					MItem item = new MItem(name, price, desc, calories, allergens, type, menuType);
 					String[] iTok = ingredients.split(",");
 					for(int i = 0; i < iTok.length; i++) {
-						System.out.println(iTok[i]);
 						String[] iTok2 = iTok[i].split(":");
 						String ingName = iTok2[0];
 						int qty = Integer.parseInt(iTok2[1]);
