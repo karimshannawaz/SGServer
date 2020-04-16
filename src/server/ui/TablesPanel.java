@@ -34,10 +34,10 @@ import server.utils.JFrameUtils;
 
 /**
  * 
- * @author Asha
+ * @author Asha and Desere
  *
  */
-public class TablesPanel extends JPanel {
+public class TablesPanel extends JPanel implements TableModelListener{
 
 	private static final long serialVersionUID = -7728688801223383898L;
 
@@ -61,26 +61,7 @@ public class TablesPanel extends JPanel {
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{new Integer(1), null, null, null},
-				{new Integer(2), null, null, null},
-				{new Integer(3), null, null, null},
-				{new Integer(4), null, null, null},
-				{new Integer(5), null, null, null},
-				{new Integer(6), null, null, null},
-				{new Integer(7), null, null, null},
-				{new Integer(8), null, null, null},
-				{new Integer(9), null, null, null},
-				{new Integer(10), null, null, null},
-				{new Integer(11), null, null, null},
-				{new Integer(12), null, null, null},
-				{new Integer(13), null, null, null},
-				{new Integer(14), null, null, null},
-				{new Integer(15), null, null, null},
-				{new Integer(16), null, null, null},
-				{new Integer(17), null, null, null},
-				{new Integer(18), null, null, null},
-				{new Integer(19), null, null, null},
-				{new Integer(20), null, null, null},
+				
 			},
 			new String[] {
 				"Table Number", "Refill", "Help", "Order"
@@ -104,7 +85,17 @@ public class TablesPanel extends JPanel {
 		table.setBounds(0, 0, 1, 1);
 		table.setRowHeight(30);
 		
-		
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		//need to place this to be updated everytime someone logs into the customer side
+		/*
+		for(int i=0; i<Global.tableIds.length; i++)
+		{
+			if(Global.tableIds[i]!=0)
+			{
+				model.addRow(new Object[] {new Integer(i+1),new Boolean(false),new Boolean(false),null});
+			}
+		}
+		*/
 		List<Object> refill = new ArrayList<Object>(20);
 		
 		table.getModel().addTableModelListener(new TableModelListener(){
@@ -199,6 +190,12 @@ public class TablesPanel extends JPanel {
 			}
 
 		});
+		
+	}
+
+	@Override
+	public void tableChanged(TableModelEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 
