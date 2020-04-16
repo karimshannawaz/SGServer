@@ -86,6 +86,7 @@ public class TablesPanel extends JPanel implements TableModelListener{
 		table.setRowHeight(30);
 		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		
 		//need to place this to be updated everytime someone logs into the customer side
 		/*
 		for(int i=0; i<Global.tableIds.length; i++)
