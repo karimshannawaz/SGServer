@@ -58,11 +58,8 @@ public class EmployeePanel extends JPanel {
 
 		model = (DefaultTableModel) table.getModel();
 
-<<<<<<< Upstream, based on origin/master
-		// add employee list to rows
-=======
+
 		// add Employee list to rows
->>>>>>> 34fd6ce tablesPanel
 		for(User employee : UserLoader.getAllEmployees()) {
 			model.addRow(new Object[] { employee.getId(), employee.getName(), 
 				employee.getRole(), employee.getPassword() });
