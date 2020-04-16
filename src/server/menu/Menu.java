@@ -35,7 +35,8 @@ public class Menu {
 					String type = attr.get(5);
 					String menuType = attr.get(6);
 					String ingredients = attr.get(7);
-					MItem item = new MItem(name, price, desc, calories, allergens, type, menuType);
+					MItem item = new MItem(name, price, desc, calories, allergens, type, menuType, ingredients);
+					/*
 					String[] iTok = ingredients.split(",");
 					for(int i = 0; i < iTok.length; i++) {
 						String[] iTok2 = iTok[i].split(":");
@@ -45,6 +46,7 @@ public class Menu {
 						String sub = iTok2[3];
 						item.addIng(ingName, qty, editable, sub);
 					}
+					*/
 					instance.add(item);
 					attr.clear();
 					index = 0;
@@ -114,6 +116,18 @@ public class Menu {
 			instance.remove(index);
 			System.out.println("Removed menu item: " + oldName + " at index: " + index);
 		}
+	}
+	
+	/**
+	 * Returns the menu item with the specified name
+	 * @param itemName
+	 * @return
+	 */
+	public static MItem getItem(String itemName) {
+		for(MItem i : instance)
+			if(i.name.equals(itemName))
+				return i;
+		return null;
 	}
 
 }

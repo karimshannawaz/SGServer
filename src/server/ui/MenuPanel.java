@@ -213,7 +213,7 @@ public class MenuPanel extends JPanel {
 		allergens.setText(currInd ? item.allergens : "none");
 		type.setText(currInd ? item.type : "default");
 		menuType.setText(currInd ? item.menuType : "entree");
-		ingredients.setText(currInd ? item.getIngsToString() : "beef_patty:1:t:vegan_patty,lettuce:3:t:n,tomato:1:t:n");
+		ingredients.setText(currInd ? item.ingredients : "beef_patty:1:t:vegan_patty,lettuce:3:t:n,tomato:1:t:n");
 	}
 
 	protected void updateItem(int index) {
@@ -249,6 +249,8 @@ public class MenuPanel extends JPanel {
 		Menu.instance.get(index).menuType = menuType.getText();
 		Menu.instance.get(index).allergens = allergens.getText();
 		Menu.instance.get(index).calories = Integer.parseInt(calories.getText());
+		Menu.instance.get(index).ingredients = ingredients.getText();
+		/*
 		String ingred = ingredients.getText();
 		Menu.instance.get(index).ingredients.clear();
 		String[] iTok = ingred.split(",");
@@ -260,6 +262,7 @@ public class MenuPanel extends JPanel {
 			String sub = iTok[3];
 			Menu.instance.get(index).addIng(ingName, qty, editable, sub);
 		}
+		*/
 		
 		refreshMenuItemButtons();
 		mItemBtns[index].setSelected(true);
@@ -306,6 +309,9 @@ public class MenuPanel extends JPanel {
 		newMI.menuType = menuType.getText();
 		newMI.allergens = allergens.getText();
 		newMI.calories = Integer.parseInt(calories.getText());
+		newMI.ingredients = ingredients.getText();
+		
+		/*
 		String ingred = ingredients.getText();
 		newMI.ingredients.clear();
 		String[] iTok = ingred.split(",");
@@ -317,6 +323,8 @@ public class MenuPanel extends JPanel {
 			String sub = iTok[3];
 			newMI.addIng(ingName, qty, editable, sub);
 		}
+		*/
+		
 		Menu.add(newMI);
 		
 		name.setText("");
@@ -393,7 +401,7 @@ public class MenuPanel extends JPanel {
 		menuAsTxt.append("Allergens: "+item.allergens+"\n");
 		menuAsTxt.append("Type: "+item.type+"\n");
 		menuAsTxt.append("Menu Type: "+item.menuType+"\n");
-		menuAsTxt.append("Ingredients (name:qty): "+item.getIngsToString()+"\n");
+		menuAsTxt.append("Ingredients (name:qty): "+item.ingredients+"\n");
 
 		currMenu.setText(menuAsTxt.toString());
 	}
