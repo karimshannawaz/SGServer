@@ -41,7 +41,7 @@ public class TablesPanel extends JPanel implements TableModelListener{
 
 	private static final long serialVersionUID = -7728688801223383898L;
 
-	private JTable table;
+	private static JTable table;
 	private DefaultTableModel model;
 
 	/**
@@ -88,7 +88,6 @@ public class TablesPanel extends JPanel implements TableModelListener{
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		
 		//need to place this to be updated everytime someone logs into the customer side
-		/*
 		for(int i=0; i<Global.tableIds.length; i++)
 		{
 			if(Global.tableIds[i]!=0)
@@ -96,7 +95,7 @@ public class TablesPanel extends JPanel implements TableModelListener{
 				model.addRow(new Object[] {new Integer(i+1),new Boolean(false),new Boolean(false),null});
 			}
 		}
-		*/
+		
 		
 		List<Object> refill = new ArrayList<Object>(20);
 		
@@ -195,6 +194,21 @@ public class TablesPanel extends JPanel implements TableModelListener{
 		
 	}
 
+	
+	public static void tableUpdate()
+	{
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		
+		//need to place this to be updated everytime someone logs into the customer side
+		for(int i=0; i<Global.tableIds.length; i++)
+		{
+			if(Global.tableIds[i]!=0)
+			{
+				model.addRow(new Object[] {new Integer(i+1),new Boolean(false),new Boolean(false),null});
+			}
+		}
+	}
+	
 	@Override
 	public void tableChanged(TableModelEvent e) {
 		// TODO Auto-generated method stub
