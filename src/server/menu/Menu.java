@@ -25,7 +25,8 @@ public class Menu {
 			while ((line = r.readLine()) != null) {
 				if (line.startsWith("//") || line.equals(""))
 					continue;
-				if(index == 8) {
+				if(index == 7) {
+					attr.add(line);
 					String name = attr.get(0);
 					double price = Double.parseDouble(attr.get(1));
 					String desc = attr.get(2);
@@ -45,23 +46,11 @@ public class Menu {
 						item.addIng(ingName, qty, editable, sub);
 					}
 					instance.add(item);
-					index = 0;
 					attr.clear();
+					index = 0;
+					continue;
 				}
 				attr.add(line);
-				/*
-				String[] tokens = line.split(" ~ ");
-				String name = tokens[0];
-				double price = Double.parseDouble(tokens[1]);
-				String desc = tokens[2];
-				int calories = Integer.parseInt(tokens[3]);
-				String allergens = tokens[4];
-				String type = tokens[5];
-				String menuType = tokens[6];
-				String ingredients = tokens[7];
-				instance.add(item);
-				System.out.println(index + " --> " + item.toString());
-				*/
 				index++;
 			}
 			r.close();

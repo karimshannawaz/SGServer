@@ -74,7 +74,6 @@ public class MItem {
 			if(i < ingredients.size() - 1)
 				output += ",";
 		}
-		System.out.println("output is "+output);
 		return output;
 	}
 
