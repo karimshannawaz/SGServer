@@ -213,7 +213,7 @@ public class MenuPanel extends JPanel {
 		allergens.setText(currInd ? item.allergens : "none");
 		type.setText(currInd ? item.type : "default");
 		menuType.setText(currInd ? item.menuType : "entree");
-		ingredients.setText(currInd ? item.ingredients : "beef_patty:1,lettuce:3,tomato:1");
+		ingredients.setText(currInd ? item.getIngsToString() : "beef_patty:1:t:vegan_patty,lettuce:3:t:n,tomato:1:t:n");
 	}
 
 	protected void updateItem(int index) {
@@ -249,7 +249,17 @@ public class MenuPanel extends JPanel {
 		Menu.instance.get(index).menuType = menuType.getText();
 		Menu.instance.get(index).allergens = allergens.getText();
 		Menu.instance.get(index).calories = Integer.parseInt(calories.getText());
-		Menu.instance.get(index).ingredients = ingredients.getText();
+		String ingred = ingredients.getText();
+		Menu.instance.get(index).ingredients.clear();
+		String[] iTok = ingred.split(",");
+		for(int i = 0; i < iTok.length; i++) {
+			String[] iTok2 = iTok[i].split(":");
+			String ingName = iTok2[0];
+			int qty = Integer.parseInt(iTok2[1]);
+			boolean editable = iTok2[2].equals("t");
+			String sub = iTok[3];
+			Menu.instance.get(index).addIng(ingName, qty, editable, sub);
+		}
 		
 		refreshMenuItemButtons();
 		mItemBtns[index].setSelected(true);
@@ -274,12 +284,7 @@ public class MenuPanel extends JPanel {
 				return;
 			}
 		}
-		/*
-		Object[] validTypes = { "vegan", "vegetarian", "default" };
-		String[] validMenuTypes = { "entree", "dessert", "drink", "side" };
-		String[] validAllergens = { "none", "milk", "eggs", "fish", 
-			"crustacean shellfish", "tree nuts", "peanuts", "wheat", "soybean" };
-		*/
+
 		if(price.getText().equals(""))
 			price.setText("4.99");
 		if(desc.getText().equals(""))
@@ -301,7 +306,17 @@ public class MenuPanel extends JPanel {
 		newMI.menuType = menuType.getText();
 		newMI.allergens = allergens.getText();
 		newMI.calories = Integer.parseInt(calories.getText());
-		newMI.ingredients = ingredients.getText();
+		String ingred = ingredients.getText();
+		newMI.ingredients.clear();
+		String[] iTok = ingred.split(",");
+		for(int i = 0; i < iTok.length; i++) {
+			String[] iTok2 = iTok[i].split(":");
+			String ingName = iTok2[0];
+			int qty = Integer.parseInt(iTok2[1]);
+			boolean editable = iTok2[2].equals("t");
+			String sub = iTok[3];
+			newMI.addIng(ingName, qty, editable, sub);
+		}
 		Menu.add(newMI);
 		
 		name.setText("");
@@ -327,7 +342,6 @@ public class MenuPanel extends JPanel {
 		}
 		mItemBtns = new JToggleButton[Menu.instance.size()];
 
-		System.out.println("Index is: "+mItemBtns.length);
 		for (int index = 0; index < mItemBtns.length; index++) {
 			mItemBtns[index] = new JToggleButton(Menu.instance.get(index).name);
 			mItemBtns[index].setBounds(0, (35 * index) + 58, 208, 32);
@@ -379,7 +393,7 @@ public class MenuPanel extends JPanel {
 		menuAsTxt.append("Allergens: "+item.allergens+"\n");
 		menuAsTxt.append("Type: "+item.type+"\n");
 		menuAsTxt.append("Menu Type: "+item.menuType+"\n");
-		menuAsTxt.append("Ingredients (name:qty): "+item.ingredients+"\n");
+		menuAsTxt.append("Ingredients (name:qty): "+item.getIngsToString()+"\n");
 
 		currMenu.setText(menuAsTxt.toString());
 	}
