@@ -83,28 +83,6 @@ public class TablesPanel extends JPanel {
 				{new Integer(20), null, null, null},
 			},
 			new String[] {
-<<<<<<< HEAD
-				"Table", "Refill", "Help", "Order"
-				}, 0
-			));
-
-		model = (DefaultTableModel) table.getModel();
-
-		//add tables numbers
-		for(int i = 0; i < Global.tableIds.length; i++)
-		{
-			model.addRow(new Object [] {i, " ", " ", " "});
-		}
-		
-		//tables that have customers
-		/*
-		for(int i : Global.tableIds) {
-			if(i != -1)
-				
-		}
-		*/
-		
-=======
 				"Table Number", "Refill", "Help", "Order"
 			}
 		) {
@@ -184,7 +162,6 @@ public class TablesPanel extends JPanel {
 			}
 		});
 	
->>>>>>> branch 'master' of https://github.com/karimshannawaz/SGServer.git
 		// Sets the table header and row font, as well as adjusts the row height.
 		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 30));
 		table.setFont(new Font("Tahoma", Font.PLAIN, 30));
