@@ -19,9 +19,9 @@ class InventoryPanelTest {
 	@Test
 	void testUpdateInventory() {
 	
-		Integer name = Inventory.instance.get("cheese");
+		Integer quantity = Inventory.instance.get("cheese");
 		Inventory.instance.put("cheese", 10);
-		assertNotEquals(name, Inventory.instance.get("cheese"));
+		assertNotEquals(quantity, Inventory.instance.get("cheese"));
 	}
 
 }
