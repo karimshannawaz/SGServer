@@ -1,6 +1,8 @@
 package server.network.packet.decoder;
 
 import server.Global;
+import server.menu.Order;
+import server.menu.OrderQueue;
 import server.network.Session;
 import server.network.packet.InputStream;
 import server.network.packet.encoder.LoginEncoder;
@@ -85,6 +87,41 @@ public class LoginDecoder extends Decoder {
 			
 				System.out.println("Customer rewards email login: "+email);
 				session.loginToRewards(email);
+				break;
+			
+			// Requests employee login
+			case 8:
+				String id = stream.readString();
+				String password = stream.readString();
+
+				if(!UserLoader.containsUser(id, true)) {
+					session.getLoginPackets().sendClientPacket("employee_id_does_not_exist");
+					return;
+				}
+
+				System.out.println("Employee account logged in but has not clocked in yet: "+id+" with password: "+password);
+				session.employeeLogin(id, password);
+				break;
+				
+			// Order received from client, has table ID.
+			case 9:
+				int tableID = stream.readUnsignedByte();
+				double subtotal = Double.parseDouble(stream.readString());
+				int orderSize = stream.readUnsignedByte();
+				Order order = new Order();
+				for(int i = 0; i < orderSize; i++) {
+					String mItem = stream.readString();
+					String[] tok = mItem.split("~");
+					String mItemName = tok[0];
+					double price = Double.parseDouble(tok[1]);
+					int qty = Integer.parseInt(tok[2]);
+					String specReq = tok[3];
+					String ing = tok[4];
+					order.addItem(mItemName, price, qty, specReq, ing);
+				}
+				order.subtotal = subtotal;
+				OrderQueue.orders.put(tableID, order);
+				System.out.println("Took order from table: "+tableID+" with "+order.items.get(0).name);
 				break;
 		}
 	}

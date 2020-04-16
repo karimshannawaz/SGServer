@@ -39,16 +39,25 @@ public class PacketEncoder extends Encoder {
 	 * Sends the client an updated version of the user's current
 	 * details loaded server sided.
 	 */
-	public void sendDetailsUpdate() {
+	public void sendDetailsUpdate(boolean employee) {
 		OutputStream stream = new OutputStream();
 		stream.writePacketVarShort(5);
-		stream.writeString(user.getEmail());
-		stream.writeString(user.getBirthday());
-		stream.writeString(user.getName());
-		stream.writeShort(user.getVisits());
-		stream.writeByte(user.hasFreeSide() ? 1 : 0);
-		stream.writeByte(user.hasBirthdayEntree() ? 1 : 0);
-		stream.writeByte(user.hasFreeDessert() ? 1 : 0);
+		stream.writeByte(employee ? 1 : 0);
+		if(!employee) {
+			stream.writeString(user.getEmail());
+			stream.writeString(user.getBirthday());
+			stream.writeString(user.getName());
+			stream.writeShort(user.getVisits());
+			stream.writeByte(user.hasFreeSide() ? 1 : 0);
+			stream.writeByte(user.hasBirthdayEntree() ? 1 : 0);
+			stream.writeByte(user.hasFreeDessert() ? 1 : 0);
+		}
+		else { 
+			stream.writeString(user.getId());
+			stream.writeString(user.getName());
+			stream.writeString(user.getRole());
+			stream.writeString(user.getPassword());
+		}
 		stream.endPacketVarShort();
 		session.write(stream);
 	}

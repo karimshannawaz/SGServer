@@ -1,11 +1,108 @@
-// Menu item: Name ~ Price ~ Description ~ Calories ~ Allergens ~ Type (vegan, vegetarian, default) ~ ingredients:quantity
+Juicy Lucy
+9.50
+A deliciously juicy burger
+1140
+wheat, gluten
+default
+entree
+beef_patty:1:t:vegan_patty,burger_buns:1:t:veggie_buns,cheese:1:t:vegan_cheese
 
-Juicy Lucy ~ 9.50 ~ A deliciously juicy burger ~ 1140 ~ wheat, gluten ~ default ~ entree ~ beef_patty:2,burger_buns:1,cheese:1
-Seven Wonders Burger ~ 7.00 ~ Our specialty in-house burger! ~ 980 ~ wheat, gluten ~ default ~ entree ~ beef_patty:1,burger_buns:1,cheese:1,onion:3
-Cheeseburger ~ 6.75 ~ Try our classic cheeseburger with a warm bun and melted american cheese ~ 740 ~ wheat, gluten ~ default ~ entree ~ beef_patty:1,burger_buns:1,cheese:1
-Kid's Burger ~ 3.99 ~ Smaller portion of our specialty in-house seven wonders burger! ~ 300 ~ wheat, gluten ~ default ~ entree ~ beef_patty:1,burger_buns:1,cheese:1,onion:3
-Tossed Salad ~ 6.50 ~ Vegan, allergen and vegetarian friendly option with ranch dressing ~ 350 ~ none ~ vegan ~ side ~  lettuce:5,tomatoes:5,ranch:1,cucumber:5
-French Fries ~ 3.99 ~ Classic french fries (salted served with ketchup). ~ 500 ~ none ~ default ~ side ~ fries:1
-Classic Fried Wings ~ 8.99 ~ Try with choice of buffalo, bbq or chipotle sauce! ~ 1000 ~ none ~ default ~ side ~ wings:10
-Blended Milkshake ~ 4.99 ~ Our creamy milkshake will have you coming back for more! Try with your choice of chocolate, vanilla or strawberry ~ 480 ~ milk, eggs ~ vegetarian ~ dessert ~ shake:1
-Coke ~ 3.50 ~ The classic drink that America loves ~ 300 ~ none ~ default ~ drink ~ drink_coke:1
+
+Seven Wonders Burger
+7.00
+Our specialty in-house burger!
+980
+wheat, gluten
+default
+entree
+beef_patty:1:t:vegan_patty,burger_buns:1:t:veggie_buns,cheese:1:t:vegan_cheese,onion:3:t:n
+
+
+Cheeseburger
+6.75
+Try our classic cheeseburger with a warm bun and melted american cheese
+740
+wheat, gluten
+default
+entree
+beef_patty:1:t:vegan_patty,burger_buns:1:t:veggie_buns,cheese:1:t:vegan_cheese
+
+
+Kid's Burger
+3.99
+Smaller portion of our specialty in-house seven wonders burger!
+300
+wheat, gluten
+default
+entree
+beef_patty:1:t:vegan_patty,burger_buns:1:t:veggie_buns,cheese:1:t:vegan_cheese,onion:3:t:n,lettuce:1:t:tomato
+
+
+Tossed Salad
+6.50
+Vegan, allergen and vegetarian friendly option with ranch dressing
+350
+none
+vegan
+side
+lettuce:5:t:n,tomatoes:5:t:n,ranch:1:t:n,cucumber:5:t:n
+
+
+French Fries
+3.99
+Classic french fries (salted served with ketchup).
+500
+none
+default
+side
+fries:1:f:n,ketchup:1:t:ranch
+
+
+Classic Fried Wings
+8.99
+Try with buffalo sauce or barbecue sauce!
+1000
+none
+default
+side
+wings:10:f:n,buffalo_f:1:t:bbq_f
+
+Onion Rings
+5.99
+Freshly peeled onions coated in breaded goodness.
+1000
+none
+default
+side
+onion_rings:10:f:n
+
+
+Blended Milkshake
+4.99
+Our creamy milkshake will have you coming back for more! Try with your choice of vanilla or strawberry!
+480
+milk, eggs
+vegetarian
+dessert
+shake:1:f:n,strawberry_f:1:t:vanilla_f
+
+
+Soda
+3.50
+The classic drink that America loves, coke or sprite!
+300
+none
+default
+drink
+drink_coke:1:t:drink_sprite
+
+
+Lemonade
+3.50
+Sweet lemon-y goodness made from real freshly squeezed lemons.
+270
+none
+default
+drink
+drink_lem:1:f:n
+

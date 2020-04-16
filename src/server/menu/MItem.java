@@ -1,8 +1,8 @@
 package server.menu;
 
 /**
- * Represents a single item on the menu with its respective attributes. SERVER
- * SIDED
+ * Represents a single item on the menu with its respective attributes. 
+ * SERVER SIDED
  * 
  * @author Karimshan Nawaz
  *
@@ -17,6 +17,12 @@ public class MItem {
 	public String type; // indicates if the menu item is vegan, vegetarian or neither (default).
 	public String menuType; // indicates if the item is an entree, drink, dessert or side.
 	public String ingredients;
+	
+	// Helps with order totals; the rest of the variables: sub, specialReqs
+	// are from the client and used when the customer places an order.
+	public int qty;
+	public String sub;
+	public String specialReqs;
 
 	public MItem(String name, double price, String description, int calories, String allergens,
 			String type, String menuType, String ingredients) {
@@ -40,11 +46,21 @@ public class MItem {
 		this.menuType = "entree";
 		this.ingredients = null;
 	}
-
+	
 	@Override
 	public String toString() {
 		return name + "~" + price + "~" + description + "~" + calories + "~" + allergens + "~" + type
-				+ "~" + menuType + "~" + ingredients;
+				+ "~" + menuType + "~" + ingredients;//getIngsToString();
 	}
+	
+	/**
+	 * Returns this menu item as an order string.
+	 * @return
+	 */
+	public String asOrder() {
+		return name+"~"+price+"~"+qty+"~"+specialReqs+"~"+ingredients;
+	}
+
+
 
 }

@@ -60,7 +60,7 @@ public class InventoryPanel extends JPanel {
 
 		model = (DefaultTableModel) table.getModel();
 
-		// add inventory list to rows
+		// add inventory list to rowss
 		for (Map.Entry<?,?> entry : Inventory.instance.entrySet()) {
 			model.addRow(new Object[] { entry.getKey(), entry.getValue() });
 		}
@@ -125,23 +125,18 @@ public class InventoryPanel extends JPanel {
 		updateItemBtn.setBounds(535, 334, 200, 44);
 		add(updateItemBtn);
 
-
-
-
-		
-		Object[] row = new Object[2];
 		JButton addBtn = new JButton("Add Ingredient");
 		addBtn.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		addBtn.setBounds(745, 334, 189, 44);
 		add(addBtn);
 		
 		ItextField = new JTextField();
+		ItextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		ItextField.setBounds(631, 219, 262, 27);
 		add(ItextField);
-		ItextField.setColumns(10);
 		
 		QtextField = new JTextField();
-		QtextField.setColumns(10);
+		QtextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		QtextField.setBounds(631, 260, 262, 27);
 		add(QtextField);
 

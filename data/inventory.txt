@@ -1,21 +1,28 @@
-beef_patty - 200
-lettuce - 500
-cucumber - 500
-tomato - 500
-pickle - 500
-onion - 500
-cheese - 500
-burger_buns - 200
-onion_rings - 200
-fries - 300
-wings - 2000
-buffalo_flavor - 200
-bbq_flavor - 200
-chipotle_flavor - 200
-shake - 200
-strawberry_flavor - 200
-vanilla_flavor - 200
-choc_flavor - 200
-ketchup_pkts - 1000
-ranch - 1000
-drink_coke - 800
+beef_patty - entree - 200
+vegan_patty - entree - 300
+lettuce - topping - 500
+cucumber - topping - 500
+tomato - topping - 500
+pickle - topping - 500
+onion - topping - 500
+cheese - topping - 500
+vegan_cheese - topping - 500
+burger_buns - entree - 200
+veggie_buns - entree - 200
+onion_rings - side - 200
+fries - side - 300
+wings - side - 2000
+special_sauce - condiment - 200
+buffalo_f - condiment - 200
+bbq_f - condiment - 200
+chipotle_f - condiment - 200
+shake - dessert - 200
+strawberry_f - dessert - 200
+vanilla_f - dessert - 200
+choc_f - dessert - 200
+ketchup - condiment - 1000
+ranch - condiment - 1000
+drink_coke - drink - 800
+drink_sprite - drink - 800
+drink_7up - drink - 800
+drink_lem - drink - 800
