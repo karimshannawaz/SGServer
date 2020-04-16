@@ -2,6 +2,7 @@ package server.user;
 
 import java.io.Serializable;
 
+import server.Global;
 import server.network.Session;
 import server.network.packet.decoder.PacketDecoder;
 import server.network.packet.encoder.PacketEncoder;
@@ -14,6 +15,8 @@ import server.network.packet.encoder.PacketEncoder;
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -2479666052959496651L;
+	
+	private transient int index;
 	
 	private String name;
 	
@@ -168,6 +171,23 @@ public class User implements Serializable {
 
 	public void setFreeDessert(boolean freeDessert) {
 		this.freeDessert = freeDessert;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
+	public void close() {
+		System.out.println((role.equals("customer") ? email : id)+" has logged out of the client.");
+		Global.removeUser(this);
+	}
+
+	public int getTableID() {
+		return session.getTableID();
 	}
 
 }

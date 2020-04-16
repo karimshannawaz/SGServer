@@ -6,9 +6,12 @@ import server.menu.OrderQueue;
 import server.network.Session;
 import server.network.packet.InputStream;
 import server.network.packet.encoder.LoginEncoder;
+import server.user.User;
 import server.user.UserLoader;
 
 public class LoginDecoder extends Decoder {
+	
+	private User user;
 
 	public LoginDecoder(Session session) {
 		super(session);
@@ -35,6 +38,7 @@ public class LoginDecoder extends Decoder {
 							session.setTableID(i);
 							session.setCustomer(true);
 							session.getLoginPackets().assignKioskID(i);
+							createTemporaryUser(i);
 							break;
 						}
 					}
@@ -85,7 +89,6 @@ public class LoginDecoder extends Decoder {
 					return;
 				}
 			
-				System.out.println("Customer rewards email login: "+email);
 				session.loginToRewards(email);
 				break;
 			
@@ -99,7 +102,6 @@ public class LoginDecoder extends Decoder {
 					return;
 				}
 
-				System.out.println("Employee account logged in but has not clocked in yet: "+id+" with password: "+password);
 				session.employeeLogin(id, password);
 				break;
 				
@@ -124,6 +126,20 @@ public class LoginDecoder extends Decoder {
 				System.out.println("Took order from table: "+tableID+" with "+order.items.get(0).name);
 				break;
 		}
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * Creates a temporary user with the specified table ID.
+	 */
+	private void createTemporaryUser(int tableID) {
+		User tempUser = new User("customer", "table"+tableID, null, null);
+		tempUser.initialize(session);
+		this.user = tempUser;
+		Global.addUser(user);
 	}
 
 }
