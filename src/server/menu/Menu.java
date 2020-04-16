@@ -36,17 +36,7 @@ public class Menu {
 					String menuType = attr.get(6);
 					String ingredients = attr.get(7);
 					MItem item = new MItem(name, price, desc, calories, allergens, type, menuType, ingredients);
-					/*
-					String[] iTok = ingredients.split(",");
-					for(int i = 0; i < iTok.length; i++) {
-						String[] iTok2 = iTok[i].split(":");
-						String ingName = iTok2[0];
-						int qty = Integer.parseInt(iTok2[1]);
-						boolean editable = iTok2[2].equals("t");
-						String sub = iTok2[3];
-						item.addIng(ingName, qty, editable, sub);
-					}
-					*/
+					
 					instance.add(item);
 					attr.clear();
 					index = 0;

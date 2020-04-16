@@ -67,6 +67,15 @@ default
 side
 wings:10:f:n,buffalo_f:1:t:bbq_f
 
+Onion Rings
+5.99
+Freshly peeled onions coated in breaded goodness.
+1000
+none
+default
+side
+onion_rings:10:f:n
+
 
 Blended Milkshake
 4.99

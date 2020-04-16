@@ -19,7 +19,7 @@ public class Inventory {
 	// will be randomly chosen for each inventory item
 	// depending on the inventory item's type (entree, topping, side, condiment,
 	// dessert, drink)
-	private static boolean randomize = false;
+	private static boolean randomize = true;
 
 	// Represents the instance of the inventory for any particular day
 	public static Map<String, Integer> instance = new HashMap<String, Integer>();
@@ -38,17 +38,31 @@ public class Inventory {
 					continue;
 				String[] tokens = line.split(" - ");
 				String name = tokens[0];
-				int quantity = Integer.parseInt(tokens[1]);
+				String type = tokens[1];
+				int quantity = Integer.parseInt(tokens[2]);
 				// Randomizes the quantity of the ingredient if randomize is true.
 				// This will be enabled in the final version of the system.
 				if (randomize) {
-
-					if (name.contains("ketchup")) {
-						quantity = Constants.generateNumber(200, 400);
+					if(type.contains("side")) {
+						quantity = Constants.generateNumber(200, 4000);
 					}
-				} else {
-					instance.put(name, quantity);
+					else if(type.contains("entree")) {
+						quantity = Constants.generateNumber(300, 1000);
+					}
+					else if(type.contains("drink")) {
+						quantity = Constants.generateNumber(500, 3000);
+					}
+					else if(type.contains("condiment")) {
+						quantity = Constants.generateNumber(1000, 4000);
+					}
+					else if(type.contains("topping")) {
+						quantity = Constants.generateNumber(1000, 4000);
+					}
+					else if(type.contains("dessert")) {
+						quantity = Constants.generateNumber(400, 1000);
+					}
 				}
+				instance.put(name, quantity);
 			}
 			r.close();
 		} catch (Exception e) {
