@@ -45,7 +45,7 @@ Vegan, allergen and vegetarian friendly option with ranch dressing
 none
 vegan
 side
-lettuce:5:t:n,tomatoes:5:t:n,ranch:1:t:ketchup,cucumber:5:t:n
+lettuce:5:t:n,tomatoes:5:t:n,ranch:1:t:n,cucumber:5:t:n
 
 
 French Fries
