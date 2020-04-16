@@ -1,5 +1,7 @@
 package server.network.packet.decoder;
 
+import server.menu.Order;
+import server.menu.OrderQueue;
 import server.network.Session;
 import server.network.packet.InputStream;
 import server.user.User;
@@ -62,6 +64,27 @@ public final class PacketDecoder extends Decoder {
 			// Sends the menu back to the client.
 			case 5:
 				user.getPacketEncoder().sendMenu();
+				break;
+				
+			// Order received from client, has table ID.
+			case 9:
+				int tableID = stream.readUnsignedByte();
+				double subtotal = Double.parseDouble(stream.readString());
+				int orderSize = stream.readUnsignedByte();
+				Order order = new Order();
+				for(int i = 0; i < orderSize; i++) {
+					String mItem = stream.readString();
+					String[] tok = mItem.split("~");
+					String mItemName = tok[0];
+					double price = Double.parseDouble(tok[1]);
+					int qty = Integer.parseInt(tok[2]);
+					String specReq = tok[3];
+					String ing = tok[4];
+					order.addItem(mItemName, price, qty, specReq, ing);
+				}
+				order.subtotal = subtotal;
+				OrderQueue.orders.put(tableID, order);
+				System.out.println("Took order from table: "+tableID+" with "+order.items.get(0).name);
 				break;
 
 			default:
