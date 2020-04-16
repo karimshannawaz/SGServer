@@ -15,6 +15,9 @@ public class DiscountPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	
+	//panel to display active specials/discounts for the restaurant
+	//allows user to disable the specials
 	public DiscountPanel() {
 		
 		super();
@@ -72,6 +75,7 @@ public class DiscountPanel extends JPanel {
 		lblNewLabel_8.setBounds(152, 38, 132, 15);
 		MondayPanel.add(lblNewLabel_8);
 		
+		//radio button for monday special. pressing button will disable the special
 		JRadioButton MondayRadioBtn = new JRadioButton("OFF");
 		MondayRadioBtn.setBounds(702, 33, 115, 23);
 		MondayPanel.add(MondayRadioBtn);
@@ -95,6 +99,7 @@ public class DiscountPanel extends JPanel {
 		lblNewLabel_6_1.setBounds(362, 36, 240, 15);
 		SundayPanel.add(lblNewLabel_6_1);
 		
+		//radio button for sunday special. pressing button will disable the special
 		JRadioButton SundayRadioBtn = new JRadioButton("OFF");
 		SundayRadioBtn.setBounds(699, 32, 115, 23);
 		SundayPanel.add(SundayRadioBtn);

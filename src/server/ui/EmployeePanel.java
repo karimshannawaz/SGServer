@@ -87,7 +87,8 @@ public class EmployeePanel extends JPanel {
 		employeeName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		employeeName.setBounds(631, 149, 262, 27);
 		add(employeeName);
-
+		
+		//add employee button
 		JButton AddEmplBtn = new JButton("Add Employee");
 		AddEmplBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -98,6 +99,7 @@ public class EmployeePanel extends JPanel {
 		AddEmplBtn.setBounds(535, 334, 200, 44);
 		add(AddEmplBtn);
 
+		//remove employee button
 		JButton RemoveEmplBtn = new JButton("Remove Employee");
 		RemoveEmplBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -124,11 +126,13 @@ public class EmployeePanel extends JPanel {
 		employeePass.setBounds(631, 243, 262, 27);
 		add(employeePass);
 		
+		//password textbox
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblPassword.setBounds(535, 241, 82, 30);
 		add(lblPassword);
 		
+		//option box for employee role
 		roleComboBox = new JComboBox(new String[] 
 			{ "waitstaff", "kitchen", "manager" });
 		roleComboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -139,7 +143,8 @@ public class EmployeePanel extends JPanel {
 		table.setRowSelectionInterval(0, 0);
 
 	}
-
+	
+	//allows user to add an employee
 	protected void addEmployee() {
 		String id = this.employeeID.getText();
 		String name = this.employeeName.getText();
@@ -172,6 +177,7 @@ public class EmployeePanel extends JPanel {
 		JFrameUtils.showMessage("Employee Editor", "Successfully added employee: "+name+" with ID: "+id);
 	}
 
+	//allows user to remove an employee
 	protected void removeEmployee() {
 		int row = table.getSelectedRow();
 		String id = (String) this.model.getValueAt(table.getSelectedRow(), 0);

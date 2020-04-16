@@ -128,6 +128,8 @@ public class MainUI extends JFrame {
 							}
 							panelBtns[i].setSelected(false);
 						}
+						
+						//make all panels initially not visible
 						infoPanel.setVisible(false);
 						menuPanel.setVisible(false);
 						inventoryPanel.setVisible(false);
@@ -135,6 +137,8 @@ public class MainUI extends JFrame {
 						discountPanel.setVisible(false);
 						employeePanel.setVisible(false);
 						tablesPanel.setVisible(false);
+						
+						//switch statement to make user selected page visible 
 						switch (btn.getText()) {
 						case "Information":
 							infoPanel.setVisible(true);
