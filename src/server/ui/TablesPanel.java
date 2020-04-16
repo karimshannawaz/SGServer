@@ -54,7 +54,7 @@ public class TablesPanel extends JPanel implements TableModelListener{
 
 		// Create our scroll pane
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 24, 494, 659);
+		scrollPane.setBounds(15, 16, 494, 659);
 		add(scrollPane);
 		
 		//create table
