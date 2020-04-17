@@ -29,6 +29,7 @@ public class MainUI extends JFrame {
 
 	public InfoPanel infoPanel;
 	public ClockPanel clockPanel;
+	public PayPanel payPanel;
 	public CompensatePanel compensatePanel;
 	public MenuPanel menuPanel;
 	public InventoryPanel inventoryPanel;
@@ -73,6 +74,11 @@ public class MainUI extends JFrame {
 		this.clockPanel = new ClockPanel();
 		clockPanel.setVisible(false);
 		getContentPane().add(clockPanel);
+		
+		// Clock Panel
+		this.payPanel = new PayPanel();
+		payPanel.setVisible(false);
+		getContentPane().add(payPanel);
 		
 		// Compensate Panel
 		this.compensatePanel = new CompensatePanel();
@@ -144,6 +150,7 @@ public class MainUI extends JFrame {
 						//make all panels initially not visible
 						infoPanel.setVisible(false);
 						clockPanel.setVisible(false);
+						payPanel.setVisible(false);
 						compensatePanel.setVisible(false);
 						menuPanel.setVisible(false);
 						inventoryPanel.setVisible(false);
@@ -161,6 +168,7 @@ public class MainUI extends JFrame {
 							clockPanel.setVisible(true);
 							break;
 						case "Pay":
+							payPanel.setVisible(true);
 							break;
 						case "Compensate":
 							compensatePanel.setVisible(true);
@@ -187,6 +195,7 @@ public class MainUI extends JFrame {
 					} else {
 						infoPanel.setVisible(false);
 						clockPanel.setVisible(false);
+						payPanel.setVisible(false);
 						compensatePanel.setVisible(false);
 						inventoryPanel.setVisible(false);
 						menuPanel.setVisible(false);
