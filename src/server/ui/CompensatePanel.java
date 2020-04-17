@@ -3,14 +3,10 @@ package server.ui;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.util.Map;
-
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-
-import server.menu.Inventory;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -22,8 +18,6 @@ public class CompensatePanel extends JPanel {
 	private static final long serialVersionUID = -7997986343727651881L;
 	
 	private JTextField textField;
-	private JTable table;
-	private JTable table_1;
 	private JTable orderTable;
 
 	/**
@@ -36,7 +30,7 @@ public class CompensatePanel extends JPanel {
 		setLayout(null);
 		
 		JPanel startPanel = new JPanel();
-		startPanel.setBounds(6, 6, 310, 698);
+		startPanel.setBounds(17, 17, 299, 676);
 		startPanel.setBackground(UIManager.getColor("Button.background"));
 		add(startPanel);
 		startPanel.setLayout(null);
@@ -57,7 +51,7 @@ public class CompensatePanel extends JPanel {
 		startPanel.add(btnNewButton);
 		
 		JPanel selectionPanel = new JPanel();
-		selectionPanel.setBounds(328, 6, 628, 698);
+		selectionPanel.setBounds(328, 17, 617, 676);
 		add(selectionPanel);
 		selectionPanel.setLayout(null);
 		
@@ -74,20 +68,14 @@ public class CompensatePanel extends JPanel {
 		scrollPane.setBounds(60, 108, 501, 458);
 		selectionPanel.add(scrollPane);
 		
-		/*//create table
+		//create table
 		orderTable = new JTable();
 		orderTable.setModel(new DefaultTableModel(
 		new String[] {
 				"Item", "Price"
 			}, 0
 		));
-		
-		// Sets the table header and row font, as well as adjusts the row height.
-		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 20));
-		table.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		table.setRowHeight(40);
-		
 		scrollPane.setViewportView(orderTable);
-		*/
+		
 	}
 }
