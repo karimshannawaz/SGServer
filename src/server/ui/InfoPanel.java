@@ -28,7 +28,7 @@ import server.utils.JFrameUtils;
  * @author Karimshan
  *
  */
-//test commit
+
 public class InfoPanel extends JPanel {
 
 	private static final long serialVersionUID = -7728688801223383898L;
