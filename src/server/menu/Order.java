@@ -86,6 +86,17 @@ public class Order {
 				}
 			}
 		}
+		for(User u : Global.getUsers()) {
+			if(u != null) {
+				if(u.getSession().isCustomer()
+						&& u.getTableID() == tableID) {
+					u.getSession().sendClientPacket("order_submitted");
+					break;
+				}
+				
+			}
+		}
+		
 	}
 	
 	public static void kitchenRequestWaitStaff(User user, InputStream stream) {
@@ -120,6 +131,7 @@ public class Order {
 				if(u.getRole().toLowerCase().contains("wait")
 					&& u.isAvailable()) {
 					waitStaffName = u.getName();
+					u.setAvailable(false);
 					u.getPacketEncoder().sendOrder(tableID, orderIndex);
 					System.out.println("Kitchen handed off table "+
 						(tableID + 1)+"'s order to waitstaff: "+u.getId()+" - "+u.getName());
