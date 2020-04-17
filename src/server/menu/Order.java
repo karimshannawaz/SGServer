@@ -40,7 +40,7 @@ public class Order {
 
 	public static void receiveOrder(User user, InputStream stream) {
 		boolean kitchenStaffOnline = false;
-		boolean waitStaffOnline = true;
+		boolean waitStaffOnline = false;
 		for(User u : Global.getUsers()) {
 			if(u != null) {
 				if(u.getRole().toLowerCase().contains("kitchen")) {
