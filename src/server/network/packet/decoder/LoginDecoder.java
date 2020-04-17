@@ -45,16 +45,6 @@ public class LoginDecoder extends Decoder {
 					}
 				}
 				break;
-			// Help request from client table
-			case 4:
-				int kioskID = stream.readUnsignedByte();
-				System.out.println("Help requested from table: " + kioskID);
-				/*
-				 * for(User user : Global.getAllUsers()) { if(user.isWaiter() ||
-				 * user.isManager()) {
-				 * user.getSession().getPacketEncoder().updateTable(kioskID); } }
-				 */
-				break;
 	
 			// Sends the menu back to the client.
 			case 5:
