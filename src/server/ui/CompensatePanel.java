@@ -74,7 +74,7 @@ public class CompensatePanel extends JPanel {
 		scrollPane.setBounds(60, 108, 501, 458);
 		selectionPanel.add(scrollPane);
 		
-		//create table
+		/*//create table
 		orderTable = new JTable();
 		orderTable.setModel(new DefaultTableModel(
 		new String[] {
@@ -88,6 +88,6 @@ public class CompensatePanel extends JPanel {
 		table.setRowHeight(40);
 		
 		scrollPane.setViewportView(orderTable);
-		
+		*/
 	}
 }
