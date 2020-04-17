@@ -67,6 +67,10 @@ public class Order {
 			int qty = Integer.parseInt(tok[2]);
 			String specReq = tok[3];
 			String ing = tok[4];
+			if(!Inventory.updateInventory(ing)) {
+				user.getSession().sendClientPacket("out_of_stock", mItemName, i);
+				return;
+			}
 			order.addItem(mItemName, price, qty, specReq, ing);
 		}
 		order.subtotal = subtotal;

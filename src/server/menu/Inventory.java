@@ -70,4 +70,9 @@ public class Inventory {
 		}
 	}
 
+	public static boolean updateInventory(String ingredients) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
