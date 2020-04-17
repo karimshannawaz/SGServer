@@ -33,9 +33,9 @@ public class TimelogPanel extends JPanel {
 		scrollPane.setBounds(201, 135, 572, 539);
 		add(scrollPane);
 		
-		lblNewLabel = new JLabel("Employee Timelog");
+		lblNewLabel = new JLabel("Employee Time Log");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
-		lblNewLabel.setBounds(355, 31, 277, 41);
+		lblNewLabel.setBounds(344, 31, 316, 41);
 		add(lblNewLabel);
 		
 		//create table
