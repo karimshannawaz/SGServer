@@ -7,8 +7,10 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-//Floreta
+//Floreta Krasniqi
 
 public class ClockPanel extends JPanel {
 	
@@ -49,7 +51,7 @@ public class ClockPanel extends JPanel {
 		JButton clockInBtn = new JButton("CLOCK IN");
 		clockInBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				clockIn();
+				clockIn();//call function to handle clocking in if user selects button
 			}
 		});
 		clockInBtn.setBounds(236, 360, 220, 40);
@@ -58,7 +60,7 @@ public class ClockPanel extends JPanel {
 		JButton clockOutBtn = new JButton("CLOCK OUT");
 		clockOutBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				clockOut();
+				clockOut();//call function to handle clocking out if user selects button
 			}
 		});
 		clockOutBtn.setBounds(483, 360, 220, 40);
