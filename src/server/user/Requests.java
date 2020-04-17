@@ -11,6 +11,7 @@ public class Requests {
 	/**
 	 * Receives help request from client
 	 * @param kioskID
+	 * 
 	 */
 	public static void receiveHelpRequest(int kioskID) {
 		
