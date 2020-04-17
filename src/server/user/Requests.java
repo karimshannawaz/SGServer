@@ -3,7 +3,7 @@ package server.user;
 /**
  * A class that holds all of the requests.
  * 
- * @author Karimshan
+ * @author Karimshan.
  *
  */
 public class Requests {
