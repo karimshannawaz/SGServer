@@ -96,4 +96,18 @@ public class PacketEncoder extends Encoder {
 		session.write(stream);
 	}
 
+	/**
+	 * Sends the waiter the table ID of who has a request.
+	 * @param tableID
+	 */
+	public void sendRequest(int tableID, boolean refill) {
+		OutputStream stream = new OutputStream();
+		stream.writePacketVarShort(8);
+		stream.writeByte(refill ? 1 : 0);
+		stream.writeByte(tableID);
+		stream.endPacketVarShort();
+		session.write(stream);
+	}
+
+
 }

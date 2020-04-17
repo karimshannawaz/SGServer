@@ -36,6 +36,13 @@ public class Requests {
 			}
 			return;
 		}
+		for(User u : Global.getUsers()) {
+			if(u != null) {
+				if(u.getRole().toLowerCase().contains("wait")) {
+					u.getPacketEncoder().sendRequest(tableID, false);
+				}
+			}
+		}
 	}
 
 	/**
@@ -62,6 +69,13 @@ public class Requests {
 				}
 			}
 			return;
+		}
+		for(User u : Global.getUsers()) {
+			if(u != null) {
+				if(u.getRole().toLowerCase().contains("wait")) {
+					u.getPacketEncoder().sendRequest(tableID, true);
+				}
+			}
 		}
 	}
 	
