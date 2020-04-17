@@ -102,6 +102,13 @@ public final class PacketDecoder extends Decoder {
 				kioskID = stream.readUnsignedByte();
 				Requests.receiveRefillRequest(kioskID);
 				break;
+				
+			// Customer's request is granted.
+			case 13:
+				boolean refill = stream.readUnsignedByte() == 1;
+				kioskID = stream.readUnsignedByte();
+				Requests.completeRequest(kioskID, refill);
+				break;
 
 			default:
 				break;
