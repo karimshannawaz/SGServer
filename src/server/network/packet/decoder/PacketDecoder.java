@@ -85,6 +85,11 @@ public final class PacketDecoder extends Decoder {
 			case 10:
 				Order.kitchenRequestWaitStaff(user, stream);
 				break;
+				
+			// Waiter marks that they've delivered to the table.
+			case 11:
+				Order.waiterDroppedFoodOff(user, stream);
+				break;
 
 			default:
 				break;

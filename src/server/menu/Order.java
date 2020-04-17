@@ -167,4 +167,20 @@ public class Order {
 	public void setTableID(int tableID) {
 		this.tableID = tableID;
 	}
+
+	public static void waiterDroppedFoodOff(User user, InputStream stream) {
+		int tableID = stream.readUnsignedByte();
+		int orderIndex = stream.readUnsignedByte();
+		user.setAvailable(true);
+		
+		for(User u : Global.getUsers()) {
+			if(u != null) {
+				if(u.getSession().isCustomer()
+					&& u.getTableID() == tableID) {
+					u.getSession().sendClientPacket("waiter_delivered");
+					break;
+				}
+			}
+		}
+	}
 }
