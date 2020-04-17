@@ -12,7 +12,8 @@ import java.util.List;
  */
 public class OrderQueue {
 
-	public static List<Order> orders = new ArrayList<Order>();
-	
+	public static List<Order> unfulfilledOrders = new ArrayList<Order>();
+	public static List<Order> unpaidOrders = new ArrayList<Order>();
+	public static List<Order> paidOrders = new ArrayList<Order>();
 	
 }
