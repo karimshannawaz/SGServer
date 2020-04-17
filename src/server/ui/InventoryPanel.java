@@ -228,6 +228,17 @@ public class InventoryPanel extends JPanel {
 		qty.setText(""+Inventory.instance.values().toArray()[index]);
 		JFrameUtils.showMessage("Inventory Editor", "Successfully UPDATED ingredient "+ing.getText()+" with qty: "+qtyAsInt);
 	}
+	
+	public void updateInventory(String ingName, int quantity) {
+		int index = 0;
+		for(String name : Inventory.instance.keySet()) {
+			if(name.equalsIgnoreCase(ingName))
+				break;
+			index++;
+		}
+		// Changes the quantity in the table
+		model.setValueAt(quantity, index, 1);
+	}
 
 
 }

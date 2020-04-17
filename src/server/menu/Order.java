@@ -23,7 +23,7 @@ public class Order {
 	
 	public List<MItem> items = new ArrayList<MItem>();
 	
-	public void addItem(String name, double price, int qty, 
+	public MItem addItem(String name, double price, int qty, 
 			String specialRequests, String ingredients) {
 		MItem item = new MItem();
 		item.name = name;
@@ -32,6 +32,7 @@ public class Order {
 		item.specialReqs = specialRequests;
 		item.ingredients = ingredients;
 		items.add(item);
+		return item;
 	}
 	
 	public void clear() {
@@ -67,7 +68,11 @@ public class Order {
 			int qty = Integer.parseInt(tok[2]);
 			String specReq = tok[3];
 			String ing = tok[4];
-			order.addItem(mItemName, price, qty, specReq, ing);
+			MItem item = order.addItem(mItemName, price, qty, specReq, ing);
+			if(!Inventory.updateInventory(item)) {
+				user.getSession().sendClientPacket("out_of_stock", mItemName, i);
+				return;
+			}
 		}
 		order.subtotal = subtotal;
 		order.setTableID(tableID);

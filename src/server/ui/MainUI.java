@@ -28,6 +28,8 @@ public class MainUI extends JFrame {
 	private JPanel utilityPanel;
 
 	public InfoPanel infoPanel;
+	public ClockPanel clockPanel;
+	public CompensatePanel compensatePanel;
 	public MenuPanel menuPanel;
 	public InventoryPanel inventoryPanel;
 	public TimelogPanel timelogPanel;
@@ -67,6 +69,16 @@ public class MainUI extends JFrame {
 		infoPanel.setVisible(false);
 		getContentPane().add(infoPanel);
 
+		// Clock Panel
+		this.clockPanel = new ClockPanel();
+		clockPanel.setVisible(false);
+		getContentPane().add(clockPanel);
+		
+		// Compensate Panel
+		this.compensatePanel = new CompensatePanel();
+		compensatePanel.setVisible(false);
+		getContentPane().add(compensatePanel);
+		
 		// Menu Panel
 		this.menuPanel = new MenuPanel();
 		menuPanel.setVisible(false);
@@ -98,7 +110,7 @@ public class MainUI extends JFrame {
 		getContentPane().add(tablesPanel);
 
 
-		String[] panelNames = { "Information", "Order", "Pay", "Compensate", "Tables", "Inventory", "Menu", "Time Log",
+		String[] panelNames = { "Information", "Clock In/Out", "Pay", "Compensate", "Tables", "Inventory", "Menu", "Time Log",
 
 				"Discounts", "Employees" };
 
@@ -131,6 +143,8 @@ public class MainUI extends JFrame {
 						
 						//make all panels initially not visible
 						infoPanel.setVisible(false);
+						clockPanel.setVisible(false);
+						compensatePanel.setVisible(false);
 						menuPanel.setVisible(false);
 						inventoryPanel.setVisible(false);
 						timelogPanel.setVisible(false);
@@ -143,11 +157,13 @@ public class MainUI extends JFrame {
 						case "Information":
 							infoPanel.setVisible(true);
 							break;
-						case "Order":
+						case "Clock In/Out":
+							clockPanel.setVisible(true);
 							break;
 						case "Pay":
 							break;
 						case "Compensate":
+							compensatePanel.setVisible(true);
 							break;
 						case "Tables":
 							tablesPanel.setVisible(true);
@@ -170,6 +186,8 @@ public class MainUI extends JFrame {
 						}
 					} else {
 						infoPanel.setVisible(false);
+						clockPanel.setVisible(false);
+						compensatePanel.setVisible(false);
 						inventoryPanel.setVisible(false);
 						menuPanel.setVisible(false);
 						timelogPanel.setVisible(false);
