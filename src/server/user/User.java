@@ -38,6 +38,7 @@ public class User implements Serializable {
 	private String id;
 	private String password;
 	private String role;
+	private transient boolean available;
 	
 	// Session is transient because it changes every
 	// time that the person logs in/out
@@ -67,6 +68,13 @@ public class User implements Serializable {
 	public void initialize(Session s) {
 		this.setSession(s);
 		this.checkBirthday();
+		if(isEmployee()) {
+			setAvailable(true);
+		}
+	}
+
+	private boolean isEmployee() {
+		return !role.equals("customer");
 	}
 
 	private void checkBirthday() {
@@ -188,6 +196,14 @@ public class User implements Serializable {
 
 	public int getTableID() {
 		return session.getTableID();
+	}
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
 	}
 
 }
