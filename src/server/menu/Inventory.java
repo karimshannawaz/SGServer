@@ -79,6 +79,7 @@ public class Inventory {
 			String[] ing = ingTok[i].split(":");
 			String name = ing[0];
 			int qty = Integer.parseInt(ing[1]);
+			System.out.println("ing name is "+name);
 			int getQty = instance.get(name);
 			int newQty = (getQty - qty);
 			if(newQty < 0) {
