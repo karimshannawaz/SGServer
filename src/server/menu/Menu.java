@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import server.Server;
+
 public class Menu {
 
 	// Represents the list of menu items for our restaurant.
@@ -118,6 +120,33 @@ public class Menu {
 			if(i.name.equals(itemName))
 				return i;
 		return null;
+	}
+
+	/**
+	 * Removes all menu items which contain the ingredient
+	 * specified with @ing
+	 * @param ingg
+	 */
+	public static void removeItemsWith(String ing) {
+		List<Integer> indices = new ArrayList<Integer>();
+		for(int index = 0; index < Menu.instance.size(); index++) {
+			MItem i = Menu.instance.get(index);
+			String[] split = i.ingredients.split(",");
+			for(int j = 0; j < split.length; j++) {
+				String[] attr = split[j].split(":");
+				String ingName = attr[0];
+				String subName = attr[3];
+				if(ingName.equalsIgnoreCase(ing) ||
+					subName.equalsIgnoreCase(ing)) {
+					System.out.println(index+" is: "+ing+" - "+ingName+" - "+subName);
+					indices.add(index);
+					break;
+				}
+			}
+		}
+		for(int index = indices.size() - 1; index >= 0; index--) {
+			Server.ui.menuPanel.deleteMenuItem(indices.get(index), false);
+		}
 	}
 
 }

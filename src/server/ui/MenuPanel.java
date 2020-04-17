@@ -74,7 +74,7 @@ public class MenuPanel extends JPanel {
 		deleteBtn.setSelected(false);
 		deleteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				deleteMenuItem(currIndex);
+				deleteMenuItem(currIndex, true);
 			}
 		});
 		deleteBtn.setFont(new Font("Tahoma", Font.PLAIN, 19));
@@ -406,9 +406,15 @@ public class MenuPanel extends JPanel {
 		currMenu.setText(menuAsTxt.toString());
 	}
 	
-	private void deleteMenuItem(int index) {
-		boolean option = JFrameUtils.confirmDialog("Menu Editor", "Do you really want to delete \""+
-			mItemBtns[index].getText()+"\" from the menu?");
+	public void deleteMenuItem(int index, boolean confirm) {
+		boolean option;
+		if(confirm) {
+			option = JFrameUtils.confirmDialog("Menu Editor", "Do you really want to delete \""+
+				mItemBtns[index].getText()+"\" from the menu?");
+		}
+		else {
+			option = true;
+		}
 		String oldItem = mItemBtns[index].getText();
 		if(option) {
 			Menu.remove(index);
@@ -422,7 +428,8 @@ public class MenuPanel extends JPanel {
 			deleteBtn.setVisible(true);
 			deleteBtn.setText("Delete "+mItemBtns[0].getText());
 			
-			JFrameUtils.showMessage("Menu Editor", "Successfully deleted item: "+oldItem+" at index: "+index);
+			if(confirm)
+				JFrameUtils.showMessage("Menu Editor", "Successfully deleted item: "+oldItem+" at index: "+index);
 		}
 	}
 }

@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import server.Server;
 import server.utils.Constants;
 
 /**
@@ -70,9 +71,32 @@ public class Inventory {
 		}
 	}
 
-	public static boolean updateInventory(String ingredients) {
-		// TODO Auto-generated method stub
-		return false;
+	public static boolean updateInventory(MItem item) {
+		String ingredients = item.ingredients;
+		String[] ingTok = ingredients.split(",");
+		
+		for(int i = 0; i < ingTok.length; i++) {
+			String[] ing = ingTok[i].split(":");
+			String name = ing[0];
+			int qty = Integer.parseInt(ing[1]);
+			int getQty = instance.get(name);
+			int newQty = (getQty - qty);
+			if(newQty < 0) {
+				System.out.println(name);
+				// Removes all items on the menu which use this ingredient.
+				Menu.removeItemsWith(name);
+				instance.put(name, 0);
+				return false;
+			}
+			else if(newQty >= 0) {
+				if(newQty == 0) {
+					Menu.removeItemsWith(name);
+				}
+				instance.put(name, newQty);
+				Server.ui.inventoryPanel.updateInventory(name, newQty);
+			}
+		}
+		return true;
 	}
 
 }
