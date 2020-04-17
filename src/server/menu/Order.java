@@ -128,14 +128,11 @@ public class Order {
 		
 		for(User u : Global.getUsers()) {
 			if(u != null) {
-				if(u.getRole().toLowerCase().contains("wait")
-					&& u.isAvailable()) {
+				if(u.getRole().toLowerCase().contains("wait")) {
 					waitStaffName = u.getName();
-					u.setAvailable(false);
 					u.getPacketEncoder().sendOrder(tableID, orderIndex);
 					System.out.println("Kitchen handed off table "+
 						(tableID + 1)+"'s order to waitstaff: "+u.getId()+" - "+u.getName());
-					break;
 				}
 			}
 		}

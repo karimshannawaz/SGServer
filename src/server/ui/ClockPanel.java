@@ -9,7 +9,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.util.Date;
+
 import javax.swing.UIManager;
+
+import server.Reports;
 
 //Floreta Krasniqi
 
@@ -19,7 +25,8 @@ public class ClockPanel extends JPanel {
 	
 	private JTextField textField;
 	private JTextField textField_1;
-
+	public JLabel dateLbl;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -63,6 +70,25 @@ public class ClockPanel extends JPanel {
 		JButton clockOutBtn = new JButton("CLOCK OUT");
 		clockOutBtn.setBounds(319, 181, 220, 40);
 		panel.add(clockOutBtn);
+		
+		//prints current date
+		dateLbl = new JLabel("The date is currently: <dynamic date>");
+		dateLbl.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
+		dateLbl.setBounds(230, 62, 512, 48);
+		add(dateLbl);
+		Date fullDate = new Date();
+		String format = DateFormat.getInstance().format(fullDate);
+		String[] tok = format.split(" ");
+		String date = tok[0];
+		String time = tok[1];
+		String meridiem = tok[2];
+		String[] timeToks = time.split(":");
+		int hour = Integer.parseInt(timeToks[0]);
+		int mins = Integer.parseInt(timeToks[1]);
+		dateLbl.setText("The date is currently: " +format);
+		
+		
+		
 		clockOutBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				clockOut();//call function to handle clocking out if user selects button
@@ -73,8 +99,10 @@ public class ClockPanel extends JPanel {
 				clockIn();//call function to handle clocking in if user selects button
 			}
 		});
+	
+	
 	}
-
+	
 		//function for clocking in
 		protected void clockIn() {
 		

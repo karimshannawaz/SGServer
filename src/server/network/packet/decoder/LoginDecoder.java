@@ -7,6 +7,7 @@ import server.menu.Order;
 import server.network.Session;
 import server.network.packet.InputStream;
 import server.network.packet.encoder.LoginEncoder;
+import server.user.Requests;
 import server.user.User;
 import server.user.UserLoader;
 
@@ -45,15 +46,11 @@ public class LoginDecoder extends Decoder {
 					}
 				}
 				break;
+
 			// Help request from client table
 			case 4:
 				int kioskID = stream.readUnsignedByte();
-				System.out.println("Help requested from table: " + kioskID);
-				/*
-				 * for(User user : Global.getAllUsers()) { if(user.isWaiter() ||
-				 * user.isManager()) {
-				 * user.getSession().getPacketEncoder().updateTable(kioskID); } }
-				 */
+				Requests.receiveHelpRequest(kioskID);
 				break;
 	
 			// Sends the menu back to the client.
@@ -109,6 +106,12 @@ public class LoginDecoder extends Decoder {
 			// Order received from client, has table ID.
 			case 9:
 				Order.receiveOrder(user, stream);
+				break;
+				
+			// Customer asks for refill
+			case 12:
+				kioskID = stream.readUnsignedByte();
+				Requests.receiveRefillRequest(kioskID);
 				break;
 		}
 	}

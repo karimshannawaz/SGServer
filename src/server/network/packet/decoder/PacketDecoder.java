@@ -1,9 +1,9 @@
 package server.network.packet.decoder;
 
 import server.menu.Order;
-import server.menu.OrderQueue;
 import server.network.Session;
 import server.network.packet.InputStream;
+import server.user.Requests;
 import server.user.User;
 
 /**
@@ -69,6 +69,12 @@ public final class PacketDecoder extends Decoder {
 			stream.skip(2);
 
 			switch (packetId) {
+			
+			// Help request from client table
+			case 4:
+				int kioskID = stream.readUnsignedByte();
+				Requests.receiveHelpRequest(kioskID);
+				break;
 
 			// Sends the menu back to the client.
 			case 5:
@@ -89,6 +95,19 @@ public final class PacketDecoder extends Decoder {
 			// Waiter marks that they've delivered to the table.
 			case 11:
 				Order.waiterDroppedFoodOff(user, stream);
+				break;
+				
+			// Customer asks for refill
+			case 12:
+				kioskID = stream.readUnsignedByte();
+				Requests.receiveRefillRequest(kioskID);
+				break;
+				
+			// Customer's request is granted.
+			case 13:
+				boolean refill = stream.readUnsignedByte() == 1;
+				kioskID = stream.readUnsignedByte();
+				Requests.completeRequest(kioskID, refill);
 				break;
 
 			default:
