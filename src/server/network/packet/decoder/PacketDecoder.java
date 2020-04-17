@@ -77,7 +77,7 @@ public final class PacketDecoder extends Decoder {
 				
 			// Order received from client, has table ID.
 			case 9:
-				Order.receiveOrder(stream);
+				Order.receiveOrder(user, stream);
 				break;
 
 			default:

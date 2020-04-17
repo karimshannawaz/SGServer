@@ -15,6 +15,8 @@ import org.jboss.netty.channel.group.DefaultChannelGroup;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 
 import server.Global;
+import server.Reports;
+import server.Server;
 import server.core.CoresManager;
 import server.network.packet.InputStream;
 import server.network.packet.decoder.LoginDecoder;
@@ -81,6 +83,8 @@ public final class ServerChannel extends SimpleChannelHandler {
 				return;
 			if (session.isCustomer()) {
 				Global.tableIds[session.getTableID()] = 0;
+				Reports.activeTables--;
+				Server.ui.infoPanel.updateLabels();
 			}
 			if (session.getDecoder() instanceof PacketDecoder) {
 				session.getGlobalPackets().getUser().close();

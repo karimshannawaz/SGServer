@@ -1,8 +1,9 @@
 package server.network.packet.decoder;
 
 import server.Global;
+import server.Reports;
+import server.Server;
 import server.menu.Order;
-import server.menu.OrderQueue;
 import server.network.Session;
 import server.network.packet.InputStream;
 import server.network.packet.encoder.LoginEncoder;
@@ -69,14 +70,14 @@ public class LoginDecoder extends Decoder {
 				// Checks to see if the email the customer is trying to use already exists
 				// and if it does, then they are notified that they won't be able to use it.
 				if(UserLoader.containsUser(email)) {
-					session.getLoginPackets().sendClientPacket("email_exists");
+					session.sendClientPacket("email_exists");
 					return;
 				}
 				// User can make the email. This makes a new file for the user
 				// Lets them know that their request was successful and that
 				// the new account was created.
 				System.out.println("Customer rewards email created successfully "+name+" - "+email+" with birthday: "+birthday);
-				session.getLoginPackets().sendClientPacket("email_created", email, birthday, name);
+				session.sendClientPacket("email_created", email, birthday, name);
 				session.loginToRewards(email, birthday, name);
 				break;
 				
@@ -85,7 +86,7 @@ public class LoginDecoder extends Decoder {
 				email = stream.readString();
 				
 				if(!UserLoader.containsUser(email)) {
-					session.getLoginPackets().sendClientPacket("email_does_not_exist");
+					session.sendClientPacket("email_does_not_exist");
 					return;
 				}
 			
@@ -98,7 +99,7 @@ public class LoginDecoder extends Decoder {
 				String password = stream.readString();
 
 				if(!UserLoader.containsUser(id, true)) {
-					session.getLoginPackets().sendClientPacket("employee_id_does_not_exist");
+					session.sendClientPacket("employee_id_does_not_exist");
 					return;
 				}
 
@@ -107,7 +108,7 @@ public class LoginDecoder extends Decoder {
 				
 			// Order received from client, has table ID.
 			case 9:
-				Order.receiveOrder(stream);
+				Order.receiveOrder(user, stream);
 				break;
 		}
 	}
@@ -124,6 +125,8 @@ public class LoginDecoder extends Decoder {
 		tempUser.initialize(session);
 		this.user = tempUser;
 		Global.addUser(user);
+		Reports.activeTables++;
+		Server.ui.infoPanel.updateLabels();
 	}
 
 }

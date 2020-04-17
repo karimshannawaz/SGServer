@@ -6,6 +6,8 @@ import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFuture;
 
 import server.Global;
+import server.Reports;
+import server.Server;
 import server.network.packet.OutputStream;
 import server.network.packet.decoder.ClientLaunchDecoder;
 import server.network.packet.decoder.Decoder;
@@ -128,14 +130,16 @@ public class Session {
 		User user;
 		if (!UserLoader.containsUser(email)) {
 			user = new User("customer", email, birthday, name);
+			Reports.newRewardMembers++;
+			Server.ui.infoPanel.updateLabels();
 		} else {
 			user = UserLoader.loadUser(email);
 			if (user == null) {
-				getLoginPackets().sendClientPacket("nulled_account");
+				sendClientPacket("nulled_account");
 				return;
 			}
 			if (!UserLoader.createBackup(email)) {
-				getLoginPackets().sendClientPacket("nulled_account");
+				sendClientPacket("nulled_account");
 				return;
 			}
 		}
@@ -162,7 +166,7 @@ public class Session {
 		
 		user.getPacketEncoder().sendDetailsUpdate(false);
 		
-		Global.addUser(user);
+		//Global.addUser(user);
 		System.out.println("Customer "+user.getName()+" logged in with rewards. Email: "+user.getEmail());
 		
 		UserLoader.saveUser(user);
@@ -173,17 +177,17 @@ public class Session {
 		employee = UserLoader.loadUser(id, true);
 		
 		if (employee == null) {
-			getLoginPackets().sendClientPacket("nulled_account");
+			sendClientPacket("nulled_account");
 			return;
 		}
 		
 		if (!UserLoader.createBackup(id, true)) {
-			getLoginPackets().sendClientPacket("nulled_account");
+			sendClientPacket("nulled_account");
 			return;
 		}
 		
 		if(!password.equals(employee.getPassword())) {
-			getLoginPackets().sendClientPacket("incorrect_password");
+			sendClientPacket("incorrect_password");
 			return;
 		}
 		
@@ -223,6 +227,33 @@ public class Session {
 
 	public void setCustomer(boolean isCustomer) {
 		this.isCustomer = isCustomer;
+	}
+	
+	/**
+	 * Sends the specified client packet to the client
+	 * to indicate successful/unsucessful login attempts
+	 * @param string
+	 */
+	public void sendClientPacket(String code, Object... params) {
+		OutputStream stream = new OutputStream();
+		stream.writePacketVarShort(4);
+		/////////
+		stream.writeString(code);
+		
+		// write param length, or nothing
+		if(params.length > 0) {
+			stream.writeByte(params.length);
+			for(int i = 0; i < params.length; i++) {
+				if(params[i] instanceof Integer)
+					stream.writeShort((int) params[i]);
+				else if(params[i] instanceof String)
+					stream.writeString((String) params[i]);
+			}
+		}
+		
+		////////
+		stream.endPacketVarShort();
+		write(stream);
 	}
 
 }

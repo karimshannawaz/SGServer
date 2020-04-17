@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import server.Global;
+import server.network.Session;
 import server.network.packet.InputStream;
 import server.user.User;
 
@@ -37,7 +38,23 @@ public class Order {
 		items.clear();
 	}
 
-	public static void receiveOrder(InputStream stream) {
+	public static void receiveOrder(User user, InputStream stream) {
+		boolean kitchenStaffOnline = false;
+		boolean waitStaffOnline = true;
+		for(User u : Global.getUsers()) {
+			if(u != null) {
+				if(u.getRole().toLowerCase().contains("kitchen")) {
+					kitchenStaffOnline = true;
+				}
+				else if(u.getRole().toLowerCase().contains("wait")) {
+					waitStaffOnline = true;
+				}
+			}
+		}
+		if(!kitchenStaffOnline || !waitStaffOnline) {
+			user.getSession().sendClientPacket("cannot_process_order");
+			return;
+		}
 		int tableID = stream.readUnsignedByte();
 		double subtotal = Double.parseDouble(stream.readString());
 		int orderSize = stream.readUnsignedByte();
