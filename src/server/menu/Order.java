@@ -108,7 +108,7 @@ public class Order {
 		OrderQueue.unpaidOrders.add(currOrder);
 		OrderQueue.unfulfilledOrders.remove(orderIndex);
 		
-		String waitStaffName = "";
+		String waitStaffName = null;
 		
 		for(User u : Global.getUsers()) {
 			if(u != null) {
@@ -130,6 +130,14 @@ public class Order {
 					u.getSession().sendClientPacket("on_the_way", 
 						waitStaffName+" is headed your way with your order!");
 					break;
+				}
+			}
+		}
+		
+		for(User u : Global.getUsers()) {
+			if(u != null) {
+				if(u.getRole().toLowerCase().contains("kitchen")) {
+					u.getSession().sendClientPacket("waitstaff_got_order", tableID, orderIndex);
 				}
 			}
 		}
