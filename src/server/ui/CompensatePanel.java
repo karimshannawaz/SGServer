@@ -13,6 +13,12 @@ import javax.swing.JTable;
 
 //Floreta Krasniqi
 
+/*
+ * 
+ * Page for manager to compensate meals
+ * 
+ */
+
 public class CompensatePanel extends JPanel {
 	
 	private static final long serialVersionUID = -7997986343727651881L;

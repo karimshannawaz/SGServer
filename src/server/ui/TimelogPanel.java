@@ -12,6 +12,12 @@ import javax.swing.table.DefaultTableModel;
 
 //Floreta Krasniqi
 
+/*
+ * page for manager to view employee time log
+ * 
+ */
+
+
 public class TimelogPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1644025221735811591L;
@@ -29,14 +35,15 @@ public class TimelogPanel extends JPanel {
 		setLayout(null);
 		setBounds(233, 0, 962, 710);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(201, 135, 572, 539);
-		add(scrollPane);
-		
 		lblNewLabel = new JLabel("Employee Time Log");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
 		lblNewLabel.setBounds(344, 31, 316, 41);
 		add(lblNewLabel);
+		
+		//scroll pane for time log
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(201, 135, 572, 539);
+		add(scrollPane);
 		
 		//create table
 		table = new JTable();
