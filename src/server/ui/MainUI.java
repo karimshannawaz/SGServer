@@ -27,6 +27,7 @@ public class MainUI extends JFrame {
 
 	private JPanel utilityPanel;
 
+	public ClockPanel clockPanel;
 	public InfoPanel infoPanel;
 	public MenuPanel menuPanel;
 	public InventoryPanel inventoryPanel;
@@ -67,6 +68,11 @@ public class MainUI extends JFrame {
 		infoPanel.setVisible(false);
 		getContentPane().add(infoPanel);
 
+		// Clock Panel
+		this.clockPanel = new ClockPanel();
+		clockPanel.setVisible(false);
+		getContentPane().add(clockPanel);
+		
 		// Menu Panel
 		this.menuPanel = new MenuPanel();
 		menuPanel.setVisible(false);
@@ -98,7 +104,7 @@ public class MainUI extends JFrame {
 		getContentPane().add(tablesPanel);
 
 
-		String[] panelNames = { "Information", "Order", "Pay", "Compensate", "Tables", "Inventory", "Menu", "Time Log",
+		String[] panelNames = { "Information", "Clock In/Out", "Pay", "Compensate", "Tables", "Inventory", "Menu", "Time Log",
 
 				"Discounts", "Employees" };
 
@@ -131,6 +137,7 @@ public class MainUI extends JFrame {
 						
 						//make all panels initially not visible
 						infoPanel.setVisible(false);
+						clockPanel.setVisible(false);
 						menuPanel.setVisible(false);
 						inventoryPanel.setVisible(false);
 						timelogPanel.setVisible(false);
@@ -143,7 +150,8 @@ public class MainUI extends JFrame {
 						case "Information":
 							infoPanel.setVisible(true);
 							break;
-						case "Order":
+						case "Clock In/Out":
+							clockPanel.setVisible(true);
 							break;
 						case "Pay":
 							break;
@@ -170,6 +178,7 @@ public class MainUI extends JFrame {
 						}
 					} else {
 						infoPanel.setVisible(false);
+						clockPanel.setVisible(false);
 						inventoryPanel.setVisible(false);
 						menuPanel.setVisible(false);
 						timelogPanel.setVisible(false);
