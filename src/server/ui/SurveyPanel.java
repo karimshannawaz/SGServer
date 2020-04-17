@@ -6,17 +6,19 @@ import javax.swing.JLabel;
 
 //Floreta Krasniqi
 
-public class PayPanel extends JPanel {
+public class SurveyPanel extends JPanel {
+
+	private static final long serialVersionUID = -2124017323274436141L;
 
 	/**
 	 * Create the panel.
 	 */
-	public PayPanel() {
+	public SurveyPanel() {
 		super();
 		setBounds(233, 0, 962, 710);
 		setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("sorry to disappoint u. there is nothing here yet :-(");
+		JLabel lblNewLabel = new JLabel("Surveys will show up here");
 		lblNewLabel.setBounds(296, 163, 341, 34);
 		add(lblNewLabel);
 

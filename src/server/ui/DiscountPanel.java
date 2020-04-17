@@ -76,8 +76,9 @@ public class DiscountPanel extends JPanel {
 		MondayPanel.add(lblNewLabel_8);
 		
 		//radio button for monday special. pressing button will disable the special
-		JRadioButton MondayRadioBtn = new JRadioButton("OFF");
+		JRadioButton MondayRadioBtn = new JRadioButton("ON");
 		MondayRadioBtn.setBounds(702, 33, 115, 23);
+		MondayRadioBtn.setSelected(true);
 		MondayPanel.add(MondayRadioBtn);
 		
 		JPanel SundayPanel = new JPanel();
@@ -100,8 +101,9 @@ public class DiscountPanel extends JPanel {
 		SundayPanel.add(lblNewLabel_6_1);
 		
 		//radio button for sunday special. pressing button will disable the special
-		JRadioButton SundayRadioBtn = new JRadioButton("OFF");
+		JRadioButton SundayRadioBtn = new JRadioButton("ON");
 		SundayRadioBtn.setBounds(699, 32, 115, 23);
+		SundayRadioBtn.setSelected(true);
 		SundayPanel.add(SundayRadioBtn);
 
 	}
