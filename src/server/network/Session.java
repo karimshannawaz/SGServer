@@ -131,6 +131,7 @@ public class Session {
 		if (!UserLoader.containsUser(email)) {
 			user = new User("customer", email, birthday, name);
 			Reports.newRewardMembers++;
+			Reports.totalNewRewardMembers++;
 			Server.ui.infoPanel.updateLabels();
 		} else {
 			user = UserLoader.loadUser(email);

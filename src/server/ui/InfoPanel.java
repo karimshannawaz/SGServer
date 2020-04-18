@@ -168,7 +168,7 @@ public class InfoPanel extends JPanel {
 		mostPopMI.setText(""+Reports.getMostPopularMenuItem());
 		newRewardMembers.setText(""+Reports.newRewardMembers);
 		employeesClockedIn.setText(""+Reports.employeesClockedIn);
-		totalHours.setText(""+Reports.getTotalHoursWorked());
+		totalHours.setText(""+Reports.totalHoursWorked);
 	}
 	
 }

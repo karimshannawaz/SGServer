@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import server.Reports;
+import server.Server;
 import server.user.TimeLog;
 import server.user.User;
 import server.user.UserLoader;
@@ -115,6 +117,9 @@ public class ClockPanel extends JPanel {
 			if(!TimeLog.clockIn(id, name)) {
 				return;
 			}
+			Reports.employeesClockedIn++;
+			Reports.totalEmployeesClockedIn++;
+			Server.ui.infoPanel.updateLabels();
 			JFrameUtils.showMessage("Clock In", "Welcome back! You have successfully clocked in.");
 			return;
 		}
@@ -134,6 +139,8 @@ public class ClockPanel extends JPanel {
 			if(!TimeLog.clockOut(id, name)) {
 				return;
 			}
+			Reports.employeesClockedIn--;
+			Server.ui.infoPanel.updateLabels();
 			JFrameUtils.showMessage("Clock Out", "You have successfully clocked out. See you next time!");
 			return;
 		}

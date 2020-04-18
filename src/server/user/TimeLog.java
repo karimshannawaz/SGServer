@@ -3,12 +3,11 @@ package server.user;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.table.DefaultTableModel;
 
+import server.Reports;
 import server.Server;
 import server.utils.JFrameUtils;
 
@@ -294,6 +293,7 @@ public class TimeLog {
 				return false;
 			}
 			log.punchOut();
+			Reports.generateTotalTimeWorked();
 		}
 		else {
 			JFrameUtils.showMessage("Time Logs", "This should not be happening, please contact Karimshan and let him know.");

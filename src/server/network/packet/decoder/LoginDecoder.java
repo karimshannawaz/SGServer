@@ -129,6 +129,7 @@ public class LoginDecoder extends Decoder {
 		this.user = tempUser;
 		Global.addUser(user);
 		Reports.activeTables++;
+		Reports.totalActiveTables++;
 		Server.ui.infoPanel.updateLabels();
 	}
 
