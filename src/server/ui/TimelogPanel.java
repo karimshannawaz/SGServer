@@ -25,7 +25,6 @@ public class TimelogPanel extends JPanel {
 	private JTable table;
 	public JLabel dateLbl;
 	private JLabel lblNewLabel;
-
 	
 	/**
 	 * Create the panel.
@@ -69,6 +68,10 @@ public class TimelogPanel extends JPanel {
 		int hour = Integer.parseInt(timeToks[0]);
 		int mins = Integer.parseInt(timeToks[1]);
 		dateLbl.setText("Current Time: " +format);
+		
+	}
+	
+	public void updateTable(String id, String username, boolean clockIn) {
 		
 	}
 }

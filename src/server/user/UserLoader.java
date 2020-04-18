@@ -85,7 +85,7 @@ public class UserLoader {
 			e.printStackTrace();
 		}
 		try {
-			Logger.log("SerializableFilesManager", "Recovering account: "
+			Logger.log("Serializable File", "Recovering account: "
 					+ username);
 			return (User) loadSerializedFile(new File(BACKUP_PATH + username
 					+ ".sgr"));
