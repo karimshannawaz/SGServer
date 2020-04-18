@@ -33,7 +33,7 @@ public class Reports {
 	public static int totalActiveTables;
 	public static String totalHoursWorked = "00:00:00";
 	public static Map<String, Integer> mostPopularMI = new HashMap<String, Integer>();
-	public static String mostPopularItemName;
+	public static String mostPopularItemName = "Nothing yet!";
 	
 	
 	/**

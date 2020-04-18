@@ -3,25 +3,15 @@ package server.ui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Date;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 import server.Reports;
-import server.menu.Inventory;
-import server.utils.JFrameUtils;
 
 /**
  * 
@@ -154,13 +144,6 @@ public class InfoPanel extends JPanel {
 	public void updateLabels() {
 		Date fullDate = new Date();
 		String format = DateFormat.getInstance().format(fullDate);
-		String[] tok = format.split(" ");
-		String date = tok[0];
-		String time = tok[1];
-		String meridiem = tok[2];
-		String[] timeToks = time.split(":");
-		int hour = Integer.parseInt(timeToks[0]);
-		int mins = Integer.parseInt(timeToks[1]);
 		infoPLbl.setText(format+ " - Seven Guys General Information");
 		activeTables.setText(""+Reports.activeTables);
 		currentRevenue.setText(DecimalFormat.getCurrencyInstance().format((Reports.totalRevenue)));
