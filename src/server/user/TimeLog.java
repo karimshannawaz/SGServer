@@ -7,7 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.table.DefaultTableModel;
+
 import server.Server;
+import server.utils.JFrameUtils;
 
 /**
  * Represents a timelog for an employee.
@@ -19,17 +22,17 @@ import server.Server;
  *
  */
 public class TimeLog {
-	
+
 	/**
 	 * Holds a global list of time logs for every employee 
 	 * on a given day.
 	 */
 	public static Map<String, TimeLog> logs = new HashMap<String, TimeLog>();
-	
+
 	// Holds a list of punch ins and outs.
 	private List<String> punchIns;
 	private List<String> punchOuts;
-	
+
 	/**
 	 * Creates a constructor of this log.
 	 */
@@ -37,7 +40,7 @@ public class TimeLog {
 		punchIns = new ArrayList<String>();
 		punchOuts = new ArrayList<String>();
 	}
-	
+
 	/**
 	 * Returns the list of punch ins.
 	 * @return
@@ -45,7 +48,7 @@ public class TimeLog {
 	public List<String> getPunchIns() {
 		return punchIns;
 	}
-	
+
 	/**
 	 * Returns the list of punch outs.
 	 * @return
@@ -53,21 +56,21 @@ public class TimeLog {
 	public List<String> getPunchOuts() {
 		return punchOuts;
 	}
-	
+
 	/**
 	 * Adds a punch in to the employee's list.
 	 */
 	public void punchIn() {
 		punchIns.add(getCurrentTime());
 	}
-	
+
 	/**
 	 * Adds a punch out to the employee's list.
 	 */
 	public void punchOut() {
 		punchOuts.add(getCurrentTime());
 	}
-	
+
 	/**
 	 * Returns the current time in HH mm ss.
 	 * @return
@@ -75,16 +78,20 @@ public class TimeLog {
 	private String getCurrentTime() {
 		return new SimpleDateFormat("HH:mm:ss").format(new Date());
 	}
+	
+	public String getWorkedTime() {
+		return getWorkedTime(-1, true);
+	}
 
 	/**
 	 * Returns the time worked based on when they clocked in/out.
 	 * @return
 	 */
-	public String getWorkedTime(int slot) {
+	public String getWorkedTime(int slot, boolean now) {
 		// Converts the time worked to its hours,
 		// minutes and seconds.
-		String in = punchIns.get(slot);
-		String out = punchOuts.get(slot);
+		String in = punchIns.get(now ? punchIns.size() -1 : slot);
+		String out = now ? getCurrentTime() : punchOuts.get(slot);
 		String[] inTok = in.split(":");
 		String[] outTok = out.split(":");
 		// Calculates the time worked.
@@ -109,10 +116,10 @@ public class TimeLog {
 		}
 		// Returns the time worked in HH mm ss format.
 		return ((hrsDiff < 10 ? "0" : "") + hrsDiff) + ":" + 
-			   ((minsDiff < 10 ? "0" : "") + minsDiff) + ":" + 
-			   ((secsDiff < 10 ? "0" : "") + secsDiff);
+		((minsDiff < 10 ? "0" : "") + minsDiff) + ":" + 
+		((secsDiff < 10 ? "0" : "") + secsDiff);
 	}
-	
+
 	/**
 	 * Returns the total number of hours worked from the employee's 
 	 * punch in and out lists.
@@ -171,8 +178,8 @@ public class TimeLog {
 		}
 		// Returns the time worked in HH mm ss format.
 		return ((hrs < 10 ? "0" : "") + hrs) + ":" + 
-		   ((mins < 10 ? "0" : "") + mins) + ":" + 
-		   ((secs < 10 ? "0" : "") + secs);
+		((mins < 10 ? "0" : "") + mins) + ":" + 
+		((secs < 10 ? "0" : "") + secs);
 	}
 
 	/**
@@ -183,7 +190,34 @@ public class TimeLog {
 	 * @return
 	 */
 	public static boolean clockIn(String id, String name) {
-		Server.ui.timelogPanel.updateTable(id, name, true);
+		boolean exists = logs.containsKey(id);
+		if(exists) {
+			TimeLog log = logs.get(id);
+			boolean doubleClock = log.getPunchIns().size() > log.getPunchOuts().size();
+			if(doubleClock) {
+				JFrameUtils.showMessage("Time Logs", 
+					"You are currently already clocked in, please clock out first before trying again.\n"
+					+ "You have currently worked for: "+(log.getWorkedTime())+" so far.");
+				return false;
+			}
+			log.punchIn();
+		}
+		else {
+			TimeLog log = new TimeLog();
+			log.punchIn();
+			logs.put(id, log);
+			((DefaultTableModel) Server.ui.timelogPanel.table.getModel()).addRow(
+				new Object[] {
+					new String(id),
+					new String(name),
+					new String(log.getPunchIns().get(0)),
+					new String(""),
+					new String("")
+				}
+			);
+			return true;
+		}
+		Server.ui.timelogPanel.updateTable(id, true);
 		return true;
 	}
 
@@ -195,7 +229,23 @@ public class TimeLog {
 	 * @return
 	 */
 	public static boolean clockOut(String id, String name) {
-		Server.ui.timelogPanel.updateTable(id, name, false);
+		boolean exists = logs.containsKey(id);
+		if(exists) {
+			TimeLog log = logs.get(id);
+			boolean doubleClockOut = log.getPunchIns().size() == log.getPunchOuts().size();
+			if(doubleClockOut) {
+				JFrameUtils.showMessage("Time Logs", 
+					"You are not currently clocked in. Please clock in again to be able to perform this action.\n"
+					+ "Your last total amount of time worked was: "+log.getTotalWorkedHours());
+				return false;
+			}
+			log.punchOut();
+		}
+		else {
+			JFrameUtils.showMessage("Time Logs", "This should not be happening, please contact Karimshan and let him know.");
+			return false;
+		}
+		Server.ui.timelogPanel.updateTable(id, false);
 		return true;
 	}
 

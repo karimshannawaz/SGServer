@@ -10,6 +10,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import server.user.TimeLog;
+
 //Floreta Krasniqi
 
 /*
@@ -22,7 +24,7 @@ public class TimelogPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1644025221735811591L;
 	
-	private JTable table;
+	public JTable table;
 	public JLabel dateLbl;
 	private JLabel lblNewLabel;
 	
@@ -71,7 +73,28 @@ public class TimelogPanel extends JPanel {
 		
 	}
 	
-	public void updateTable(String id, String username, boolean clockIn) {
-		
+	/**
+	 * Updates the table with the newest time logs.
+	 * @param id
+	 * @param clockIn
+	 */
+	public void updateTable(String id, boolean clockIn) {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		int index = 0;
+		for(String empID : TimeLog.logs.keySet()) {
+			if(empID.equals(id)) 
+				break;
+			index++;
+		}
+		if(clockIn) {
+			model.setValueAt(TimeLog.logs.get(id).getPunchIns().get(TimeLog.logs.get(id).getPunchIns().size() - 1), index, 2);
+			model.setValueAt("", index, 3);
+			model.setValueAt("", index, 4);
+		}
+		else {
+			model.setValueAt(TimeLog.logs.get(id).getPunchIns().get(TimeLog.logs.get(id).getPunchIns().size() - 1), index, 2);
+			model.setValueAt(TimeLog.logs.get(id).getPunchOuts().get(TimeLog.logs.get(id).getPunchOuts().size() - 1), index, 3);
+			model.setValueAt(TimeLog.logs.get(id).getTotalWorkedHours(), index, 4);
+		}
 	}
 }
