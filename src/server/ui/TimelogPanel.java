@@ -57,7 +57,7 @@ public class TimelogPanel extends JPanel {
 		//prints current date
 		dateLbl = new JLabel("Current Time: <dynamic date>");
 		dateLbl.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		dateLbl.setBounds(374, 84, 228, 35);
+		dateLbl.setBounds(366, 84, 245, 35);
 		add(dateLbl);
 		Date fullDate = new Date();
 		String format = DateFormat.getInstance().format(fullDate);
