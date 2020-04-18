@@ -170,7 +170,7 @@ public class EmployeePanel extends JPanel {
 			employee.getRole(), employee.getPassword() });
 		
 		// Sets current selected index to newest one
-		// and populates ingredient and quantity.
+		// and populates id, name, and password.
 		employeeID.setText(""+model.getValueAt(table.getRowCount() - 1, 0));
 		employeeName.setText(""+model.getValueAt(table.getRowCount() - 1, 1));
 		employeePass.setText(""+model.getValueAt(table.getRowCount() - 1, 2));

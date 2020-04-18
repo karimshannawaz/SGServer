@@ -16,6 +16,8 @@ import java.util.Date;
 import javax.swing.UIManager;
 
 import server.Reports;
+import server.user.UserLoader;
+import server.utils.JFrameUtils;
 
 //Floreta Krasniqi
 
@@ -28,9 +30,9 @@ public class ClockPanel extends JPanel {
 	
 	static final long serialVersionUID = 8778351450140155093L;
 	
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField employeeID;
 	public JLabel dateLbl;
+	
 	
 	/**
 	 * Create the panel.
@@ -50,27 +52,15 @@ public class ClockPanel extends JPanel {
 		
 		//id prompt
 		JLabel lblNewLabel = new JLabel("Employee ID:");
-		lblNewLabel.setBounds(90, 52, 145, 46);
+		lblNewLabel.setBounds(122, 77, 145, 46);
 		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
-		//password prompt
-		JLabel lblNewLabel_1 = new JLabel("Password:");
-		lblNewLabel_1.setBounds(119, 103, 103, 46);
-		panel.add(lblNewLabel_1);
-		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		
 		//id text field for user input
-		textField = new JTextField();
-		textField.setBounds(276, 58, 234, 40);
-		panel.add(textField);
-		textField.setColumns(10);
-		
-		//password text field for user input
-		textField_1 = new JTextField();
-		textField_1.setBounds(275, 108, 234, 40);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		employeeID = new JTextField();
+		employeeID.setBounds(279, 83, 234, 40);
+		panel.add(employeeID);
+		employeeID.setColumns(10);
 		
 		//button to clock in
 		JButton clockInBtn = new JButton("CLOCK IN");
@@ -119,11 +109,33 @@ public class ClockPanel extends JPanel {
 	
 		//function for clocking in
 		protected void clockIn() {
+			
+			String id = this.employeeID.getText();
+			if(UserLoader.containsUser(id, true)) {
+				
+				JFrameUtils.showMessage("Employee Editor", "Welcome back! You have successfully clocked in.");
+				return;
+			}
+			else{
+				JFrameUtils.showMessage("Employee Editor", "Error: Invalid ID - This employee does not exist.");
+				return;
+			}
 		
 		}
 		
 		//function for clocking out
 		protected void clockOut() {
+			
+			String id = this.employeeID.getText();
+			if(UserLoader.containsUser(id, true)) {
+				
+				JFrameUtils.showMessage("Employee Editor", "You have successfully clocked out. See you next time!");
+				return;
+			}
+			else{
+				JFrameUtils.showMessage("Employee Editor", "Error: Invalid ID - This employee does not exist.");
+				return;
+			}
 			
 		}
 }
