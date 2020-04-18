@@ -27,7 +27,10 @@ public class TimeLog {
 	 * Holds a global list of time logs for every employee 
 	 * on a given day.
 	 */
-	public static Map<String, TimeLog> logs = new HashMap<String, TimeLog>();
+	public static List<TimeLog> logs = new ArrayList<TimeLog>();
+	
+	// Holds the employee's ID.
+	private String id;
 
 	// Holds a list of punch ins and outs.
 	private List<String> punchIns;
@@ -39,6 +42,22 @@ public class TimeLog {
 	public TimeLog() {
 		punchIns = new ArrayList<String>();
 		punchOuts = new ArrayList<String>();
+	}
+	
+	/**
+	 * Represents the employee's ID.
+	 * @return
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * Sets the employee ID
+	 * @param id
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
@@ -79,6 +98,10 @@ public class TimeLog {
 		return new SimpleDateFormat("HH:mm:ss").format(new Date());
 	}
 	
+	/**
+	 * Returns the time worked based on time now - clock in time.
+	 * @return
+	 */
 	public String getWorkedTime() {
 		return getWorkedTime(-1, true);
 	}
@@ -181,6 +204,36 @@ public class TimeLog {
 		((mins < 10 ? "0" : "") + mins) + ":" + 
 		((secs < 10 ? "0" : "") + secs);
 	}
+	
+	/**
+	 * Returns true if the time logs contains the specified
+	 * employee ID.
+	 * @param id
+	 * @return
+	 */
+	public static boolean containsEmployee(String id) {
+		for(TimeLog log : TimeLog.logs) {
+			if(log.getId().equals(id)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Returns true if the time logs contains the specified
+	 * employee ID.
+	 * @param id
+	 * @return
+	 */
+	public static TimeLog getLog(String id) {
+		for(int i = 0; i < TimeLog.logs.size(); i++) {
+			if(TimeLog.logs.get(i).getId().equals(id)) {
+				return TimeLog.logs.get(i);
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * The employee clocks in with the specified employee ID
@@ -190,9 +243,9 @@ public class TimeLog {
 	 * @return
 	 */
 	public static boolean clockIn(String id, String name) {
-		boolean exists = logs.containsKey(id);
+		boolean exists = TimeLog.containsEmployee(id);
 		if(exists) {
-			TimeLog log = logs.get(id);
+			TimeLog log = TimeLog.getLog(id);
 			boolean doubleClock = log.getPunchIns().size() > log.getPunchOuts().size();
 			if(doubleClock) {
 				JFrameUtils.showMessage("Time Logs", 
@@ -204,8 +257,9 @@ public class TimeLog {
 		}
 		else {
 			TimeLog log = new TimeLog();
+			log.setId(id);
 			log.punchIn();
-			logs.put(id, log);
+			logs.add(log);
 			((DefaultTableModel) Server.ui.timelogPanel.table.getModel()).addRow(
 				new Object[] {
 					new String(id),
@@ -229,9 +283,9 @@ public class TimeLog {
 	 * @return
 	 */
 	public static boolean clockOut(String id, String name) {
-		boolean exists = logs.containsKey(id);
+		boolean exists = TimeLog.containsEmployee(id);
 		if(exists) {
-			TimeLog log = logs.get(id);
+			TimeLog log = TimeLog.getLog(id);
 			boolean doubleClockOut = log.getPunchIns().size() == log.getPunchOuts().size();
 			if(doubleClockOut) {
 				JFrameUtils.showMessage("Time Logs", 

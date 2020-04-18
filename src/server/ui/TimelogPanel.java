@@ -81,20 +81,23 @@ public class TimelogPanel extends JPanel {
 	public void updateTable(String id, boolean clockIn) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		int index = 0;
-		for(String empID : TimeLog.logs.keySet()) {
-			if(empID.equals(id)) 
+		TimeLog log = null;
+		for(TimeLog l : TimeLog.logs) {
+			if(l.getId().equals(id)) {
+				log = l;
 				break;
+			}
 			index++;
 		}
 		if(clockIn) {
-			model.setValueAt(TimeLog.logs.get(id).getPunchIns().get(TimeLog.logs.get(id).getPunchIns().size() - 1), index, 2);
+			model.setValueAt(log.getPunchIns().get(log.getPunchIns().size() - 1), index, 2);
 			model.setValueAt("", index, 3);
 			model.setValueAt("", index, 4);
 		}
 		else {
-			model.setValueAt(TimeLog.logs.get(id).getPunchIns().get(TimeLog.logs.get(id).getPunchIns().size() - 1), index, 2);
-			model.setValueAt(TimeLog.logs.get(id).getPunchOuts().get(TimeLog.logs.get(id).getPunchOuts().size() - 1), index, 3);
-			model.setValueAt(TimeLog.logs.get(id).getTotalWorkedHours(), index, 4);
+			model.setValueAt(log.getPunchIns().get(log.getPunchIns().size() - 1), index, 2);
+			model.setValueAt(log.getPunchOuts().get(log.getPunchOuts().size() - 1), index, 3);
+			model.setValueAt(log.getTotalWorkedHours(), index, 4);
 		}
 	}
 }
