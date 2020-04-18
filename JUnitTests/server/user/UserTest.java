@@ -39,11 +39,6 @@ class UserTest {
 	}
 
 	@Test
-	void testInitialize() {
-		//User.initialize(e);
-	}
-
-	@Test
 	void testGetRole() {
 		User tester = new User();
 		
@@ -154,82 +149,111 @@ class UserTest {
 
 	@Test
 	void testHasBirthdayEntree() {
+		User tester = new User("customer", "tester@gmail.com", "11/04/1997", "testname");
 		
+		assertFalse(tester.hasBirthdayEntree());
 	}
 
 	@Test
 	void testSetBirthdayEntree() {
+		User tester = new User("customer", "tester@gmail.com", "11/04/1997", "testname");
 		
+		tester.setBirthdayEntree(true);
+		
+		assertTrue(tester.hasBirthdayEntree());
 	}
 
 	@Test
 	void testHasFreeSide() {
+		User tester = new User("customer", "tester@gmail.com", "11/04/1997", "testname");
 		
+		
+		assertTrue(tester.hasFreeSide(), "True because customers get free side as soon as they sign up");
 	}
 
 	@Test
 	void testSetFreeSide() {
+		User tester = new User("customer", "tester@gmail.com", "11/04/1997", "testname");
 		
+		tester.setFreeSide(true);
+		
+		assertTrue(tester.hasFreeSide());
 	}
 
 	@Test
 	void testGetName() {
+		User tester = new User("customer", "tester@gmail.com", "11/04/1997", "testname");
 		
+		
+		assertEquals("testname", tester.getName());
+		assertNotEquals(null, tester.getName());
 	}
 
 	@Test
 	void testSetName() {
+		User tester = new User("customer", "tester@gmail.com", "11/04/1997", "testname");
 		
-	}
-
-	@Test
-	void testGetPacketDecoder() {
+		tester.setName("robbie");
 		
-	}
-
-	@Test
-	void testGetPacketEncoder() {
-		
+		assertEquals("robbie", tester.getName());
+		assertNotEquals(null, tester.getName());
 	}
 
 	@Test
 	void testHasFreeDessert() {
+		User tester = new User("customer", "tester@gmail.com", "11/04/1997", "testname");
 		
+		assertFalse(tester.hasFreeDessert(), "equals false because it initializes to false");
 	}
 
 	@Test
 	void testSetFreeDessert() {
+		User tester = new User("customer", "tester@gmail.com", "11/04/1997", "testname");
 		
+		tester.setFreeDessert(true);
+		
+		assertTrue(tester.hasFreeDessert());	
 	}
 
 	@Test
 	void testGetIndex() {
+		User tester = new User("customer", "tester@gmail.com", "11/04/1997", "testname");
 		
+		assertEquals(0,tester.getIndex(), "hasnt been set so it equals 0");
 	}
 
 	@Test
 	void testSetIndex() {
+		User tester = new User("customer", "tester@gmail.com", "11/04/1997", "testname");
 		
+		tester.setIndex(13);
+		
+		assertEquals(13,tester.getIndex());
 	}
 
 	@Test
 	void testClose() {
+		User tester = new User("customer", "tester@gmail.com", "11/04/1997", "testname");
 		
-	}
-
-	@Test
-	void testGetTableID() {
+		tester.close();
 		
+		//test passes because output is written to console
 	}
 
 	@Test
 	void testIsAvailable() {
+		User tester = new User("customer", "tester@gmail.com", "11/04/1997", "testname");
 		
+		assertFalse(tester.isAvailable(), "initializes to false");
 	}
 
 	@Test
 	void testSetAvailable() {
+		User tester = new User("customer", "tester@gmail.com", "11/04/1997", "testname");
 		
+		tester.setAvailable(true);
+		
+		assertTrue(tester.isAvailable());
 	}
 
 }
