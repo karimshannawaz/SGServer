@@ -2,6 +2,7 @@ package server.user;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,66 +10,134 @@ class UserListTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		UserList tester = new UserList(5);
 	}
 
 	@Test
 	void testSize() {
-		fail("Not yet implemented"); // TODO
+		UserList tester = new UserList(5);
+		tester.indices.size();
+		
+		assertEquals(0, tester.indices.size());
 	}
 
 	@Test
 	void testUserList() {
-		fail("Not yet implemented"); // TODO
+		UserList tester = new UserList(5);
+		
+		assertEquals(5,tester.capacity);
+			
 	}
 
 	@Test
 	void testAddT() {
-		fail("Not yet implemented"); // TODO
+		UserList tester = new UserList(5);
+		User entity = new User();
+		entity.getIndex();
+		UserLoader.saveUser(entity, true);
+		
+		assertTrue(tester.add(entity));
+		
 	}
 
 	@Test
 	void testRemoveT() {
-		fail("Not yet implemented"); // TODO
+		UserList tester = new UserList(5);
+		User entity = new User();
+		entity.getIndex();
+		UserLoader.saveUser(entity, true);
+	
+		tester.add(entity);
+		assertEquals(1,tester.indices.size());
+		
+		tester.remove(entity);
+		assertEquals(0, tester.indices.size());
 	}
 
 	@Test
 	void testRemoveInt() {
-		fail("Not yet implemented"); // TODO
+		UserList tester = new UserList(5);
+		User entity = new User();
+		entity.getIndex();
+		UserLoader.saveUser(entity, true);
+	
+		tester.add(entity);
+		assertEquals(1,tester.indices.size());
+		
+		tester.remove(entity);
+		assertEquals(0, tester.indices.size());
+		
 	}
 
 	@Test
 	void testGet() {
-		fail("Not yet implemented"); // TODO
+		UserList tester = new UserList(5);
+		tester.get(3);
+		
+		assertNull(tester.get(3));
+		
 	}
 
 	@Test
 	void testAddTInt() {
-		fail("Not yet implemented"); // TODO
+		UserList tester = new UserList(5);
+		User entity = new User();
+		entity.getIndex();
+		//entity.indices.add();
+		//UserLoader.saveUser(entity, true);
+		tester.add(entity, 6);
+		
+		assertEquals(1, tester.indices.size());
+		
 	}
 
 	@Test
 	void testIterator() {
-		fail("Not yet implemented"); // TODO
+		UserList tester = new UserList(5);
+		
+		tester.iterator();
+		assertNotEquals(0, tester.iterator());
+		
 	}
 
 	@Test
 	void testIncreaseIndex() {
-		fail("Not yet implemented"); // TODO
+		UserList tester = new UserList(5);
+		tester.increaseIndex();
+		
+		assertNotEquals(0,tester.curIndex);
+		
+		
 	}
 
 	@Test
 	void testDecreaseIndex() {
-		fail("Not yet implemented"); // TODO
+		UserList tester = new UserList(5);
+		tester.decreaseIndex();
+		
+		assertEquals(1,tester.curIndex);
 	}
 
 	@Test
 	void testContainsT() {
-		fail("Not yet implemented"); // TODO
+		UserList tester = new UserList(5);
+		User entity = new User();
+		entity.getIndex();
+		
+		tester.indexOf(entity);
+		
+		assertNotNull(tester.indexOf(entity));
 	}
 
 	@Test
 	void testIndexOf() {
-		fail("Not yet implemented"); // TODO
+		UserList tester = new UserList(5);
+		User entity = new User();
+		entity.getIndex();
+		tester.indexOf(entity );
+		
+		assertNotEquals(0, tester.indexOf(entity));
+		
 	}
 
 }
