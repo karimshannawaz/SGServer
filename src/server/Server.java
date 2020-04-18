@@ -1,5 +1,7 @@
 package server;
 
+import java.text.SimpleDateFormat;
+
 import server.core.CoresManager;
 import server.menu.Inventory;
 import server.menu.Menu;
@@ -30,6 +32,7 @@ public class Server {
 			Logger.log("Server", "Launching User Interface for Managers");
 			ui = new MainUI();
 			ui.setVisible(true);
+			
 		} catch (Exception e) {
 			Logger.log("Server", "Failed to load the channel which accepts client requests. See details.");
 			e.printStackTrace();
