@@ -77,7 +77,7 @@ public class ClockPanel extends JPanel {
 		//prints current date
 		dateLbl = new JLabel("The date is currently: <dynamic date>");
 		dateLbl.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
-		dateLbl.setBounds(230, 62, 512, 48);
+		dateLbl.setBounds(201, 62, 549, 48);
 		add(dateLbl);
 		Date fullDate = new Date();
 		String format = DateFormat.getInstance().format(fullDate);
