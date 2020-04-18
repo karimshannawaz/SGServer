@@ -225,7 +225,7 @@ public class MainUI extends JFrame {
 		
 		/**
 		 * Sets up our executor to update the time in the employee timelog
-		 * every minute, as well as clocking in/out.
+		 * every minute, as well as clocking in/out..
 		 */
 		CoresManager.slowExecutor.scheduleWithFixedDelay(new Runnable() {
 			@Override
