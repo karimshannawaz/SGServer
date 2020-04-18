@@ -165,7 +165,7 @@ public class InfoPanel extends JPanel {
 		activeTables.setText(""+Reports.activeTables);
 		currentRevenue.setText(DecimalFormat.getCurrencyInstance().format((Reports.totalRevenue)));
 		currentTips.setText(DecimalFormat.getCurrencyInstance().format((Reports.totalTips)));
-		mostPopMI.setText(""+Reports.getMostPopularMenuItem());
+		mostPopMI.setText(""+Reports.mostPopularItemName);
 		newRewardMembers.setText(""+Reports.newRewardMembers);
 		employeesClockedIn.setText(""+Reports.employeesClockedIn);
 		totalHours.setText(""+Reports.totalHoursWorked);

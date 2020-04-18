@@ -3,6 +3,7 @@ package server;
 import java.util.HashMap;
 import java.util.Map;
 
+import server.menu.Inventory;
 import server.user.TimeLog;
 
 /**
@@ -31,12 +32,10 @@ public class Reports {
 	public static int totalEmployeesClockedIn;
 	public static int totalActiveTables;
 	public static String totalHoursWorked = "00:00:00";
-	public static Map<String, Integer> menuItemSales = new HashMap<String, Integer>();
+	public static Map<String, Integer> mostPopularMI = new HashMap<String, Integer>();
+	public static String mostPopularItemName;
 	
-	public static String getMostPopularMenuItem() {
-		return "Nothing yet!";
-	}
-
+	
 	/**
 	 * Updates the information panel with the total time worked
 	 * across every employee.
@@ -100,5 +99,24 @@ public class Reports {
 			((secs < 10 ? "0" : "") + secs);
 		Server.ui.infoPanel.updateLabels();
 	}
+	
+	/**
+	 * Updates the most popular menu item on the server information panel.
+	 */
+	public static void updateMostPopularMI() {
+		int mostQty = 0;
+		String mostPopular = "";
+		for(Map.Entry<String, Integer> entry : mostPopularMI.entrySet()) {
+			String name = entry.getKey();
+			int qty = entry.getValue();
+			if(qty > mostQty) {
+				mostQty = qty;
+				mostPopular = ""+name;
+			}
+		}
+		mostPopularItemName = ""+mostPopular;
+		Server.ui.infoPanel.updateLabels();
+	}
+	
 
 }

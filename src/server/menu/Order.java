@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import server.Global;
+import server.Reports;
 import server.network.Session;
 import server.network.packet.InputStream;
 import server.user.User;
@@ -121,6 +122,14 @@ public class Order {
 		int orderIndex = stream.readUnsignedByte();
 
 		Order currOrder = OrderQueue.unfulfilledOrders.get(orderIndex);
+		
+		for(MItem item : currOrder.items) {
+			String name = item.name;
+			Reports.mostPopularMI.put(name, Reports.mostPopularMI.containsKey(name) ? 
+				(Reports.mostPopularMI.get(name) + item.qty) : item.qty);
+		}
+		Reports.updateMostPopularMI();
+		
 		OrderQueue.unpaidOrders.add(currOrder);
 		OrderQueue.unfulfilledOrders.remove(orderIndex);
 		
