@@ -50,6 +50,7 @@ public class InfoPanel extends JPanel {
 		setBounds(233, 0, 962, 710);
 		setLayout(null);
 		
+		//prints the date
 		infoPLbl = new JLabel("<dynamic Date> - Seven Guys General Information");
 		infoPLbl.setFont(new Font("SimSun", Font.PLAIN, 35));
 		infoPLbl.setBounds(32, 13, 898, 59);

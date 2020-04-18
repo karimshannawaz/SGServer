@@ -204,6 +204,7 @@ public class MenuPanel extends JPanel {
 		refreshDefaultFields(true);
 	}
 
+	//populates text fields with default text
 	private void refreshDefaultFields(boolean currInd) {
 		MItem item = Menu.instance.get(currIndex);
 		name.setText(currInd ? item.name : "");
@@ -216,6 +217,7 @@ public class MenuPanel extends JPanel {
 		ingredients.setText(currInd ? item.ingredients : "beef_patty:1:t:vegan_patty,lettuce:3:t:n,tomato:1:t:n");
 	}
 
+	//function to make changes to a menu item and update it
 	protected void updateItem(int index) {
 		if(name.getText().equals("") || name.getText().equals(null) || 
 				ingredients.getText().equals("") || ingredients.getText().equals(null)) {
@@ -264,9 +266,11 @@ public class MenuPanel extends JPanel {
 		}
 		*/
 		
+		//call function to update menu item buttone
 		refreshMenuItemButtons();
 		mItemBtns[index].setSelected(true);
 		
+		//populates text fields with selected menu item
 		refreshMenuText(index);
 		currIndex = index;
 		deleteBtn.setVisible(true);
@@ -275,6 +279,7 @@ public class MenuPanel extends JPanel {
 		JFrameUtils.showMessage("Menu Editor", "Successfully UPDATED item: "+name.getText()+" at index: "+index);
 	}
 
+	//function to add a new item to the menu
 	protected void addToMenu() {
 		if(name.getText().equals("") || name.getText().equals(null) || 
 				ingredients.getText().equals("") || ingredients.getText().equals(null)) {
@@ -325,6 +330,7 @@ public class MenuPanel extends JPanel {
 		}
 		*/
 		
+		//add item
 		Menu.add(newMI);
 		
 		name.setText("");
@@ -341,6 +347,7 @@ public class MenuPanel extends JPanel {
 		JFrameUtils.showMessage("Menu Editor", "Successfully added item: "+newMI.name+" at index: "+index);
 	}
 
+	//updates menu item buttons to reflect menu changes
 	private void refreshMenuItemButtons() {
 		if(mItemBtns != null) {
 			for(int i = mItemBtns.length - 1; i >= 0; i--) {
@@ -388,7 +395,7 @@ public class MenuPanel extends JPanel {
 			});
 		}
 	}
-
+	//populates text fields with selected menu item
 	private void refreshMenuText(int index) {
 		menuAsTxt = new StringBuilder();
 		MItem item = Menu.instance.get(index);
@@ -406,6 +413,7 @@ public class MenuPanel extends JPanel {
 		currMenu.setText(menuAsTxt.toString());
 	}
 	
+	//function to delete an item from the menu
 	public void deleteMenuItem(int index, boolean confirm) {
 		boolean option;
 		if(confirm) {
@@ -417,6 +425,7 @@ public class MenuPanel extends JPanel {
 		}
 		String oldItem = mItemBtns[index].getText();
 		if(option) {
+			//remove item
 			Menu.remove(index);
 			
 			name.setText("");
