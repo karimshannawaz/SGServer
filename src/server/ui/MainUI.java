@@ -3,6 +3,8 @@ package server.ui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
@@ -11,9 +13,6 @@ import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
 import server.core.CoresManager;
-import server.user.User;
-import server.user.UserLoader;
-import server.utils.Constants;
 import server.utils.STime;
 
 /**
@@ -223,6 +222,24 @@ public class MainUI extends JFrame {
 				}
 			}
 		}, 0, 1, TimeUnit.SECONDS);
+		
+		/**
+		 * Sets up our executor to update the time in the employee timelog
+		 * every minute, as well as clocking in/out.
+		 */
+		CoresManager.slowExecutor.scheduleWithFixedDelay(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Date fullDate = new Date();
+					String format = DateFormat.getInstance().format(fullDate);
+					clockPanel.dateLbl.setText("The date/time is currently: " +format);
+					timelogPanel.dateLbl.setText("Current time: "+format);
+				} catch (Throwable e) {
+					e.printStackTrace();
+				}
+			}
+		}, 0, 1, TimeUnit.MINUTES);
 		
 	}
 }

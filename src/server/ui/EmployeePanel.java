@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -12,12 +13,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import server.menu.Inventory;
 import server.user.User;
 import server.user.UserLoader;
 import server.utils.JFrameUtils;
-
-import javax.swing.JComboBox;
 
 //Floreta Krasniqi
 // and Karimshan
@@ -32,12 +30,14 @@ public class EmployeePanel extends JPanel {
 	private JTextField employeeID;
 	private JTextField employeePass;
 	
+	@SuppressWarnings("rawtypes")
 	private JComboBox roleComboBox;
 
 	//
 	/**
 	 * Create the panel.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public EmployeePanel() {
 		super();
 		setLayout(null);
