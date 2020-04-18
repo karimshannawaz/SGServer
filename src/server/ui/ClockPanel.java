@@ -113,11 +113,14 @@ public class ClockPanel extends JPanel {
 			String id = this.employeeID.getText();
 			if(UserLoader.containsUser(id, true)) {
 				
-				JFrameUtils.showMessage("Employee Editor", "Welcome back! You have successfully clocked in.");
+				
+				
+				
+				JFrameUtils.showMessage("Clock In", "Welcome back! You have successfully clocked in.");
 				return;
 			}
 			else{
-				JFrameUtils.showMessage("Employee Editor", "Error: Invalid ID - This employee does not exist.");
+				JFrameUtils.showMessage("Clock In", "Error: Invalid ID - This employee does not exist.");
 				return;
 			}
 		
@@ -129,11 +132,11 @@ public class ClockPanel extends JPanel {
 			String id = this.employeeID.getText();
 			if(UserLoader.containsUser(id, true)) {
 				
-				JFrameUtils.showMessage("Employee Editor", "You have successfully clocked out. See you next time!");
+				JFrameUtils.showMessage("Clock Out", "You have successfully clocked out. See you next time!");
 				return;
 			}
 			else{
-				JFrameUtils.showMessage("Employee Editor", "Error: Invalid ID - This employee does not exist.");
+				JFrameUtils.showMessage("Clock Out", "Error: Invalid ID - This employee does not exist.");
 				return;
 			}
 			
