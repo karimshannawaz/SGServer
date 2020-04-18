@@ -23,12 +23,5 @@ class OrderTest {
 		assertEquals(2, tester.items.size(), "equals 2 because 2 items were added");
 	}
 
-	@Test
-	void testReceiveOrder() {
-		Order tester = new Order();
-		//recieveOrder();
-	}
-
-
 
 }
