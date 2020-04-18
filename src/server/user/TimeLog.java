@@ -24,12 +24,19 @@ public class TimeLog {
 		punchOuts = new ArrayList<String>();
 	}
 	
+	public List<String> getPunchIns() {
+		return punchIns;
+	}
+	
+	public List<String> getPunchOuts() {
+		return punchOuts;
+	}
 	
 	public void punchIn() {
 		punchIns.add(getCurrentTime());
 	}
 	
-	public void punchOut(int slot) {
+	public void punchOut() {
 		punchOuts.add(getCurrentTime());
 	}
 	
@@ -51,7 +58,15 @@ public class TimeLog {
 		int secsOut = Integer.parseInt(outTok[2]);
 		int hrsDiff = (hrsOut - hrsIn);
 		int minsDiff = (minsOut - minsIn);
+		if(minsDiff < 0) {
+			minsDiff = minsDiff + 60;
+			hrsDiff = hrsDiff - 1;
+		}
 		int secsDiff = (secsOut - secsIn);
+		if(secsDiff < 0) {
+			secsDiff = secsDiff + 60;
+			minsDiff = minsDiff - 1;
+		}
 		return ((hrsDiff < 10 ? "0" : "") + hrsDiff) + ":" + 
 			   ((minsDiff < 10 ? "0" : "") + minsDiff) + ":" + 
 			   ((secsDiff < 10 ? "0" : "") + secsDiff);
@@ -74,10 +89,30 @@ public class TimeLog {
 			int secsOut = Integer.parseInt(outTok[2]);
 			int hrsDiff = (hrsOut - hrsIn);
 			int minsDiff = (minsOut - minsIn);
+			if(minsDiff < 0) {
+				minsDiff = minsDiff + 60;
+				hrsDiff = hrsDiff - 1;
+			}
 			int secsDiff = (secsOut - secsIn);
+			if(secsDiff < 0) {
+				secsDiff = secsDiff + 60;
+				minsDiff = minsDiff - 1;
+			}
 			hrs += hrsDiff;
-			minsDiff += minsDiff;
-			secsDiff += secsDiff;
+			mins += minsDiff;
+			secs += secsDiff;
+		}
+		if(secs >= 60) {
+			int newSecs = (secs % 60);
+			int remainder = (secs / 60);
+			mins += remainder;
+			secs = newSecs;
+		}
+		if(mins >= 60) {
+			int newMins = (mins % 60);
+			int remainder = (mins / 60);
+			hrs += remainder;
+			mins = newMins;
 		}
 		return ((hrs < 10 ? "0" : "") + hrs) + ":" + 
 		   ((mins < 10 ? "0" : "") + mins) + ":" + 
