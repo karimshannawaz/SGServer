@@ -34,7 +34,7 @@ class TimeLogTest {
 		tester.getPunchIns();
 		
 		assertNotNull(tester.getPunchIns());
-		//fail("Not yet implemented");
+		
 	}
 
 	@Test
