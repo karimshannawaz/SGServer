@@ -94,7 +94,8 @@ public final class PacketDecoder extends Decoder {
 				
 			// Waiter marks that they've delivered to the table.
 			case 11:
-				Order.waiterDroppedFoodOff(user, stream);
+				int tableID = stream.readUnsignedByte();
+				Order.waiterDroppedFoodOff(user, tableID);
 				break;
 				
 			// Customer asks for refill

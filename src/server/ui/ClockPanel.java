@@ -81,13 +81,6 @@ public class ClockPanel extends JPanel {
 		add(dateLbl);
 		Date fullDate = new Date();
 		String format = DateFormat.getInstance().format(fullDate);
-		String[] tok = format.split(" ");
-		String date = tok[0];
-		String time = tok[1];
-		String meridiem = tok[2];
-		String[] timeToks = time.split(":");
-		int hour = Integer.parseInt(timeToks[0]);
-		int mins = Integer.parseInt(timeToks[1]);
 		dateLbl.setText("The date is currently: " +format);
 
 

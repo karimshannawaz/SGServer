@@ -2,6 +2,7 @@ package server.user;
 
 import server.Global;
 import server.Server;
+import server.utils.JFrameUtils;
 
 /**
  * A class that holds all of the requests.
@@ -29,8 +30,17 @@ public class Requests {
 			for(User u : Global.getUsers()) {
 				if(u != null) {
 					if(u.getSession().isCustomer()
-						&& u.getTableID() == tableID) {
-						u.getSession().sendClientPacket("waitstaff_not_available_for_request", refill ? "refill" : "help");
+							&& u.getTableID() == tableID) {
+						u.getSession().sendClientPacket("waitstaff_received_request", refill ? "refill" : "help");
+						Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, refill ? 1 : 2);
+						Server.ui.tablesPanel.requiresRequest[tableID] = true;
+						if(refill) {
+							JFrameUtils.showMessage("Refill Update", "You have a new refill to take to table "+
+								(tableID + 1)+".\nPlease tap on it when you are on your way to the table with the refill.");
+						} else {
+							JFrameUtils.showMessage("Help Update", "You have a new help request from table "+
+								(tableID + 1)+".\nPlease tap on it when you are on your way to the table.");
+						}
 						break;
 					}
 				}
@@ -43,6 +53,7 @@ public class Requests {
 						&& u.getTableID() == tableID) {
 					u.getSession().sendClientPacket("waitstaff_received_request", refill ? "refill" : "help");
 					Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, refill ? 1 : 2);
+					Server.ui.tablesPanel.requiresRequest[tableID] = false;
 					continue;
 				}
 				if(u.getRole().toLowerCase().contains("wait")) {
@@ -64,6 +75,7 @@ public class Requests {
 				if(u.getSession().isCustomer()
 						&& u.getTableID() == tableID) {
 					Server.ui.tablesPanel.table.getModel().setValueAt("X", tableID, refill ? 1 : 2);
+					Server.ui.tablesPanel.requiresRequest[tableID] = false;
 					u.getSession().sendClientPacket("waitstaff_on_way_with_request", refill ? "refill" : "help");
 					break;
 				}

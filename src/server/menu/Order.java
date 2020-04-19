@@ -6,9 +6,9 @@ import java.util.List;
 import server.Global;
 import server.Reports;
 import server.Server;
-import server.network.Session;
 import server.network.packet.InputStream;
 import server.user.User;
+import server.utils.JFrameUtils;
 
 /**
  * Holds information for a customer's order.
@@ -83,19 +83,14 @@ public class Order {
 		System.out.println("Took order from table: "+tableID+" with subtotal: "+subtotal+". Sending to kitchen staff...");
 		for(User u : Global.getUsers()) {
 			if(u != null) {
-				if(u.getRole().toLowerCase().contains("kitchen")) {
-					u.getPacketEncoder().sendOrder(tableID, order);
-				}
-			}
-		}
-		for(User u : Global.getUsers()) {
-			if(u != null) {
 				if(u.getSession().isCustomer()
 						&& u.getTableID() == tableID) {
 					u.getSession().sendClientPacket("order_submitted");
-					break;
+					continue;
 				}
-				
+				if(u.getRole().toLowerCase().contains("kitchen")) {
+					u.getPacketEncoder().sendOrder(tableID, order);
+				}
 			}
 		}
 		
@@ -113,10 +108,6 @@ public class Order {
 					waitStaffOnline = true;
 				}
 			}
-		}
-		if(!waitStaffOnline || !availableWaitStaff) {
-			user.getSession().sendClientPacket("no_waitstaff_available");
-			return;
 		}
 		
 		int tableID = stream.readUnsignedByte();
@@ -145,32 +136,27 @@ public class Order {
 		
 		for(User u : Global.getUsers()) {
 			if(u != null) {
-				if(u.getRole().toLowerCase().contains("wait")) {
+				if(!waitStaffOnline || !availableWaitStaff) {
+					Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, 3);
+					Server.ui.tablesPanel.requiresOrder[tableID] = true;
+					JFrameUtils.showMessage("Order Update", "You have a new order to take to table "+
+					(tableID + 1)+".\nPlease mark it as delivered to the table once you've delivered it.");
+					continue;
+				} else if(u.getRole().toLowerCase().contains("wait") && waitStaffOnline) {
 					waitStaffName = u.getName();
 					u.getPacketEncoder().sendOrder(tableID);
 					Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, 3);
-					System.out.println("Kitchen handed off table "+
-						(tableID + 1)+"'s order (index: "+orderIndex+") to waitstaff: "+u.getId()+" - "+u.getName());
+					Server.ui.tablesPanel.requiresOrder[tableID] = false;
 				}
-			}
-		}
-		
-		for(User u : Global.getUsers()) {
-			if(u != null) {
 				if(u.getSession().isCustomer()
-					&& u.getTableID() == tableID) {
+						&& u.getTableID() == tableID) {
 					u.getSession().sendClientPacket("on_the_way", 
-						waitStaffName+" is headed your way with your order!");
-					break;
+							waitStaffName+" is headed your way with your order!");
+					continue;
 				}
-			}
-		}
-		
-		for(User u : Global.getUsers()) {
-			if(u != null) {
 				if(u.getRole().toLowerCase().contains("kitchen")) {
-					System.out.println("Waitstaff got order from kitchen end: "+tableID+" and order index: "+orderIndex);
 					u.getSession().sendClientPacket("waitstaff_got_order", tableID);
+					continue;
 				}
 			}
 		}
@@ -184,15 +170,15 @@ public class Order {
 		this.tableID = tableID;
 	}
 
-	public static void waiterDroppedFoodOff(User user, InputStream stream) {
-		int tableID = stream.readUnsignedByte();
-		user.setAvailable(true);
-		
+	public static void waiterDroppedFoodOff(User user, int tableID) {
+		if(user != null)
+			user.setAvailable(true);
 		for(User u : Global.getUsers()) {
 			if(u != null) {
 				if(u.getSession().isCustomer()
 					&& u.getTableID() == tableID) {
 					Server.ui.tablesPanel.table.getModel().setValueAt("X", tableID, 3);
+					Server.ui.tablesPanel.requiresOrder[tableID] = false;
 					u.getSession().sendClientPacket("waiter_delivered");
 					break;
 				}
