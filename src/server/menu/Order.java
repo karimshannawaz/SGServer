@@ -155,7 +155,7 @@ public class Order {
 				if(u.getSession().isCustomer()
 						&& u.getTableID() == tableID) {
 					u.getSession().sendClientPacket("on_the_way", 
-							waitStaffName+" is headed your way with your order!");
+							"A manager is headed your way with your order!");
 					continue;
 				}
 				if(u.getRole().toLowerCase().contains("kitchen")) {

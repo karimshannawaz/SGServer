@@ -113,6 +113,22 @@ public class LoginDecoder extends Decoder {
 				kioskID = stream.readUnsignedByte();
 				Requests.receiveRequest(kioskID, true);
 				break;
+				
+			// Customer's request is granted.
+			case 13:
+				boolean refill = stream.readUnsignedByte() == 1;
+				kioskID = stream.readUnsignedByte();
+				Requests.completeRequest(kioskID, refill);
+				break;
+				
+			// Revenue update from client
+			case 14:
+				double subtotal = Double.parseDouble(stream.readString());
+				double tip = Double.parseDouble(stream.readString());
+				Reports.totalRevenue += subtotal;
+				Reports.totalTips += tip;
+				Server.ui.infoPanel.updateLabels();
+				break;
 		}
 	}
 	

@@ -1,5 +1,7 @@
 package server.network.packet.decoder;
 
+import server.Reports;
+import server.Server;
 import server.menu.Order;
 import server.network.Session;
 import server.network.packet.InputStream;
@@ -109,6 +111,15 @@ public final class PacketDecoder extends Decoder {
 				boolean refill = stream.readUnsignedByte() == 1;
 				kioskID = stream.readUnsignedByte();
 				Requests.completeRequest(kioskID, refill);
+				break;
+				
+			// Revenue update from client
+			case 14:
+				double subtotal = Double.parseDouble(stream.readString());
+				double tip = Double.parseDouble(stream.readString());
+				Reports.totalRevenue += subtotal;
+				Reports.totalTips += tip;
+				Server.ui.infoPanel.updateLabels();
 				break;
 
 			default:
