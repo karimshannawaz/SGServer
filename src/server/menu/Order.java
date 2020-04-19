@@ -5,6 +5,7 @@ import java.util.List;
 
 import server.Global;
 import server.Reports;
+import server.Server;
 import server.network.Session;
 import server.network.packet.InputStream;
 import server.user.User;
@@ -119,15 +120,22 @@ public class Order {
 		}
 		
 		int tableID = stream.readUnsignedByte();
-		int orderIndex = stream.readUnsignedByte();
-
-		Order currOrder = OrderQueue.unfulfilledOrders.get(orderIndex);
+		
+		Order currOrder = null;
+		int orderIndex = 0;
+		for(Order o : OrderQueue.unfulfilledOrders) {
+			if(o.getTableID() == tableID) {
+				currOrder = o;
+				break;
+			}
+			orderIndex++;
+		}
 		
 		for(MItem item : currOrder.items) {
 			String name = item.name;
-			Reports.mostPopularMI.put(name, Reports.mostPopularMI.containsKey(name) ? 
-				(Reports.mostPopularMI.get(name) + item.qty) : item.qty);
+			Reports.mostPopularMI.put(name, Reports.mostPopularMI.get(name) + item.qty);
 		}
+		
 		Reports.updateMostPopularMI();
 		
 		OrderQueue.unpaidOrders.add(currOrder);
@@ -139,9 +147,10 @@ public class Order {
 			if(u != null) {
 				if(u.getRole().toLowerCase().contains("wait")) {
 					waitStaffName = u.getName();
-					u.getPacketEncoder().sendOrder(tableID, orderIndex);
+					u.getPacketEncoder().sendOrder(tableID);
+					Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, 3);
 					System.out.println("Kitchen handed off table "+
-						(tableID + 1)+"'s order to waitstaff: "+u.getId()+" - "+u.getName());
+						(tableID + 1)+"'s order (index: "+orderIndex+") to waitstaff: "+u.getId()+" - "+u.getName());
 				}
 			}
 		}
@@ -160,6 +169,7 @@ public class Order {
 		for(User u : Global.getUsers()) {
 			if(u != null) {
 				if(u.getRole().toLowerCase().contains("kitchen")) {
+					System.out.println("Waitstaff got order from kitchen end: "+tableID+" and order index: "+orderIndex);
 					u.getSession().sendClientPacket("waitstaff_got_order", tableID, orderIndex);
 				}
 			}
@@ -176,13 +186,13 @@ public class Order {
 
 	public static void waiterDroppedFoodOff(User user, InputStream stream) {
 		int tableID = stream.readUnsignedByte();
-		int orderIndex = stream.readUnsignedByte();
 		user.setAvailable(true);
 		
 		for(User u : Global.getUsers()) {
 			if(u != null) {
 				if(u.getSession().isCustomer()
 					&& u.getTableID() == tableID) {
+					Server.ui.tablesPanel.table.getModel().setValueAt("X", tableID, 3);
 					u.getSession().sendClientPacket("waiter_delivered");
 					break;
 				}

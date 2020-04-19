@@ -73,7 +73,7 @@ public final class PacketDecoder extends Decoder {
 			// Help request from client table
 			case 4:
 				int kioskID = stream.readUnsignedByte();
-				Requests.receiveHelpRequest(kioskID);
+				Requests.receiveRequest(kioskID, false);
 				break;
 
 			// Sends the menu back to the client.
@@ -100,7 +100,7 @@ public final class PacketDecoder extends Decoder {
 			// Customer asks for refill
 			case 12:
 				kioskID = stream.readUnsignedByte();
-				Requests.receiveRefillRequest(kioskID);
+				Requests.receiveRequest(kioskID, true);
 				break;
 				
 			// Customer's request is granted.

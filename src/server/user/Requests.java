@@ -1,6 +1,7 @@
 package server.user;
 
 import server.Global;
+import server.Server;
 
 /**
  * A class that holds all of the requests.
@@ -11,12 +12,11 @@ import server.Global;
 public class Requests {
 
 	/**
-	 * Receives help request from client
+	 * Receives help/refill request from client
 	 * @param kioskID
 	 * 
 	 */
-	public static void receiveHelpRequest(int tableID) {
-		System.out.println("received help request from table "+(tableID + 1));
+	public static void receiveRequest(int tableID, boolean refill) {
 		boolean waitStaffOnline = false;
 		for(User u : Global.getUsers()) {
 			if(u != null) {
@@ -30,7 +30,7 @@ public class Requests {
 				if(u != null) {
 					if(u.getSession().isCustomer()
 						&& u.getTableID() == tableID) {
-						u.getSession().sendClientPacket("waitstaff_not_available_for_request", "help");
+						u.getSession().sendClientPacket("waitstaff_not_available_for_request", refill ? "refill" : "help");
 						break;
 					}
 				}
@@ -41,51 +41,12 @@ public class Requests {
 			if(u != null) {
 				if(u.getSession().isCustomer()
 						&& u.getTableID() == tableID) {
-					u.getSession().sendClientPacket("waitstaff_received_request", "help");
+					u.getSession().sendClientPacket("waitstaff_received_request", refill ? "refill" : "help");
+					Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, refill ? 1 : 2);
 					continue;
 				}
 				if(u.getRole().toLowerCase().contains("wait")) {
-					u.getPacketEncoder().sendRequest(tableID, false);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Receives refill request from client
-	 * @param kioskID
-	 */
-	public static void receiveRefillRequest(int tableID) {
-		System.out.println("received refill request from table "+(tableID + 1));
-		boolean waitStaffOnline = false;
-		for(User u : Global.getUsers()) {
-			if(u != null) {
-				if(u.getRole().toLowerCase().contains("wait")) {
-					waitStaffOnline = true;
-				}
-			}
-		}
-		if(!waitStaffOnline) {
-			for(User u : Global.getUsers()) {
-				if(u != null) {
-					if(u.getSession().isCustomer()
-						&& u.getTableID() == tableID) {
-						u.getSession().sendClientPacket("waitstaff_not_available_for_request", "refill");
-						break;
-					}
-				}
-			}
-			return;
-		}
-		for(User u : Global.getUsers()) {
-			if(u != null) {
-				if(u.getSession().isCustomer()
-						&& u.getTableID() == tableID) {
-					u.getSession().sendClientPacket("waitstaff_received_request", "refill");
-					continue;
-				}
-				if(u.getRole().toLowerCase().contains("wait")) {
-					u.getPacketEncoder().sendRequest(tableID, true);
+					u.getPacketEncoder().sendRequest(tableID, refill);
 				}
 			}
 		}
@@ -102,6 +63,7 @@ public class Requests {
 			if(u != null) {
 				if(u.getSession().isCustomer()
 						&& u.getTableID() == tableID) {
+					Server.ui.tablesPanel.table.getModel().setValueAt("X", tableID, refill ? 1 : 2);
 					u.getSession().sendClientPacket("waitstaff_on_way_with_request", refill ? "refill" : "help");
 					break;
 				}

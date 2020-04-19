@@ -6,8 +6,14 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import server.Reports;
 import server.Server;
 
+/**
+ * 
+ * @author Karimshan
+ *
+ */
 public class Menu {
 
 	// Represents the list of menu items for our restaurant.
@@ -48,6 +54,9 @@ public class Menu {
 				index++;
 			}
 			r.close();
+			for(MItem item : Menu.instance) {
+				Reports.mostPopularMI.put(item.name, 0);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

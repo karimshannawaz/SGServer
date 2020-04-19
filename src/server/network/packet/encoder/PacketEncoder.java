@@ -87,11 +87,10 @@ public class PacketEncoder extends Encoder {
 	 * @param tableID
 	 * @param orderIndex
 	 */
-	public void sendOrder(int tableID, int orderIndex) {
+	public void sendOrder(int tableID) {
 		OutputStream stream = new OutputStream();
 		stream.writePacketVarShort(7);
 		stream.writeByte(tableID);
-		stream.writeByte(orderIndex);
 		stream.endPacketVarShort();
 		session.write(stream);
 	}
