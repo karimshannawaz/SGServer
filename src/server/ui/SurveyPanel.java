@@ -102,6 +102,19 @@ public class SurveyPanel extends JPanel {
 		});
 
 	}
+	
+	/**
+	 * Adds a new order to the table.
+	 * @param tableID 
+	 */
+	public void addToTable(int tableID) {
+		((DefaultTableModel) table.getModel()).addRow(
+			new Object[] {
+				new Integer((tableID + 1)),
+				new String("Tap to view Survey Results")
+			}
+		);
+	}
 	/*
 	 * displays survey answers
 	 */
