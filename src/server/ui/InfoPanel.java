@@ -98,32 +98,32 @@ public class InfoPanel extends JPanel {
 		
 		currentRevenue = new JLabel("Current Revenue:");
 		currentRevenue.setFont(new Font("Yu Gothic UI", Font.PLAIN, 24));
-		currentRevenue.setBounds(367, 164, 196, 42);
+		currentRevenue.setBounds(367, 164, 373, 42);
 		add(currentRevenue);
 		
 		currentTips = new JLabel("Current Revenue:");
 		currentTips.setFont(new Font("Yu Gothic UI", Font.PLAIN, 24));
-		currentTips.setBounds(367, 233, 196, 42);
+		currentTips.setBounds(367, 233, 373, 42);
 		add(currentTips);
 		
 		mostPopMI = new JLabel("Current Revenue:");
 		mostPopMI.setFont(new Font("Yu Gothic UI", Font.PLAIN, 24));
-		mostPopMI.setBounds(367, 302, 196, 42);
+		mostPopMI.setBounds(367, 302, 405, 42);
 		add(mostPopMI);
 		
 		newRewardMembers = new JLabel("Current Revenue:");
 		newRewardMembers.setFont(new Font("Yu Gothic UI", Font.PLAIN, 24));
-		newRewardMembers.setBounds(367, 376, 196, 42);
+		newRewardMembers.setBounds(367, 376, 405, 42);
 		add(newRewardMembers);
 		
 		employeesClockedIn = new JLabel("Current Revenue:");
 		employeesClockedIn.setFont(new Font("Yu Gothic UI", Font.PLAIN, 24));
-		employeesClockedIn.setBounds(367, 450, 196, 42);
+		employeesClockedIn.setBounds(367, 450, 373, 42);
 		add(employeesClockedIn);
 		
 		totalHours = new JLabel("Current Revenue:");
 		totalHours.setFont(new Font("Yu Gothic UI", Font.PLAIN, 24));
-		totalHours.setBounds(367, 515, 196, 42);
+		totalHours.setBounds(367, 515, 339, 42);
 		add(totalHours);
 
 		
