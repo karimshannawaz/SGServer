@@ -3,15 +3,22 @@ package server.ui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import server.Global;
 import server.Reports;
+import server.user.User;
 
 /**
  * 
@@ -129,7 +136,7 @@ public class InfoPanel extends JPanel {
 		JButton shutdown = new JButton("Safely Shutdown");
 		shutdown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				shutdown();
 			}
 		});
 		shutdown.setFont(new Font("Yu Gothic", Font.PLAIN, 23));
@@ -140,12 +147,41 @@ public class InfoPanel extends JPanel {
 	}
 
 	/**
+	 * Safely shuts down the server and generates a report.
+	 */
+	protected void shutdown() {
+		generateReport(true);
+		for(User u : Global.getUsers()) {
+			if(u != null) {
+				u.getSession().getChannel().close();
+			}
+		}
+		System.out.println("Safely exited all users and generated a report.");
+		System.exit(1);
+	}
+
+	/**
 	 * Generates a report to save to a file. Either during the day
 	 * or at the end of the day
 	 * @param endOfDay
 	 */
 	protected void generateReport(boolean endOfDay) {
-		
+		try {
+			DateFormat d = new SimpleDateFormat("MMMM dd, yyyy");
+			File f = new File("data/reports/"+d.format(new Date())+".txt");
+			BufferedWriter writer = new BufferedWriter(new FileWriter(f, true));
+			writer.write("[" + new Date() + "]: Total Active Tables: "+Reports.totalActiveTables);
+			writer.write("[" + new Date() + "]: Total Revenue: "+Reports.totalRevenue);
+			writer.write("[" + new Date() + "]: Total Tips: "+Reports.totalTips);
+			writer.write("[" + new Date() + "]: Most Popular Menu Item: "+Reports.mostPopularItemName);
+			writer.write("[" + new Date() + "]: New Reward Members: "+Reports.newRewardMembers);
+			writer.write("[" + new Date() + "]: Total Employees Clocked In: "+Reports.totalEmployeesClockedIn);
+			writer.write("[" + new Date() + "]: Total Hours Worked Today: "+Reports.totalHoursWorked);
+			writer.newLine();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
