@@ -82,7 +82,7 @@ public class PacketEncoder extends Encoder {
 	}
 
 	/**
-	 * Sends customer order to waitstaff
+	 * Sends customer order to waitstaff.
 	 * @param name
 	 * @param tableID
 	 * @param orderIndex
