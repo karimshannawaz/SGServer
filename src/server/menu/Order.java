@@ -170,7 +170,7 @@ public class Order {
 			if(u != null) {
 				if(u.getRole().toLowerCase().contains("kitchen")) {
 					System.out.println("Waitstaff got order from kitchen end: "+tableID+" and order index: "+orderIndex);
-					u.getSession().sendClientPacket("waitstaff_got_order", tableID, orderIndex);
+					u.getSession().sendClientPacket("waitstaff_got_order", tableID);
 				}
 			}
 		}
