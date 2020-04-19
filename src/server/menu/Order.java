@@ -134,6 +134,9 @@ public class Order {
 		
 		String waitStaffName = null;
 		
+		/**
+		 * Manager will take food if wait staff can't.
+		 */
 		if(!waitStaffOnline) {
 			Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, 3);
 			Server.ui.tablesPanel.requiresOrder[tableID] = true;
