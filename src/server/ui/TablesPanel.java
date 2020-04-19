@@ -12,6 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import server.menu.Order;
+import server.user.Requests;
 import server.utils.JFrameUtils;
 
 /**
@@ -27,6 +29,9 @@ public class TablesPanel extends JPanel {
 	private static final long serialVersionUID = -7728688801223383898L;
 
 	public JTable table;
+	
+	public boolean[] requiresRequest = new boolean[20];
+	public boolean[] requiresOrder = new boolean[20];
 
 	/**
 	 * Create the panel.
@@ -74,21 +79,44 @@ public class TablesPanel extends JPanel {
 
 					// Refill
 					if(col == 1) {
-					
-					}
-					// Help
-					else if(col == 2) {
-						
-					}
-					// Confirming table got order
-					else if(col == 3) {
-						boolean choice = JFrameUtils.confirmDialog("Order Completion Confirmation", 
-								"Are you sure you want to mark this order for table "+(row + 1)+" as delivered?"
-										+ "\nThis action cannot be undone.");
+						if(!requiresRequest[row])
+							return;
+						boolean choice = JFrameUtils.confirmDialog("Refill On The Way", 
+							"Are you sure you want to let table "+(row + 1)+" know that you're on your way\n"
+							+ "with the refill that they requested?"
+							+ " This action cannot be undone.");
 						if(!choice) {
 							return;
 						}
-						
+						table.getModel().setValueAt("X", row, col);
+						Requests.completeRequest(row, true);
+					}
+					// Help
+					else if(col == 2) {
+						if(!requiresRequest[row])
+							return;
+						boolean choice = JFrameUtils.confirmDialog("Help On The Way", 
+							"Are you sure you want to let table "+(row + 1)+" know that you're on your way\n"
+							+ "to help them with their request?"
+							+ " This action cannot be undone.");
+						if(!choice) {
+							return;
+						}
+						table.getModel().setValueAt("X", row, col);
+						Requests.completeRequest(row, false);
+					}
+					// Confirming table got order
+					else if(col == 3) {
+						if(!requiresOrder[row])
+							return;
+						boolean choice = JFrameUtils.confirmDialog("Order Completion Confirmation", 
+							"Are you sure you want to mark this order for table "+(row + 1)+" as delivered?"
+								+ "\nThis action cannot be undone.");
+						if(!choice) {
+							return;
+						}
+						table.getModel().setValueAt("X", row, col);
+						Order.waiterDroppedFoodOff(null, row);
 					}
 				}
 			}
@@ -101,7 +129,7 @@ public class TablesPanel extends JPanel {
 	public JTable createTable() {
 
 		Object[][] rows = new Object[20][5];
-		//spaces initialized to 'X' will change to 'O' when request is made
+
 		for(int i = 0; i < 20; i++) {
 			rows[i][0] = new Integer(i + 1);
 			rows[i][1] = "X";
@@ -141,7 +169,6 @@ public class TablesPanel extends JPanel {
 		t.setDefaultRenderer(String.class, new DefaultTableCellRenderer() {
 
 			private static final long serialVersionUID = 1L;
-
 
 			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value, 

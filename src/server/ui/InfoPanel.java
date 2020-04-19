@@ -125,6 +125,16 @@ public class InfoPanel extends JPanel {
 		totalHours.setFont(new Font("Yu Gothic UI", Font.PLAIN, 24));
 		totalHours.setBounds(367, 515, 339, 42);
 		add(totalHours);
+		
+		JButton shutdown = new JButton("Safely Shutdown");
+		shutdown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		shutdown.setFont(new Font("Yu Gothic", Font.PLAIN, 23));
+		shutdown.setBounds(646, 603, 243, 69);
+		add(shutdown);
 
 		
 	}
