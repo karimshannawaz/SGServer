@@ -134,15 +134,16 @@ public class Order {
 		
 		String waitStaffName = null;
 		
+		if(!waitStaffOnline) {
+			Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, 3);
+			Server.ui.tablesPanel.requiresOrder[tableID] = true;
+			JFrameUtils.showMessage("Order Update", "You have a new order to take to table "+
+			(tableID + 1)+".\nPlease mark it as delivered to the table once you've delivered it.");
+		}
+		
 		for(User u : Global.getUsers()) {
 			if(u != null) {
-				if(!waitStaffOnline || !availableWaitStaff) {
-					Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, 3);
-					Server.ui.tablesPanel.requiresOrder[tableID] = true;
-					JFrameUtils.showMessage("Order Update", "You have a new order to take to table "+
-					(tableID + 1)+".\nPlease mark it as delivered to the table once you've delivered it.");
-					continue;
-				} else if(u.getRole().toLowerCase().contains("wait") && waitStaffOnline) {
+				if(u.getRole().toLowerCase().contains("wait") && waitStaffOnline) {
 					waitStaffName = u.getName();
 					u.getPacketEncoder().sendOrder(tableID);
 					Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, 3);
