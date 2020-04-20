@@ -5,8 +5,9 @@ import server.menu.Inventory;
 import server.menu.Menu;
 import server.network.ServerChannel;
 import server.ui.MainUI;
-import server.user.TimeLog;
+import server.user.User;
 import server.utils.Constants;
+import server.utils.JFrameUtils;
 import server.utils.Logger;
 import server.utils.STime;
 
@@ -54,10 +55,24 @@ public class Server {
 	}
 
 	/**
-	 * Shuts down the server channel and cores manager.
+	 * Safely shuts down the server channel and cores manager,
+	 * and generates a report.
 	 */
 	public static void shutdown() {
+		boolean choice = JFrameUtils.confirmDialog("WARNING", 
+				"Are you sure you want to shut down the seven guys restaurant? This will close every client too."
+					+ "\nThis action cannot be undone.");
+			if(!choice) {
+				return;
+			}
 		try {
+			Reports.generateReport(true);
+			for(User u : Global.getUsers()) {
+				if(u != null) {
+					u.getSession().sendClientPacket("terminate");
+				}
+			}
+			System.out.println("Safely exited all users and generated a report.");
 			ServerChannel.shutdown();
 			CoresManager.shutdown();
 			// Server stuff

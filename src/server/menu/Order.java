@@ -134,18 +134,12 @@ public class Order {
 		
 		String waitStaffName = null;
 		
-		/**
-		 * Manager will take food if wait staff can't.
-		 */
-		if(!waitStaffOnline) {
-			Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, 3);
-			Server.ui.tablesPanel.requiresOrder[tableID] = true;
-			JFrameUtils.showMessage("Order Update", "You have a new order to take to table "+
-			(tableID + 1)+".\nPlease mark it as delivered to the table once you've delivered it.");
-		}
-		
 		for(User u : Global.getUsers()) {
 			if(u != null) {
+				if(u.getRole().toLowerCase().contains("kitchen")) {
+					u.getSession().sendClientPacket("waitstaff_got_order", tableID);
+					continue;
+				}
 				if(u.getRole().toLowerCase().contains("wait") && waitStaffOnline) {
 					waitStaffName = u.getName();
 					u.getPacketEncoder().sendOrder(tableID);
@@ -158,11 +152,17 @@ public class Order {
 							"A manager is headed your way with your order!");
 					continue;
 				}
-				if(u.getRole().toLowerCase().contains("kitchen")) {
-					u.getSession().sendClientPacket("waitstaff_got_order", tableID);
-					continue;
-				}
 			}
+		}
+		
+		/**
+		 * Manager will take food if wait staff can't.
+		 */
+		if(!waitStaffOnline) {
+			Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, 3);
+			Server.ui.tablesPanel.requiresOrder[tableID] = true;
+			JFrameUtils.showMessage("Order Update", "You have a new order to take to table "+
+			(tableID + 1)+".\nPlease mark it as delivered to the table once you've delivered it.");
 		}
 	}
 
