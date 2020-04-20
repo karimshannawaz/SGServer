@@ -83,7 +83,7 @@ public class User implements Serializable {
 		return !role.equals("customer");
 	}
 
-	private void checkBirthday() {
+	public void checkBirthday() {
 		int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 		int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
 		int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -232,6 +232,11 @@ public class User implements Serializable {
 
 	public void setClaimedYear(int claimedYear) {
 		this.claimedYear = claimedYear;
+	}
+	
+	@Override
+	public String toString() {
+		return !isCustomer() ? id : email;
 	}
 
 }

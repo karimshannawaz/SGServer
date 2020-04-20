@@ -91,12 +91,13 @@ public final class PacketDecoder extends Decoder {
 			// Kitchen requests for a waiter to come and get the food
 			// for the table whose order is fulfilled.
 			case 10:
-				Order.kitchenRequestWaitStaff(user, stream);
+				int tableID = stream.readUnsignedByte();
+				Order.kitchenRequestWaitStaff(tableID);
 				break;
 				
 			// Waiter marks that they've delivered to the table.
 			case 11:
-				int tableID = stream.readUnsignedByte();
+				tableID = stream.readUnsignedByte();
 				Order.waiterDroppedFoodOff(user, tableID);
 				break;
 				
