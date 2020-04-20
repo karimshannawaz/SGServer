@@ -148,8 +148,8 @@ public class Order {
 				}
 				if(u.getSession().isCustomer()
 						&& u.getTableID() == tableID) {
-					u.getSession().sendClientPacket("on_the_way", 
-							"A manager is headed your way with your order!");
+					u.getSession().sendClientPacket("on_the_way", (waitStaffOnline ? waitStaffName : "A manager") +
+						 " is headed your way with your order!");
 					continue;
 				}
 			}
