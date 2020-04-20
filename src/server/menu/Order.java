@@ -43,18 +43,14 @@ public class Order {
 
 	public static void receiveOrder(User user, InputStream stream) {
 		boolean kitchenStaffOnline = false;
-		boolean waitStaffOnline = false;
 		for(User u : Global.getUsers()) {
 			if(u != null) {
 				if(u.getRole().toLowerCase().contains("kitchen")) {
 					kitchenStaffOnline = true;
 				}
-				else if(u.getRole().toLowerCase().contains("wait")) {
-					waitStaffOnline = true;
-				}
 			}
 		}
-		if(!kitchenStaffOnline) {// || !waitStaffOnline) {
+		if(!kitchenStaffOnline) {
 			user.getSession().sendClientPacket("cannot_process_order");
 			return;
 		}
@@ -98,12 +94,8 @@ public class Order {
 	
 	public static void kitchenRequestWaitStaff(User user, InputStream stream) {
 		boolean waitStaffOnline = false;
-		boolean availableWaitStaff = false;
 		for(User u : Global.getUsers()) {
 			if(u != null) {
-				if(u.isAvailable()) {
-					availableWaitStaff = true;
-				}
 				if(u.getRole().toLowerCase().contains("wait")) {
 					waitStaffOnline = true;
 				}
