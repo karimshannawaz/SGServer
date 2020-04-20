@@ -161,6 +161,8 @@ public class Session {
 			}
 		}
 		
+		System.out.println("Birthday: "+user.getBirthday());
+		
 		user.initialize(this);
 		setDecoder(2, user);
 		setEncoder(2, user);

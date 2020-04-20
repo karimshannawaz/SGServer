@@ -37,3 +37,29 @@
 [------------------------------------------------------------------------------------------]
 
 
+[------------------- End of Day Report for Sun Apr 19 23:12:29 CDT 2020 -------------------]
+
+							Total Active Tables: 7
+							Total Revenue: 0.0
+							Total Tips: 0.0
+							Most Popular Menu Item: Lemonade
+							New Reward Members: 0
+							Total Employees Clocked In: 3
+							Total Hours Worked Today: 00:00:00
+
+[------------------------------------------------------------------------------------------]
+
+
+[------------------- End of Day Report for Sun Apr 19 23:22:42 CDT 2020 -------------------]
+
+							Total Active Tables: 1
+							Total Revenue: 0.0
+							Total Tips: 0.0
+							Most Popular Menu Item: Seven Wonders Burger
+							New Reward Members: 0
+							Total Employees Clocked In: 0
+							Total Hours Worked Today: 00:00:00
+
+[------------------------------------------------------------------------------------------]
+
+

@@ -1,5 +1,10 @@
 package server;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import server.core.CoresManager;
 import server.menu.Inventory;
 import server.menu.Menu;
@@ -32,17 +37,6 @@ public class Server {
 			Logger.log("Server", "Launching User Interface for Managers");
 			ui = new MainUI();
 			ui.setVisible(true);
-			
-			/*
-			TimeLog log = new TimeLog();
-			for(int i = 0; i < 7; i++)  {
-				log.getPunchIns().add("12:53:39");
-				log.getPunchOuts().add("17:09:04");
-				log.getPunchIns().add("12:53:39");
-				log.getPunchOuts().add("17:09:04");
-			}
-			System.out.println(log.getTotalWorkedHours());
-			*/
 			
 		} catch (Exception e) {
 			Logger.log("Server", "Failed to load the channel which accepts client requests. See details.");
