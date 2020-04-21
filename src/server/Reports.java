@@ -1,10 +1,18 @@
 package server;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import server.menu.Inventory;
 import server.user.TimeLog;
+import server.utils.JFrameUtils;
 
 /**
  * Handles creating reports which include total revenue for that day, the most
@@ -116,6 +124,44 @@ public class Reports {
 		}
 		mostPopularItemName = ""+mostPopular;
 		Server.ui.infoPanel.updateLabels();
+	}
+
+	/**
+	 * Generates a report to save to a file. Either during the day
+	 * or at the end of the day
+	 * @param endOfDay
+	 */
+	public static void generateReport(boolean endOfDay) {
+		if(!endOfDay) {
+			boolean choice = JFrameUtils.confirmDialog("Reports", 
+				"Are you sure you would like to generate a mid-day report?");
+			if(!choice) {
+				return;
+			}
+		}
+		try {
+			DateFormat d = new SimpleDateFormat("MMMM dd, yyyy");
+			File f = new File("data/reports/"+d.format(new Date())+".txt");
+			BufferedWriter writer = new BufferedWriter(new FileWriter(f, true));
+			if(endOfDay) {
+				writer.write("[------------------- End of Day Report for "+(new Date())+" -------------------]");
+			}
+			else {
+				writer.write("[---------------------- Mid Day Report for "+(new Date())+" -------------------]");
+			}
+			writer.write("\n\n\t\t\t\t\t\t\tTotal Active Tables: "+Reports.totalActiveTables);
+			writer.write("\n\t\t\t\t\t\t\tTotal Revenue: "+Reports.totalRevenue);
+			writer.write("\n\t\t\t\t\t\t\tTotal Tips: "+Reports.totalTips);
+			writer.write("\n\t\t\t\t\t\t\tMost Popular Menu Item: "+Reports.mostPopularItemName);
+			writer.write("\n\t\t\t\t\t\t\tNew Reward Members: "+Reports.newRewardMembers);
+			writer.write("\n\t\t\t\t\t\t\tTotal Employees Clocked In: "+Reports.totalEmployeesClockedIn);
+			writer.write("\n\t\t\t\t\t\t\tTotal Hours Worked Today: "+Reports.totalHoursWorked);
+			writer.write("\n\n[------------------------------------------------------------------------------------------]");
+			writer.write("\n\n\n");
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 

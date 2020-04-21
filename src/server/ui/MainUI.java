@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
+import server.Global;
 import server.core.CoresManager;
 import server.utils.STime;
 
@@ -28,7 +30,6 @@ public class MainUI extends JFrame {
 
 	public InfoPanel infoPanel;
 	public ClockPanel clockPanel;
-	public SurveyPanel surveysPanel;
 	public CompensatePanel compensatePanel;
 	public MenuPanel menuPanel;
 	public InventoryPanel inventoryPanel;
@@ -36,6 +37,7 @@ public class MainUI extends JFrame {
 	public DiscountPanel discountPanel;
 	public EmployeePanel employeePanel;
 	public TablesPanel tablesPanel;
+	public KitchenPanel kitchenPanel;
 
 	public static long onlineTime;
 
@@ -74,10 +76,10 @@ public class MainUI extends JFrame {
 		clockPanel.setVisible(false);
 		getContentPane().add(clockPanel);
 		
-		// Surveys Panel
-		this.surveysPanel = new SurveyPanel();
-		surveysPanel.setVisible(false);
-		getContentPane().add(surveysPanel);
+		// Kitchen Panel
+		this.kitchenPanel = new KitchenPanel();
+		kitchenPanel.setVisible(false);
+		getContentPane().add(kitchenPanel);
 		
 		// Compensate Panel
 		this.compensatePanel = new CompensatePanel();
@@ -115,8 +117,9 @@ public class MainUI extends JFrame {
 		getContentPane().add(tablesPanel);
 
 
-		String[] panelNames = { "Information", "Clock In/Out", "Surveys", "Compensate", "Tables", "Inventory", "Menu", "Time Log",
-
+		String[] panelNames = { 
+				"Information", "Clock In/Out", "Kitchen Orders", 
+				"Compensate", "Tables", "Inventory", "Menu", "Time Log",
 				"Discounts", "Employees" };
 
 		JToggleButton[] panelBtns = new JToggleButton[panelNames.length];
@@ -149,7 +152,7 @@ public class MainUI extends JFrame {
 						//make all panels initially not visible
 						infoPanel.setVisible(false);
 						clockPanel.setVisible(false);
-						surveysPanel.setVisible(false);
+						kitchenPanel.setVisible(false);
 						compensatePanel.setVisible(false);
 						menuPanel.setVisible(false);
 						inventoryPanel.setVisible(false);
@@ -166,8 +169,8 @@ public class MainUI extends JFrame {
 						case "Clock In/Out":
 							clockPanel.setVisible(true);
 							break;
-						case "Surveys":
-							surveysPanel.setVisible(true);
+						case "Kitchen Orders":
+							kitchenPanel.setVisible(true);
 							break;
 						case "Compensate":
 							compensatePanel.setVisible(true);
@@ -194,7 +197,7 @@ public class MainUI extends JFrame {
 					} else {
 						infoPanel.setVisible(false);
 						clockPanel.setVisible(false);
-						surveysPanel.setVisible(false);
+						kitchenPanel.setVisible(false);
 						compensatePanel.setVisible(false);
 						inventoryPanel.setVisible(false);
 						menuPanel.setVisible(false);
@@ -217,6 +220,7 @@ public class MainUI extends JFrame {
 					setTitle("Seven Guys - Restaurant System has been online for: "
 							+ (STime.formatCountdown(STime.getCurrent() + onlineTime)));
 					infoPanel.updateLabels();
+//					System.out.println("Users: "+Arrays.toString(Global.getUsers().toArray()));
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}

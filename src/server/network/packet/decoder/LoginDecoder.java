@@ -142,6 +142,7 @@ public class LoginDecoder extends Decoder {
 	private void createTemporaryUser(int tableID) {
 		User tempUser = new User("customer", "table"+tableID, null, null);
 		tempUser.initialize(session);
+		session.setUserEmail(tempUser.getEmail());
 		this.user = tempUser;
 		Global.addUser(user);
 		Reports.activeTables++;

@@ -21,6 +21,7 @@ import server.core.CoresManager;
 import server.network.packet.InputStream;
 import server.network.packet.decoder.LoginDecoder;
 import server.network.packet.decoder.PacketDecoder;
+import server.user.User;
 import server.utils.Constants;
 
 public final class ServerChannel extends SimpleChannelHandler {
@@ -91,6 +92,14 @@ public final class ServerChannel extends SimpleChannelHandler {
 			}
 			if(session.getDecoder() instanceof LoginDecoder) {
 				session.getLoginDecoder().getUser().close();
+			}
+			for(User u : Global.getUsers()) {
+				if(u == null)
+					continue;
+				if(u.getEmail().equals(session.getUserEmail())) {
+					Global.removeUser(u);
+					break;
+				}
 			}
 		}
 	}

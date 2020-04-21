@@ -1,12 +1,18 @@
 package server;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import server.core.CoresManager;
 import server.menu.Inventory;
 import server.menu.Menu;
 import server.network.ServerChannel;
 import server.ui.MainUI;
-import server.user.TimeLog;
+import server.user.User;
 import server.utils.Constants;
+import server.utils.JFrameUtils;
 import server.utils.Logger;
 import server.utils.STime;
 
@@ -32,17 +38,6 @@ public class Server {
 			ui = new MainUI();
 			ui.setVisible(true);
 			
-			/*
-			TimeLog log = new TimeLog();
-			for(int i = 0; i < 7; i++)  {
-				log.getPunchIns().add("12:53:39");
-				log.getPunchOuts().add("17:09:04");
-				log.getPunchIns().add("12:53:39");
-				log.getPunchOuts().add("17:09:04");
-			}
-			System.out.println(log.getTotalWorkedHours());
-			*/
-			
 		} catch (Exception e) {
 			Logger.log("Server", "Failed to load the channel which accepts client requests. See details.");
 			e.printStackTrace();
@@ -54,10 +49,24 @@ public class Server {
 	}
 
 	/**
-	 * Shuts down the server channel and cores manager.
+	 * Safely shuts down the server channel and cores manager,
+	 * and generates a report.
 	 */
 	public static void shutdown() {
+		boolean choice = JFrameUtils.confirmDialog("WARNING", 
+				"Are you sure you want to shut down the seven guys restaurant? This will close every client too."
+					+ "\nThis action cannot be undone.");
+			if(!choice) {
+				return;
+			}
 		try {
+			Reports.generateReport(true);
+			for(User u : Global.getUsers()) {
+				if(u != null) {
+					u.getSession().sendClientPacket("terminate");
+				}
+			}
+			System.out.println("Safely exited all users and generated a report.");
 			ServerChannel.shutdown();
 			CoresManager.shutdown();
 			// Server stuff

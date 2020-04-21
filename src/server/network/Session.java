@@ -27,6 +27,7 @@ public class Session {
 	private Encoder encoder;
 	private int tableID;
 	private boolean isCustomer;
+	private String userEmail;
 
 	public Session(Channel channel) {
 		this.channel = channel;
@@ -149,28 +150,26 @@ public class Session {
 			if(u == null)
 				continue;
 			if(u.isCustomer() && u.getEmail().equals("table"+this.getTableID())) {
+				u.setRole(user.getRole());
 				u.setName(user.getName());
 				u.setEmail(user.getEmail());
 				u.setBirthday(user.getBirthday());
-				u.setIndex(user.getIndex());
 				u.setFreeSide(user.hasFreeSide());
 				u.setFreeDessert(user.hasFreeDessert());
 				u.setBirthdayEntree(user.hasBirthdayEntree());
-				user = u;
+				
+				if(u.getName() != null && u.getBirthday() != null)
+					u.checkBirthday();
+				setDecoder(2, u);
+				setEncoder(2, u);
+				
+				u.getPacketEncoder().sendDetailsUpdate(false);
+				
+				System.out.println("Customer "+u.getName()+" logged in with rewards. Email: "+u.getEmail());
+				UserLoader.saveUser(u);
 				break;
 			}
 		}
-		
-		user.initialize(this);
-		setDecoder(2, user);
-		setEncoder(2, user);
-		
-		user.getPacketEncoder().sendDetailsUpdate(false);
-		
-		//Global.addUser(user);
-		System.out.println("Customer "+user.getName()+" logged in with rewards. Email: "+user.getEmail());
-		
-		UserLoader.saveUser(user);
 	}
 	
 	public void employeeLogin(String id, String password) {
@@ -255,6 +254,14 @@ public class Session {
 		////////
 		stream.endPacketVarShort();
 		write(stream);
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 }

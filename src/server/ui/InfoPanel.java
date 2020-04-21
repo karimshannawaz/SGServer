@@ -3,8 +3,13 @@ package server.ui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -12,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import server.Reports;
+import server.Server;
 
 /**
  * 
@@ -84,7 +90,7 @@ public class InfoPanel extends JPanel {
 		JButton btnNewButton = new JButton("Generate Report");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				generateReport(false);
+				Reports.generateReport(false);
 			}
 		});
 		btnNewButton.setFont(new Font("Yu Gothic", Font.PLAIN, 23));
@@ -129,22 +135,13 @@ public class InfoPanel extends JPanel {
 		JButton shutdown = new JButton("Safely Shutdown");
 		shutdown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				Server.shutdown();
 			}
 		});
 		shutdown.setFont(new Font("Yu Gothic", Font.PLAIN, 23));
 		shutdown.setBounds(646, 603, 243, 69);
 		add(shutdown);
 
-		
-	}
-
-	/**
-	 * Generates a report to save to a file. Either during the day
-	 * or at the end of the day
-	 * @param endOfDay
-	 */
-	protected void generateReport(boolean endOfDay) {
 		
 	}
 

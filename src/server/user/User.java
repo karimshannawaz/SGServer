@@ -1,6 +1,10 @@
 package server.user;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import server.Global;
 import server.network.Session;
@@ -27,6 +31,7 @@ public class User implements Serializable {
 	
 	// Indicates if the customer has a free birthday entree or not.
 	private boolean birthdayEntree;
+	private int claimedYear;
 	
 	// Free appetizer/side when the customer signs up for rewards.
 	private boolean freeSide;
@@ -67,7 +72,8 @@ public class User implements Serializable {
 	
 	public void initialize(Session s) {
 		this.setSession(s);
-		this.checkBirthday();
+		if(name != null && birthday != null)
+			this.checkBirthday();
 		if(isEmployee()) {
 			setAvailable(true);
 		}
@@ -77,8 +83,22 @@ public class User implements Serializable {
 		return !role.equals("customer");
 	}
 
-	private void checkBirthday() {
-		
+	public void checkBirthday() {
+		int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		if(claimedYear == year) {
+			this.setBirthdayEntree(false);
+		}
+		else {
+			String[] date = this.getBirthday().split("/");
+			int birthMonth = Integer.parseInt(date[0]);
+			int birthDay = Integer.parseInt(date[1]);
+			System.out.println(month+" and "+day+" bday: "+birthMonth+" and "+birthDay);
+			if(birthMonth == month && birthDay == day) {
+				this.setBirthdayEntree(true);
+			}
+		}
 	}
 
 	public String getRole() {
@@ -204,6 +224,19 @@ public class User implements Serializable {
 
 	public void setAvailable(boolean available) {
 		this.available = available;
+	}
+
+	public int getClaimedYear() {
+		return claimedYear;
+	}
+
+	public void setClaimedYear(int claimedYear) {
+		this.claimedYear = claimedYear;
+	}
+	
+	@Override
+	public String toString() {
+		return !isCustomer() ? id : email;
 	}
 
 }
