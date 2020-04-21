@@ -125,6 +125,7 @@ public class InventoryPanel extends JPanel {
 		JButton btnNewButton_1 = new JButton("Add Ingredient");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Adds the ingredient
 				addIngredient();
 			}
 		});
