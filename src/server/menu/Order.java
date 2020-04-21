@@ -88,9 +88,10 @@ public class Order {
 
 		OrderQueue.unfulfilledOrders.add(order);
 		System.out.println("Took order from table: "+tableID+" with subtotal: "+subtotal);
+		
 		for(User u : Global.getUsers()) {
 			if(u != null) {
-				if(u.getTableID() == tableID) {
+				if(u.isCustomer() && u.getTableID() == tableID) {
 					u.getSession().sendClientPacket("order_submitted");
 					continue;
 				}
@@ -205,7 +206,7 @@ public class Order {
 		for(User u : Global.getUsers()) {
 			if(u != null) {
 				System.out.println(u.getTableID()+" and from client "+tableID);
-				if(u.getTableID() == tableID) {
+				if(u.isCustomer() && u.getTableID() == tableID) {
 					Server.ui.tablesPanel.table.getModel().setValueAt("X", tableID, 3);
 					Server.ui.tablesPanel.requiresOrder[tableID] = false;
 					u.getSession().sendClientPacket("waiter_delivered");
