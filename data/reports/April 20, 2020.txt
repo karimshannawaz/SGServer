@@ -24,3 +24,16 @@
 [------------------------------------------------------------------------------------------]
 
 
+[------------------- End of Day Report for Mon Apr 20 23:05:28 CDT 2020 -------------------]
+
+							Total Active Tables: 4
+							Total Revenue: 0.0
+							Total Tips: 0.0
+							Most Popular Menu Item: French Fries
+							New Reward Members: 0
+							Total Employees Clocked In: 0
+							Total Hours Worked Today: 00:00:00
+
+[------------------------------------------------------------------------------------------]
+
+

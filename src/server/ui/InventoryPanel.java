@@ -122,12 +122,6 @@ public class InventoryPanel extends JPanel {
 		updateItemBtn.setBounds(535, 334, 200, 44);
 		add(updateItemBtn);
 
-		JButton addBtn = new JButton("Add Ingredient");
-		addBtn.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		addBtn.setBounds(745, 334, 189, 44);
-		add(addBtn);
-		
-
 		JButton btnNewButton_1 = new JButton("Add Ingredient");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
