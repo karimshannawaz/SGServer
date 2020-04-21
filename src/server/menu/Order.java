@@ -200,6 +200,11 @@ public class Order {
 		this.tableID = tableID;
 	}
 
+	/**
+	 * Represents that the waiter dropped food off.
+	 * @param user
+	 * @param tableID
+	 */
 	public static void waiterDroppedFoodOff(User user, int tableID) {
 		if(user != null)
 			user.setAvailable(true);
