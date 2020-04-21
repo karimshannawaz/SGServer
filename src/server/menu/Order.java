@@ -134,7 +134,11 @@ public class Order {
 		
 		for(MItem item : currOrder.items) {
 			String name = item.name;
-			Reports.mostPopularMI.put(name, Reports.mostPopularMI.get(name) + item.qty);
+			int quantity = 0;
+			if(Reports.mostPopularMI.containsKey(name)) {
+				quantity = Reports.mostPopularMI.get(name);
+			}
+			Reports.mostPopularMI.put(name, quantity + item.qty);
 		}
 		
 		Reports.updateMostPopularMI();
