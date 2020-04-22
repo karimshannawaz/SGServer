@@ -7,6 +7,7 @@ import server.menu.Order;
 import server.network.Session;
 import server.network.packet.InputStream;
 import server.network.packet.encoder.LoginEncoder;
+import server.user.Payments;
 import server.user.Requests;
 import server.user.User;
 import server.user.UserLoader;
@@ -128,6 +129,19 @@ public class LoginDecoder extends Decoder {
 				Reports.totalRevenue += subtotal;
 				Reports.totalTips += tip;
 				Server.ui.infoPanel.updateLabels();
+				break;
+				
+				// Server/waitstaff receives payment from customer
+			case 15:
+				int tableID = stream.readUnsignedByte();
+				double cashPayment = Double.parseDouble(stream.readString());
+				Payments.processCashPayment(tableID, cashPayment);
+				break;
+
+				// Marks the customer's cash payment as complete
+			case 16:
+				tableID = stream.readUnsignedByte();
+				Payments.completePayment(tableID);
 				break;
 		}
 	}

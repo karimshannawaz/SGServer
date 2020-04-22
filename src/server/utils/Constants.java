@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.text.DecimalFormat;
 import java.util.Random;
 
 public class Constants {
@@ -28,7 +29,6 @@ public class Constants {
 		if (!destFile.exists()) {
 			destFile.createNewFile();
 		}
-
 		FileChannel source = null;
 		FileChannel destination = null;
 		try {
@@ -43,6 +43,15 @@ public class Constants {
 				destination.close();
 			}
 		}
+	}
+	
+	/**
+	 * Formats a decimal to be displayed as currency.
+	 * @param num
+	 * @return
+	 */
+	public static String decimalF(double num) {
+		return DecimalFormat.getCurrencyInstance().format(num);
 	}
 
 }

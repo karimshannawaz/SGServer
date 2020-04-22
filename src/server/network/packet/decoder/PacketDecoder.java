@@ -5,6 +5,7 @@ import server.Server;
 import server.menu.Order;
 import server.network.Session;
 import server.network.packet.InputStream;
+import server.user.Payments;
 import server.user.Requests;
 import server.user.User;
 
@@ -123,6 +124,19 @@ public final class PacketDecoder extends Decoder {
 				Server.ui.infoPanel.updateLabels();
 				break;
 
+			// Server/waitstaff receives payment from customer
+			case 15:
+				tableID = stream.readUnsignedByte();
+				double cashPayment = Double.parseDouble(stream.readString());
+				Payments.processCashPayment(tableID, cashPayment);
+				break;
+
+			// Marks the customer's cash payment as complete
+			case 16:
+				tableID = stream.readUnsignedByte();
+				Payments.completePayment(tableID);
+				break;
+				
 			default:
 				break;
 			}

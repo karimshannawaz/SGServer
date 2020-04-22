@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import server.menu.Order;
+import server.user.Payments;
 import server.user.Requests;
 import server.utils.JFrameUtils;
 
@@ -117,6 +118,17 @@ public class TablesPanel extends JPanel {
 						}
 						table.getModel().setValueAt("X", row, col);
 						Order.waiterDroppedFoodOff(null, row);
+					}
+					// Confirming customer paid with cash.
+					else if(col == 4) {
+						boolean choice = JFrameUtils.confirmDialog("Cash Payment Confirmation", 
+							"Are you sure you want to confirm table "+(row + 1)+"'s cash payment?"
+							+ "\nThis action cannot be undone.");
+						if(!choice) {
+							return;
+						}
+						table.getModel().setValueAt("X", row, col);
+						Payments.completePayment(row);
 					}
 				}
 			}
