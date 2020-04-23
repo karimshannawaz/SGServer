@@ -29,7 +29,7 @@ public class Payments {
 		}
 		if(!waitStaffOnline) {
 			Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, 4);
-			Server.ui.tablesPanel.requiresRequest[tableID] = true;
+			Server.ui.tablesPanel.requiresPayment[tableID] = true;
 			JFrameUtils.showMessage("Payments", "Table "+(tableID + 1)+" has requested to make a cash payment of "
 				+ Constants.decimalF(total)+"\nPlease mark the payment as complete once you've received it.");
 		}
@@ -37,7 +37,7 @@ public class Payments {
 			if(u != null) {
 				if(u.getRole().toLowerCase().contains("wait") && waitStaffOnline) {
 					Server.ui.tablesPanel.table.getModel().setValueAt("O", tableID, 4);
-					Server.ui.tablesPanel.requiresRequest[tableID] = false;
+					Server.ui.tablesPanel.requiresPayment[tableID] = false;
 					u.getSession().sendClientPacket("cash_payment", tableID, ""+total);
 				}
 			}
@@ -55,7 +55,7 @@ public class Payments {
 				if(u.getSession().isCustomer()
 						&& u.getTableID() == tableID) {
 					Server.ui.tablesPanel.table.getModel().setValueAt("X", tableID, 4);
-					Server.ui.tablesPanel.requiresRequest[tableID] = false;
+					Server.ui.tablesPanel.requiresPayment[tableID] = false;
 					u.getSession().sendClientPacket("cash_payment_confirmed");
 					break;
 				}

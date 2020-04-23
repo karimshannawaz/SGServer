@@ -33,6 +33,7 @@ public class TablesPanel extends JPanel {
 	
 	public boolean[] requiresRequest = new boolean[20];
 	public boolean[] requiresOrder = new boolean[20];
+	public boolean[] requiresPayment = new boolean[20];
 
 	/**
 	 * Create the panel.
@@ -121,6 +122,8 @@ public class TablesPanel extends JPanel {
 					}
 					// Confirming customer paid with cash.
 					else if(col == 4) {
+						if(!requiresPayment[row])
+							return;
 						boolean choice = JFrameUtils.confirmDialog("Cash Payment Confirmation", 
 							"Are you sure you want to confirm table "+(row + 1)+"'s cash payment?"
 							+ "\nThis action cannot be undone.");

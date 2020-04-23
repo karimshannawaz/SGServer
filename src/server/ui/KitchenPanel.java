@@ -34,6 +34,8 @@ public class KitchenPanel extends JPanel {
 	private static final long serialVersionUID = -8112480994553957L;
 
 	public JTable table;
+	
+	public boolean[] requiresOrder = new boolean[20];
 
 	public KitchenPanel() {
 		super();
@@ -100,38 +102,30 @@ public class KitchenPanel extends JPanel {
 				int row = table.getSelectedRow();
 				int column = table.getSelectedColumn();
 				if(column == 1) {
+					if(row < 0)
+						return;
 					int tableID = (int) table.getModel().getValueAt(row, 0) - 1;
 					viewOrderDetails(tableID, row);
 				}
-			}
-		});
-
-		// Adds a listener to see when the table has been changed (Clicked)
-		table.getModel().addTableModelListener(new TableModelListener() {
-
-			@Override
-			public void tableChanged(TableModelEvent e) {
-				// TODO Auto-generated method stub
-				int row = e.getFirstRow();
-				int column = e.getColumn();
 				if (column == 2) {
+					if(row < 0)
+						return;
 					DefaultTableModel tab = (DefaultTableModel) table.getModel();
 					//send information to the waiter that table order is done with table number
-					boolean checked = (boolean) tab.getValueAt(row, 2);
 					int tableNum = ((int) tab.getValueAt(row, 0)) - 1;
-					if(checked) {
-						boolean choice = JFrameUtils.confirmDialog("Order Completion Confirmation", 
-							"Are you sure you want to mark this order for table "+(tableNum + 1)+" as fulfilled?"
-									+ "\nThis action cannot be undone and the wait staff will be notified.");
-						if(!choice) {
-							tab.setValueAt(Boolean.FALSE, row, column);
-							return;
-						}
+					if(!requiresOrder[tableNum]) {
 						tab.setValueAt(Boolean.FALSE, row, column);
-						Order.kitchenRequestWaitStaff(tableNum);
+						return;
 					}
+					boolean choice = JFrameUtils.confirmDialog("Order Completion Confirmation", 
+						"Are you sure you want to mark this order for table "+(tableNum + 1)+" as fulfilled?"
+						+ "\nThis action cannot be undone and the wait staff will be notified.");
+					if(!choice) {
+						tab.setValueAt(Boolean.FALSE, row, column);
+						return;
+					}
+					Order.kitchenRequestWaitStaff(tableNum);
 				}
-
 			}
 		});
 	}

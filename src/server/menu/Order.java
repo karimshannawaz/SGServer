@@ -97,6 +97,8 @@ public class Order {
 				}
 				if(u.getRole().toLowerCase().contains("kitchen")
 					&& kitchenStaffOnline) {
+					Server.ui.kitchenPanel.addToTable(tableID);
+					Server.ui.kitchenPanel.requiresOrder[tableID] = false;
 					u.getPacketEncoder().sendOrder(tableID, order);
 				}
 			}
@@ -104,6 +106,7 @@ public class Order {
 		
 		if(managerAcceptsOrder && !kitchenStaffOnline) {
 			Server.ui.kitchenPanel.addToTable(tableID);
+			Server.ui.kitchenPanel.requiresOrder[tableID] = true;
 			JFrameUtils.showMessage("Order Update", "You have a new order to fulfill for table: "+(tableID + 1));
 		}
 		
@@ -153,6 +156,15 @@ public class Order {
 			if(u != null) {
 				if(u.getRole().toLowerCase().contains("kitchen")) {
 					u.getSession().sendClientPacket("waitstaff_got_order", tableID);
+					DefaultTableModel tab = (DefaultTableModel) Server.ui.kitchenPanel.table.getModel();
+					int row = 0;
+					for(int i = 0; i < tab.getRowCount(); i++) {
+						if(((int) tab.getValueAt(row, 0) - 1) == tableID)
+							break;
+						row++;
+					}
+					tab.removeRow(row);
+					Server.ui.kitchenPanel.requiresOrder[tableID] = false;
 					continue;
 				}
 				if(u.getRole().toLowerCase().contains("wait") && waitStaffOnline) {
