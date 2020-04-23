@@ -242,7 +242,7 @@ public class CompensatePanel extends JPanel {
 	 * Sends the discounted items to the customer's kiosk.
 	 */
 	protected void sendDiscountToCustomer() {
-		if(tableID < 1 || total == 0) {
+		if(tableID < 0 || total == 0) {
 			JFrameUtils.showMessage("Compensation", "Invalid compensation or amount.");
 			return;
 		}
