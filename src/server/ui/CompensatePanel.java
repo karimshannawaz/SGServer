@@ -271,7 +271,7 @@ public class CompensatePanel extends JPanel {
 		}
 		for(User u : Global.getUsers()) {
 			if(u != null) {
-				if(u.getTableID() == tableID) {
+				if(u.isCustomer() && u.getTableID() == tableID) {
 					u.getSession().sendClientPacket("manager_compensation", ""+total);
 					break;
 				}
