@@ -212,6 +212,11 @@ public class CompensatePanel extends JPanel {
 	 * Adds the selected index to the remove queue.
 	 */
 	protected void addToRemoveQueue() {
+		if(tableID < 0) {
+			JFrameUtils.showMessage("Compensation", "Invalid compensation table.");
+			refreshTxtArea();
+			return;
+		}
 		int index = table.getSelectedRow();
 		int oldQty = temp.get(index).qty;
 		MItem newItem = new MItem();
@@ -237,6 +242,27 @@ public class CompensatePanel extends JPanel {
 	 * Sends the discounted items to the customer's kiosk.
 	 */
 	protected void sendDiscountToCustomer() {
+		if(tableID < 1 || total == 0) {
+			JFrameUtils.showMessage("Compensation", "Invalid compensation or amount.");
+			return;
+		}
+		boolean containsOrder = false;
+		for(Order o : OrderQueue.unpaidOrders) {
+			if(o.getTableID() == tableID) {
+				containsOrder = true;
+				break;
+			}
+		}
+		if(!containsOrder) {
+			tableID = -1;
+			total = 0;
+			temp.clear();
+			compensatingItems.clear();
+			model.setRowCount(0);
+			refreshTxtArea();
+			JFrameUtils.showMessage("Compensation", "Error: this table has already paid or no longer has an order.");
+			return;
+		}
 		boolean choice = JFrameUtils.confirmDialog("Compensation", 
 			"Are you sure you want to send table "+(tableID + 1)+" a "+(decimalF(total))+" compensation?"
 			+ "\nThis action cannot be undone and you will not be able to send further compensations.");
@@ -257,6 +283,7 @@ public class CompensatePanel extends JPanel {
 		compensatingItems.clear();
 		model.setRowCount(0);
 		JFrameUtils.showMessage("Compensation", "Compensation sent successfully.");
+		refreshTxtArea();
 	}
 
 	/**
@@ -276,12 +303,19 @@ public class CompensatePanel extends JPanel {
 		temp.clear();
 		compensatingItems.clear();
 		model.setRowCount(0);
+		refreshTxtArea();
 	}
 
 	/**
 	 * Populates the table with the information given from the order.
 	 */
 	protected void populateTable() {
+		tableID = -1;
+		total = 0;
+		temp.clear();
+		compensatingItems.clear();
+		model.setRowCount(0);
+		refreshTxtArea();
 		int num;
 		try {
 			num = Integer.parseInt(textField.getText());

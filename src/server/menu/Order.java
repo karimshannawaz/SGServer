@@ -220,4 +220,23 @@ public class Order {
 			}
 		}
 	}
+
+	/**
+	 * Moves this order from unfulfilled to paid.
+	 * @param tableID2
+	 */
+	public static void completeOrder(int tableID) {
+		Order currOrder = null;
+		int orderIndex = 0;
+		for(Order o : OrderQueue.unpaidOrders) {
+			if(o.getTableID() == tableID) {
+				currOrder = o;
+				break;
+			}
+			orderIndex++;
+		}
+		
+		OrderQueue.paidOrders.add(currOrder);
+		OrderQueue.unpaidOrders.remove(orderIndex);
+	}
 }

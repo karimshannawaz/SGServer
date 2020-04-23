@@ -143,6 +143,12 @@ public class LoginDecoder extends Decoder {
 				tableID = stream.readUnsignedByte();
 				Payments.completePayment(tableID);
 				break;
+				
+			// Marks the customer's order as paid.
+			case 17:
+				tableID = stream.readUnsignedByte();
+				Order.completeOrder(tableID);
+				break;
 		}
 	}
 	

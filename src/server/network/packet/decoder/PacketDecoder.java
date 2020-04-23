@@ -137,6 +137,12 @@ public final class PacketDecoder extends Decoder {
 				Payments.completePayment(tableID);
 				break;
 				
+			// Marks the customer's order as paid.
+			case 17:
+				tableID = stream.readUnsignedByte();
+				Order.completeOrder(tableID);
+				break;
+				
 			default:
 				break;
 			}
