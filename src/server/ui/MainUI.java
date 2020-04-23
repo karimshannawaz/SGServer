@@ -38,6 +38,7 @@ public class MainUI extends JFrame {
 	public EmployeePanel employeePanel;
 	public TablesPanel tablesPanel;
 	public KitchenPanel kitchenPanel;
+	public SurveyPanel surveyPanel;
 
 	public static long onlineTime;
 
@@ -115,12 +116,17 @@ public class MainUI extends JFrame {
 		this.tablesPanel = new TablesPanel();
 		tablesPanel.setVisible(false);
 		getContentPane().add(tablesPanel);
+		
+		// Survey Panel
+		this.surveyPanel = new SurveyPanel();
+		surveyPanel.setVisible(false);
+		getContentPane().add(surveyPanel);
 
 
 		String[] panelNames = { 
 				"Information", "Clock In/Out", "Kitchen Orders", 
 				"Compensate", "Tables", "Inventory", "Menu", "Time Log",
-				"Discounts", "Employees" };
+				"Discounts", "Employees", "Surveys" };
 
 		JToggleButton[] panelBtns = new JToggleButton[panelNames.length];
 
@@ -160,6 +166,7 @@ public class MainUI extends JFrame {
 						discountPanel.setVisible(false);
 						employeePanel.setVisible(false);
 						tablesPanel.setVisible(false);
+						surveyPanel.setVisible(false);
 						
 						//switch statement to make user selected page visible 
 						switch (btn.getText()) {
@@ -193,6 +200,9 @@ public class MainUI extends JFrame {
 						case "Employees":
 							employeePanel.setVisible(true);
 							break;
+						case "Surveys":
+							surveyPanel.setVisible(true);
+							break;
 						}
 					} else {
 						infoPanel.setVisible(false);
@@ -205,6 +215,7 @@ public class MainUI extends JFrame {
 						discountPanel.setVisible(false);
 						employeePanel.setVisible(false);
 						tablesPanel.setVisible(false);
+						surveyPanel.setVisible(false);
 						btn.setSelected(false);
 					}
 				}
