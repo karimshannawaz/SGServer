@@ -1,0 +1,78 @@
+[---------------------- Mid Day Report for Tue Apr 21 16:07:17 MDT 2020 -------------------]
+
+							Total Active Tables: 2
+							Total Revenue: 0.0
+							Total Tips: 0.0
+							Most Popular Menu Item: Seven Wonders Burger
+							New Reward Members: 0
+							Total Employees Clocked In: 0
+							Total Hours Worked Today: 00:00:00
+
+[------------------------------------------------------------------------------------------]
+
+
+[---------------------- Mid Day Report for Tue Apr 21 16:07:20 MDT 2020 -------------------]
+
+							Total Active Tables: 2
+							Total Revenue: 0.0
+							Total Tips: 0.0
+							Most Popular Menu Item: Seven Wonders Burger
+							New Reward Members: 0
+							Total Employees Clocked In: 0
+							Total Hours Worked Today: 00:00:00
+
+[------------------------------------------------------------------------------------------]
+
+
+[---------------------- Mid Day Report for Tue Apr 21 16:07:43 MDT 2020 -------------------]
+
+							Total Active Tables: 2
+							Total Revenue: 0.0
+							Total Tips: 0.0
+							Most Popular Menu Item: Seven Wonders Burger
+							New Reward Members: 0
+							Total Employees Clocked In: 0
+							Total Hours Worked Today: 00:00:00
+
+[------------------------------------------------------------------------------------------]
+
+
+[---------------------- Mid Day Report for Tue Apr 21 16:07:50 MDT 2020 -------------------]
+
+							Total Active Tables: 2
+							Total Revenue: 0.0
+							Total Tips: 0.0
+							Most Popular Menu Item: Seven Wonders Burger
+							New Reward Members: 0
+							Total Employees Clocked In: 0
+							Total Hours Worked Today: 00:00:00
+
+[------------------------------------------------------------------------------------------]
+
+
+[---------------------- Mid Day Report for Tue Apr 21 16:07:52 MDT 2020 -------------------]
+
+							Total Active Tables: 2
+							Total Revenue: 0.0
+							Total Tips: 0.0
+							Most Popular Menu Item: Seven Wonders Burger
+							New Reward Members: 0
+							Total Employees Clocked In: 0
+							Total Hours Worked Today: 00:00:00
+
+[------------------------------------------------------------------------------------------]
+
+
+[---------------------- Mid Day Report for Tue Apr 21 16:08:18 MDT 2020 -------------------]
+
+							Total Active Tables: 2
+							Total Revenue: 0.0
+							Total Tips: 0.0
+							Most Popular Menu Item: Seven Wonders Burger
+							New Reward Members: 0
+							Total Employees Clocked In: 1
+							Total Hours Worked Today: 00:00:07
+
+[------------------------------------------------------------------------------------------]
+
+

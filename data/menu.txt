@@ -106,3 +106,11 @@ default
 drink
 drink_lem:1:f:n
 
+Combo Meal
+4.99
+A convenient meal that comes with a small cheeseburger and a drink
+1040
+wheat, gluten
+default
+combo
+beef_patty:1:t:vegan_patty,burger_buns:1:t:veggie_buns,cheese:1:t:vegan_cheese,drink_coke:1:t:drink_sprite
