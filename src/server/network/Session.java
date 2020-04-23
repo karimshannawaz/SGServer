@@ -25,7 +25,7 @@ public class Session {
 	private Channel channel;
 	private Decoder decoder;
 	private Encoder encoder;
-	private int tableID;
+	private int tableID = -1;
 	private boolean isCustomer;
 	private String userEmail;
 
