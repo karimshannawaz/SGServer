@@ -54,6 +54,16 @@ public class Menu {
 				index++;
 			}
 			r.close();
+			Reports.popularItems = new PopularItem[Reports.popularItemTypes.length];
+			for(int i = 0; i < Reports.popularItems.length; i++) {
+				String type = Reports.popularItemTypes[i];
+				PopularItem popI = new PopularItem(type);
+				for(MItem item : Menu.instance) {
+					if(item.menuType.equals(type))
+						popI.items.put(item.name, 0);
+				}
+				Reports.popularItems[i] = popI;
+			}
 			for(MItem item : Menu.instance) {
 				Reports.mostPopularMI.put(item.name, 0);
 			}

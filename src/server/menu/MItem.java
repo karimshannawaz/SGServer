@@ -58,7 +58,7 @@ public class MItem {
 	 * @return
 	 */
 	public String asOrder() {
-		return name+"~"+price+"~"+qty+"~"+specialReqs+"~"+ingredients;
+		return name+"~"+price+"~"+qty+"~"+specialReqs+"~"+menuType+"~"+ingredients;
 	}
 
 

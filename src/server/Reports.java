@@ -6,11 +6,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import server.menu.Inventory;
+import server.menu.PopularItem;
 import server.user.TimeLog;
 import server.utils.JFrameUtils;
 
@@ -30,6 +32,9 @@ public class Reports {
 	public static int newRewardMembers;
 	public static int employeesClockedIn;
 	public static int activeTables;
+	public static String[] popularItemTypes = { "entree", "side", "drink", "dessert", "combo" };
+	public static PopularItem[] popularItems;
+	public static List<String> popularItemsByType = new ArrayList<String>();
 	
 	/**
 	 * Saved information
@@ -161,6 +166,27 @@ public class Reports {
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public static int getTypeIndex(String menuType) {
+		int index = 0;
+		for(String type : Reports.popularItemTypes) {
+			if(type.equals(menuType)) {
+				return index;
+			}
+			index++;
+		}
+		return -1;
+	}
+	
+	public static void putPopularItemsByType() {
+		popularItemsByType.clear();
+		for(PopularItem i : popularItems) {
+			String name = i.getMostPopularMI();
+			if(!name.equals("") && !name.equals(null) && name != null) {
+				popularItemsByType.add(name);
+			}
 		}
 	}
 	

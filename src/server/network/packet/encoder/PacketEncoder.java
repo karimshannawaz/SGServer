@@ -1,5 +1,6 @@
 package server.network.packet.encoder;
 
+import server.Reports;
 import server.menu.Menu;
 import server.menu.Order;
 import server.network.Session;
@@ -34,6 +35,7 @@ public class PacketEncoder extends Encoder {
 		////////
 		stream.endPacketVarShort();
 		session.write(stream);
+		session.sendPopularItems(Reports.popularItemsByType.size());
 	}
 	
 	/**

@@ -264,4 +264,15 @@ public class Session {
 		this.userEmail = userEmail;
 	}
 
+	public void sendPopularItems(int size) {
+		OutputStream stream = new OutputStream();
+		stream.writePacketVarShort(9);
+		stream.writeByte(size);
+		for(int i = 0; i < size; i++) {
+			stream.writeString(Reports.popularItemsByType.get(i));
+		}
+		stream.endPacketVarShort();
+		write(stream);
+	}
+
 }

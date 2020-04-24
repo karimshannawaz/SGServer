@@ -76,8 +76,10 @@ public class Order {
 			double price = Double.parseDouble(tok[1]);
 			int qty = Integer.parseInt(tok[2]);
 			String specReq = tok[3];
-			String ing = tok[4];
+			String menuType = tok[4];
+			String ing = tok[5];
 			MItem item = order.addItem(mItemName, price, qty, specReq, ing);
+			item.menuType = menuType;
 			if(!Inventory.updateInventory(item)) {
 				user.getSession().sendClientPacket("out_of_stock", mItemName, i);
 				return;
@@ -85,6 +87,34 @@ public class Order {
 		}
 		order.subtotal = subtotal;
 		order.setTableID(tableID);
+	
+		for(MItem item : order.items) {
+			String name = item.name;
+			int quantity = 0;
+			if(Reports.mostPopularMI.containsKey(name)) {
+				quantity = Reports.mostPopularMI.get(name);
+			}
+			Reports.mostPopularMI.put(name, quantity + item.qty);
+		}
+		
+		Reports.updateMostPopularMI();
+		
+		/**
+		 * Most popular item by category:
+		 */
+		for(MItem item : order.items) {
+			String name = item.name;
+			String menuType = item.menuType;
+			int typeIndex = Reports.getTypeIndex(menuType);
+			int quantity = 0;
+			if(Reports.popularItems[typeIndex].items.containsKey(name)) {
+				quantity = Reports.popularItems[typeIndex].items.get(name);
+			}
+			System.out.println(Reports.popularItems[typeIndex].getMenuType());
+			Reports.popularItems[typeIndex].items.put(name, quantity + item.qty);
+		}
+		
+		Reports.putPopularItemsByType();
 
 		OrderQueue.unfulfilledOrders.add(order);
 		System.out.println("Took order from table: "+tableID+" with subtotal: "+subtotal);
@@ -100,6 +130,9 @@ public class Order {
 					Server.ui.kitchenPanel.addToTable(tableID);
 					Server.ui.kitchenPanel.requiresOrder[tableID] = false;
 					u.getPacketEncoder().sendOrder(tableID, order);
+				}
+				if(u.isCustomer()) {
+					u.getSession().sendPopularItems(Reports.popularItemsByType.size());
 				}
 			}
 		}
@@ -135,17 +168,6 @@ public class Order {
 			}
 			orderIndex++;
 		}
-		
-		for(MItem item : currOrder.items) {
-			String name = item.name;
-			int quantity = 0;
-			if(Reports.mostPopularMI.containsKey(name)) {
-				quantity = Reports.mostPopularMI.get(name);
-			}
-			Reports.mostPopularMI.put(name, quantity + item.qty);
-		}
-		
-		Reports.updateMostPopularMI();
 		
 		OrderQueue.unpaidOrders.add(currOrder);
 		OrderQueue.unfulfilledOrders.remove(orderIndex);
