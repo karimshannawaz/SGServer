@@ -53,29 +53,16 @@ public class SurveyFrame extends JFrame {
 	 */
 	public SurveyFrame() {
 		setTitle("Surveys");
+		setBounds(233, 0, 1044, 600);
+		setLocationRelativeTo(null);
+		setLayout(null);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		
 		contentPanel = new JPanel();
-		setBounds(233, 0, 962, 710);
 		contentPanel.setBounds(233, 0, 962, 710);
 		contentPanel.setLayout(null);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(contentPanel);
 
-		/*
-		//scroll pane for time log
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(36, 135, 896, 539);
-		contentPanel.add(scrollPane);
-
-		//create table
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-				new String[] {
-					"Question 1", "Question 2", "Question 3", "Question 4"
-				}, 0
-				));
-		scrollPane.setViewportView(table);
-		*/
 
 		JLabel mainLbl = new JLabel("Survey Results");
 		mainLbl.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
@@ -172,7 +159,6 @@ public class SurveyFrame extends JFrame {
 		p4.setBounds(49, 309, 946, 48);
 		contentPanel.add(p4);
 		
-		pack();
 	}
 
 	/**

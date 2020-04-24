@@ -120,7 +120,6 @@ public class MainUI extends JFrame {
 		// Survey Panel
 		this.surveyPanel = new SurveyFrame();
 		surveyPanel.setVisible(false);
-		
 
 		String[] panelNames = { 
 				"Information", "Clock In/Out", "Kitchen Orders", 
