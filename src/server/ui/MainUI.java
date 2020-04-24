@@ -38,7 +38,7 @@ public class MainUI extends JFrame {
 	public EmployeePanel employeePanel;
 	public TablesPanel tablesPanel;
 	public KitchenPanel kitchenPanel;
-	public SurveyPanel surveyPanel;
+	public SurveyFrame surveyPanel;
 
 	public static long onlineTime;
 
@@ -118,10 +118,9 @@ public class MainUI extends JFrame {
 		getContentPane().add(tablesPanel);
 		
 		// Survey Panel
-		this.surveyPanel = new SurveyPanel();
+		this.surveyPanel = new SurveyFrame();
 		surveyPanel.setVisible(false);
-		getContentPane().add(surveyPanel);
-
+		
 
 		String[] panelNames = { 
 				"Information", "Clock In/Out", "Kitchen Orders", 
@@ -231,7 +230,6 @@ public class MainUI extends JFrame {
 					setTitle("Seven Guys - Restaurant System has been online for: "
 							+ (STime.formatCountdown(STime.getCurrent() + onlineTime)));
 					infoPanel.updateLabels();
-//					System.out.println("Users: "+Arrays.toString(Global.getUsers().toArray()));
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}

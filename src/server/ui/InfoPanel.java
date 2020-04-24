@@ -141,6 +141,17 @@ public class InfoPanel extends JPanel {
 		shutdown.setFont(new Font("Yu Gothic", Font.PLAIN, 23));
 		shutdown.setBounds(646, 603, 243, 69);
 		add(shutdown);
+		
+		JButton btnSurveys = new JButton("Surveys");
+		btnSurveys.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Server.ui.surveyPanel.setVisible(true);
+				Server.ui.surveyPanel.refreshLabels();
+			}
+		});
+		btnSurveys.setFont(new Font("Yu Gothic", Font.PLAIN, 23));
+		btnSurveys.setBounds(367, 603, 243, 69);
+		add(btnSurveys);
 
 		
 	}

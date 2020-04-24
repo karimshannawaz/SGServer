@@ -7,6 +7,7 @@ import server.menu.Order;
 import server.network.Session;
 import server.network.packet.InputStream;
 import server.network.packet.encoder.LoginEncoder;
+import server.ui.SurveyFrame;
 import server.user.Payments;
 import server.user.Requests;
 import server.user.User;
@@ -131,14 +132,14 @@ public class LoginDecoder extends Decoder {
 				Server.ui.infoPanel.updateLabels();
 				break;
 				
-				// Server/waitstaff receives payment from customer
+			// Server/waitstaff receives payment from customer
 			case 15:
 				int tableID = stream.readUnsignedByte();
 				double cashPayment = Double.parseDouble(stream.readString());
 				Payments.processCashPayment(tableID, cashPayment);
 				break;
 
-				// Marks the customer's cash payment as complete
+			// Marks the customer's cash payment as complete
 			case 16:
 				tableID = stream.readUnsignedByte();
 				Payments.completePayment(tableID);
@@ -148,6 +149,15 @@ public class LoginDecoder extends Decoder {
 			case 17:
 				tableID = stream.readUnsignedByte();
 				Order.completeOrder(tableID);
+				break;
+				
+			// Collect survey answers
+			case 18:
+				String q1 = stream.readString();
+				String q2 = stream.readString();
+				String q3 = stream.readString();
+				String q4 = stream.readString();
+				Server.ui.surveyPanel.processAnswers(q1, q2, q3, q4);
 				break;
 		}
 	}
